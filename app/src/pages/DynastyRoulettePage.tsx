@@ -236,83 +236,82 @@ export default function DynastyRoulettePage() {
         </button>
       </div>
 
-      {/* roll banner — centered, matching the original */}
+      {/* roll banner — compact, centered */}
       <div
-        className="border border-surface-4 p-6 flex flex-col items-center text-center gap-3"
+        className="border border-surface-4 px-5 py-3 flex flex-col items-center text-center gap-1.5"
         style={{
           background: shownCombo
             ? `linear-gradient(120deg, ${teamColors.primary}22, var(--color-surface-1))`
             : 'var(--color-surface-1)',
         }}
       >
-        <div className="font-mono text-[10px] uppercase tracking-[.22em] text-muted">
-          🎲 Dynasty Roulette · 82&#8209;0 run
-        </div>
-        <div className="flex items-baseline gap-3" style={rolling ? { animation: 'cbRollPulse 0.12s ease-in-out infinite alternate' } : undefined}>
-          {shownCombo ? (
-            <>
-              <span
-                style={{
-                  fontFamily: 'Archivo, sans-serif',
-                  fontVariationSettings: "'wdth' 72,'wght' 800",
-                  fontSize: 34,
-                  color: teamColors.primary,
-                }}
+        <div className="flex items-center justify-center gap-4 flex-wrap">
+          <div className="flex items-baseline gap-2" style={rolling ? { animation: 'cbRollPulse 0.12s ease-in-out infinite alternate' } : undefined}>
+            {shownCombo ? (
+              <>
+                <span
+                  style={{
+                    fontFamily: 'Archivo, sans-serif',
+                    fontVariationSettings: "'wdth' 72,'wght' 800",
+                    fontSize: 22,
+                    color: teamColors.primary,
+                  }}
+                >
+                  {shownCombo.teamKey}
+                </span>
+                <span className="font-mono text-sm" style={{ color: 'var(--color-amber-500)' }}>
+                  {shownCombo.decade}s
+                </span>
+              </>
+            ) : (
+              <span className="text-text-mid" style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 22 }}>
+                Hit spin to roll
+              </span>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={spin}
+            disabled={rolling || awaiting || allLocked}
+            className="px-4 py-1.5 bg-amber-500 text-[#1A1410] text-xs font-semibold font-mono uppercase tracking-[.08em] hover:bg-amber-300 disabled:opacity-50 transition-colors"
+          >
+            🎲 {allLocked ? 'Complete' : awaiting ? 'Pick a spot' : combo ? 'Spin for next spot' : 'Spin'}
+          </button>
+
+          {awaiting && !rolling && (
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={switchTeam}
+                disabled={usedTeamReroll}
+                className="text-[10px] font-mono uppercase tracking-[.08em] px-2 py-1 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
               >
-                {shownCombo.teamKey}
-              </span>
-              <span className="font-mono text-lg" style={{ color: 'var(--color-amber-500)' }}>
-                {shownCombo.decade}s
-              </span>
-            </>
-          ) : (
-            <span className="text-text-mid" style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 34 }}>
-              Hit spin to roll
-            </span>
+                {usedTeamReroll ? '✓ Team used' : 'Switch team'}
+              </button>
+              <button
+                type="button"
+                onClick={rerollDecade}
+                disabled={usedDecadeReroll}
+                className="text-[10px] font-mono uppercase tracking-[.08em] px-2 py-1 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
+              >
+                {usedDecadeReroll ? '✓ Decade used' : 'Re-roll decade'}
+              </button>
+            </div>
           )}
         </div>
 
-        <button
-          type="button"
-          onClick={spin}
-          disabled={rolling || awaiting || allLocked}
-          className="px-5 py-2.5 bg-amber-500 text-[#1A1410] text-sm font-semibold font-mono uppercase tracking-[.08em] hover:bg-amber-300 disabled:opacity-50 transition-colors"
-        >
-          🎲 {allLocked ? 'Complete' : awaiting ? 'Pick a spot' : combo ? 'Spin for next spot' : 'Spin'}
-        </button>
-
-        {awaiting && !rolling && (
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={switchTeam}
-              disabled={usedTeamReroll}
-              className="text-[11px] font-mono uppercase tracking-[.08em] px-3 py-1.5 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-              style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
-            >
-              {usedTeamReroll ? '✓ Switch team used' : 'Switch team'}
-            </button>
-            <button
-              type="button"
-              onClick={rerollDecade}
-              disabled={usedDecadeReroll}
-              className="text-[11px] font-mono uppercase tracking-[.08em] px-3 py-1.5 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-              style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
-            >
-              {usedDecadeReroll ? '✓ Re-roll decade used' : 'Re-roll decade'}
-            </button>
-          </div>
-        )}
-
-        <p className="text-xs text-text-low max-w-md">
+        <p className="text-[11px] text-text-low max-w-md">
           {rolling
             ? 'Rolling a team & decade…'
             : allLocked
               ? 'Dynasty complete — five locked picks across five rolls.'
               : awaiting
                 ? `Open: ${fillableList.join(' · ') || '—'} · ${lockedCount}/5 locked`
-                : `Spin for a team + decade, draft one player into an open position, then spin again. ${lockedCount}/5 locked.`}
-          {veteranMode && !rolling && ' Veteran mode is on: ratings and archetypes stay hidden while you draft.'}
+                : `Spin, draft into an open position, then spin again. ${lockedCount}/5 locked.`}
+          {veteranMode && !rolling && ' Veteran mode: ratings and archetypes hidden.'}
         </p>
       </div>
 
