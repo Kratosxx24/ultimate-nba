@@ -276,7 +276,14 @@ export default function DynastyRoulettePage() {
               >
                 {shownCombo.teamKey}
               </span>
-              <span className="font-mono text-2xl" style={{ color: 'var(--color-amber-500)' }}>
+              <span
+                style={{
+                  fontFamily: 'Archivo, sans-serif',
+                  fontVariationSettings: "'wdth' 100,'wght' 800",
+                  fontSize: 52,
+                  color: teamColors.primary,
+                }}
+              >
                 {shownCombo.decade}s
               </span>
             </>
