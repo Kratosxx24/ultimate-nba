@@ -222,13 +222,7 @@ export default function DynastyRoulettePage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1
-          className="text-text-hi"
-          style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 78,'wght' 800", fontSize: 30 }}
-        >
-          Dynasty Roulette
-        </h1>
+      <div className="flex items-center justify-end flex-wrap gap-3">
         <button
           type="button"
           onClick={() => setVeteranMode((v) => !v)}
@@ -257,19 +251,19 @@ export default function DynastyRoulettePage() {
               <span
                 style={{
                   fontFamily: 'Archivo, sans-serif',
-                  fontVariationSettings: "'wdth' 72,'wght' 800",
-                  fontSize: 36,
+                  fontVariationSettings: "'wdth' 100,'wght' 800",
+                  fontSize: 52,
                   color: teamColors.primary,
                 }}
               >
                 {shownCombo.teamKey}
               </span>
-              <span className="font-mono text-lg" style={{ color: 'var(--color-amber-500)' }}>
+              <span className="font-mono text-2xl" style={{ color: 'var(--color-amber-500)' }}>
                 {shownCombo.decade}s
               </span>
             </>
           ) : (
-            <span className="text-text-mid" style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 36 }}>
+            <span className="text-text-mid" style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 100,'wght' 800", fontSize: 52 }}>
               Hit spin to roll
             </span>
           )}
