@@ -24,7 +24,7 @@ function LineupColumn({
 }) {
   return (
     <div className="space-y-2">
-      <h2 className="text-sm font-semibold text-gray-300">{title}</h2>
+      <h2 className="text-sm font-mono uppercase tracking-[.12em] text-text-low">{title}</h2>
       {slots.map((slot, i) =>
         slot ? (
           <PlayerCard key={slot.id} player={slot} onRemove={() => onRemove(i)} />
@@ -61,8 +61,13 @@ export default function CompareLineupsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">Compare Lineups</h1>
-        <p className="text-sm text-gray-400 mt-1">
+        <h1
+          className="text-text-hi"
+          style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 78,'wght' 800", fontSize: 30 }}
+        >
+          Compare Lineups
+        </h1>
+        <p className="text-sm text-text-mid mt-1">
           Build two 5-man lineups from any era and see how they stack up.
         </p>
       </div>
@@ -88,14 +93,12 @@ export default function CompareLineupsPage() {
       </div>
 
       {(summaryA.filledCount > 0 || summaryB.filledCount > 0) && (
-        <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-center">
+        <div className="border border-surface-4 bg-surface-2 p-4 text-center">
           {diff === 0 ? (
-            <span className="text-gray-300">Dead even on average OVR.</span>
+            <span className="text-text-mid">Dead even on average OVR.</span>
           ) : (
-            <span className="text-white">
-              <span className="font-semibold text-purple-300">
-                Lineup {diff > 0 ? 'A' : 'B'}
-              </span>{' '}
+            <span className="text-text-hi">
+              <span className="font-semibold text-blue-300">Lineup {diff > 0 ? 'A' : 'B'}</span>{' '}
               leads by {Math.abs(diff).toFixed(1)} avg OVR
             </span>
           )}

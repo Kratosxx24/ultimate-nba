@@ -55,8 +55,13 @@ export default function DynastyRoulettePage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Dynasty Roulette</h1>
-          <p className="text-sm text-gray-400 mt-1">
+          <h1
+            className="text-text-hi"
+            style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 78,'wght' 800", fontSize: 30 }}
+          >
+            Dynasty Roulette
+          </h1>
+          <p className="text-sm text-text-mid mt-1">
             Spin to build a random 5-man roster pulled from every era. Reroll any slot you don't
             like.
           </p>
@@ -66,7 +71,7 @@ export default function DynastyRoulettePage() {
             type="button"
             onClick={spinAll}
             disabled={anySpinning}
-            className="px-4 py-2 rounded-lg bg-purple-500 text-white text-sm font-medium hover:bg-purple-400 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 bg-amber-500 text-[#1A1410] text-sm font-semibold font-mono uppercase tracking-[.08em] hover:bg-amber-300 disabled:opacity-50 transition-colors"
           >
             🎰 Spin All
           </button>
@@ -74,7 +79,7 @@ export default function DynastyRoulettePage() {
             type="button"
             onClick={clearAll}
             disabled={anySpinning}
-            className="px-4 py-2 rounded-lg bg-white/5 text-gray-300 text-sm font-medium hover:bg-white/10 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 border border-surface-4 text-text-mid text-sm font-medium hover:bg-surface-3 disabled:opacity-50 transition-colors"
           >
             Clear
           </button>
@@ -87,10 +92,10 @@ export default function DynastyRoulettePage() {
             spinning[i] ? (
               <div
                 key={i}
-                className="rounded-xl border border-purple-400/30 bg-purple-500/10 p-3 flex items-center gap-3 animate-pulse"
+                className="border border-amber-700 bg-amber-900/20 p-3 flex items-center gap-3 animate-pulse"
               >
-                <div className="w-10 h-10 rounded-lg bg-purple-400/30" />
-                <div className="text-sm text-purple-300">Spinning...</div>
+                <div className="w-10 h-10 bg-amber-700/40" style={{ clipPath: 'polygon(0 0,100% 0,100% 74%,78% 100%,0 100%)' }} />
+                <div className="text-sm font-mono uppercase tracking-[.1em] text-amber-300">Spinning...</div>
               </div>
             ) : slot ? (
               <PlayerCard

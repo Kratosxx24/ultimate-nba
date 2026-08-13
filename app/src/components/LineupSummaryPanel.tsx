@@ -8,9 +8,11 @@ interface StatRowProps {
 
 function StatRow({ label, value, highlight }: StatRowProps) {
   return (
-    <div className="flex items-center justify-between py-1.5">
-      <span className="text-xs text-gray-400">{label}</span>
-      <span className={`text-sm font-medium ${highlight ? 'text-purple-300' : 'text-white'}`}>
+    <div className="flex items-center justify-between py-1.5 border-b border-hairline last:border-b-0">
+      <span className="font-mono text-[10px] uppercase tracking-[.12em] text-text-low">{label}</span>
+      <span
+        className={`font-mono font-tnum text-sm ${highlight ? 'text-amber-300 font-semibold' : 'text-text-body-hi'}`}
+      >
         {value}
       </span>
     </div>
@@ -25,8 +27,13 @@ export default function LineupSummaryPanel({
   title?: string;
 }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-      <div className="text-sm font-semibold text-white mb-2">{title}</div>
+    <div className="border border-surface-4 bg-surface-2 p-4">
+      <div
+        className="mb-2 text-text-hi"
+        style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 82,'wght' 700", fontSize: 15 }}
+      >
+        {title}
+      </div>
       <StatRow label="Avg OVR" value={summary.filledCount ? summary.avgOvr.toFixed(1) : '—'} highlight />
       <StatRow label="Best Player OVR" value={summary.bestPlayer?.OVR ?? '—'} />
       <StatRow label="Avg OFF anchor" value={summary.filledCount ? summary.avgOff.toFixed(1) : '—'} />

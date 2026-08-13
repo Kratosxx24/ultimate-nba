@@ -1,7 +1,53 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-display: 'Archivo', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* surfaces (warm dark) */
+  --color-surface-0: #0c0a09;
+  --color-surface-1: #141110;
+  --color-surface-2: #1c1817;
+  --color-surface-3: #262120;
+  --color-surface-4: #322c29;
+  --color-surface-5: #403833;
+
+  /* text */
+  --color-text-hi: #fbf7f2;
+  --color-text-body-hi: #f5efe8;
+  --color-text-mid: #c9c2ba;
+  --color-text-low: #8a837b;
+  --color-muted: #7a736c;
+  --color-hairline: #262120;
+
+  /* amber (hardwood) ramp */
+  --color-amber-100: #fbe3c8;
+  --color-amber-300: #f2b472;
+  --color-amber-500: #e28b33;
+  --color-amber-600: #c7701c;
+  --color-amber-700: #8e4e11;
+  --color-amber-900: #3a2413;
+
+  /* blue (court) ramp */
+  --color-blue-100: #d6e1f7;
+  --color-blue-300: #9cc0f0;
+  --color-blue-500: #5a82ce;
+  --color-blue-600: #3f5fa6;
+  --color-blue-700: #2b4276;
+  --color-blue-900: #141f38;
+
+  /* semantic */
+  --color-up-text: #5fbf88;
+  --color-up-bg: #12251a;
+  --color-up-border: #1f4530;
+  --color-up-solid: #2e8c58;
+  --color-down-text: #e2726b;
+  --color-down-bg: #2a1514;
+  --color-down-border: #4a211f;
+  --color-down-solid: #a33f3a;
+
+  --color-focus: #f2b472;
 }
 
 :root {
@@ -16,6 +62,40 @@ body,
 
 body {
   margin: 0;
-  background: #0b0d12;
-  color: #e5e7eb;
+  background: var(--color-surface-0);
+  color: var(--color-text-body-hi);
+  font-family: var(--font-sans);
+}
+
+* {
+  border-color: var(--color-hairline);
+}
+
+::selection {
+  background: rgba(226, 139, 51, 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.font-tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+@keyframes um-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.um-skeleton {
+  background: #241f1e;
+  animation: um-pulse 1.4s ease-in-out infinite;
 }

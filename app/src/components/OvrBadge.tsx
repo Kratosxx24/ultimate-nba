@@ -1,19 +1,179 @@
-function ovrColor(ovr: number): string {
-  if (ovr >= 95) return 'bg-amber-400 text-amber-950';
-  if (ovr >= 88) return 'bg-purple-400 text-purple-950';
-  if (ovr >= 80) return 'bg-blue-400 text-blue-950';
-  if (ovr >= 70) return 'bg-emerald-400 text-emerald-950';
-  return 'bg-gray-400 text-gray-950';
+export type BadgeSize = 'xs' | 'sm' | 'md' | 'lg' | 'hero';
+
+interface Tier {
+  name: string;
+  numeral: string;
+  edge: string; // background of the padded outer shape (solid or gradient)
+  edgeWidth: number;
+  inner: string; // background of the inner shape
+  glow: string | null; // drop-shadow filter value
+  flat: boolean; // true = no edge padding, single flat fill
 }
 
-export default function OvrBadge({ ovr, size = 'md' }: { ovr: number; size?: 'sm' | 'md' | 'lg' }) {
-  const sizeClasses =
-    size === 'lg' ? 'w-14 h-14 text-xl' : size === 'sm' ? 'w-8 h-8 text-xs' : 'w-10 h-10 text-sm';
+function getTier(ovr: number): Tier {
+  if (ovr >= 95) {
+    return {
+      name: 'Immortal',
+      numeral: '#FFE9C2',
+      edge: 'linear-gradient(150deg,#FFF3DC,#FFD48F 55%,#C98A2E)',
+      edgeWidth: 2.5,
+      inner: 'linear-gradient(160deg,#2E2318,#16110D)',
+      glow: 'rgba(255,222,168,.42)',
+      flat: false,
+    };
+  }
+  if (ovr >= 90) {
+    return {
+      name: 'Legend',
+      numeral: '#FFC559',
+      edge: '#FFC559',
+      edgeWidth: 2,
+      inner: '#1A1410',
+      glow: 'rgba(255,197,89,.22)',
+      flat: false,
+    };
+  }
+  if (ovr >= 85) {
+    return {
+      name: 'Superstar',
+      numeral: '#F0873A',
+      edge: '#F0873A',
+      edgeWidth: 2,
+      inner: '#191311',
+      glow: null,
+      flat: false,
+    };
+  }
+  if (ovr >= 80) {
+    return {
+      name: 'All-Star',
+      numeral: '#9CC0F0',
+      edge: '#5A82CE',
+      edgeWidth: 1.5,
+      inner: '#12161C',
+      glow: null,
+      flat: false,
+    };
+  }
+  if (ovr >= 75) {
+    return {
+      name: 'Starter',
+      numeral: '#7FA3DE',
+      edge: '#5A82CE',
+      edgeWidth: 1,
+      inner: '#111419',
+      glow: null,
+      flat: false,
+    };
+  }
+  if (ovr >= 70) {
+    return {
+      name: 'Rotation',
+      numeral: '#B8B1A9',
+      edge: '#3A3531',
+      edgeWidth: 1,
+      inner: '#151312',
+      glow: null,
+      flat: false,
+    };
+  }
+  if (ovr >= 60) {
+    return {
+      name: 'Bench',
+      numeral: '#8A837B',
+      edge: '#181514',
+      edgeWidth: 0,
+      inner: '#181514',
+      glow: null,
+      flat: true,
+    };
+  }
+  return {
+    name: 'Deep Bench',
+    numeral: '#6B655F',
+    edge: '#141212',
+    edgeWidth: 0,
+    inner: '#141212',
+    glow: null,
+    flat: true,
+  };
+}
+
+const SIZE_CONFIG: Record<
+  BadgeSize,
+  { box: number; numeral: number; clip: string; rule: boolean; label: boolean }
+> = {
+  xs: { box: 20, numeral: 12, clip: 'polygon(0 0,100% 0,100% 72%,76% 100%,0 100%)', rule: false, label: false },
+  sm: { box: 28, numeral: 17, clip: 'polygon(0 0,100% 0,100% 73%,77% 100%,0 100%)', rule: false, label: false },
+  md: { box: 44, numeral: 26, clip: 'polygon(0 0,100% 0,100% 74%,78% 100%,0 100%)', rule: false, label: false },
+  lg: { box: 72, numeral: 42, clip: 'polygon(0 0,100% 0,100% 74%,78% 100%,0 100%)', rule: true, label: false },
+  hero: { box: 132, numeral: 90, clip: 'polygon(0 0,100% 0,100% 74%,78% 100%,0 100%)', rule: false, label: true },
+};
+
+export default function OvrBadge({
+  ovr,
+  size = 'md',
+}: {
+  ovr: number;
+  size?: BadgeSize;
+}) {
+  const tier = getTier(ovr);
+  const cfg = SIZE_CONFIG[size];
+  const glowPx = size === 'hero' ? 26 : size === 'lg' ? 14 : size === 'md' ? 10 : 6;
+
+  const outer: React.CSSProperties = {
+    width: cfg.box,
+    height: cfg.box,
+    padding: tier.flat ? 0 : tier.edgeWidth,
+    background: tier.edge,
+    clipPath: cfg.clip,
+    flexShrink: 0,
+    filter: tier.glow ? `drop-shadow(0 0 ${glowPx}px ${tier.glow})` : undefined,
+  };
+
+  const inner: React.CSSProperties = {
+    width: '100%',
+    height: '100%',
+    background: tier.inner,
+    clipPath: cfg.clip,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: cfg.label ? 6 : 3,
+  };
+
+  const numeralStyle: React.CSSProperties = {
+    fontFamily: 'Archivo, sans-serif',
+    fontVariationSettings: "'wdth' 62,'wght' 900",
+    letterSpacing: '-0.02em',
+    fontSize: cfg.numeral,
+    lineHeight: 0.9,
+    color: tier.numeral,
+    fontFeatureSettings: "'tnum' 1",
+  };
+
   return (
-    <div
-      className={`${sizeClasses} ${ovrColor(ovr)} rounded-lg flex items-center justify-center font-bold shrink-0`}
-    >
-      {ovr}
+    <div style={outer} title={`${tier.name} · ${ovr} OVR`}>
+      <div style={inner}>
+        <span style={numeralStyle}>{ovr}</span>
+        {cfg.rule && <span style={{ width: cfg.numeral * 0.5, height: 3, background: tier.numeral }} />}
+        {cfg.label && (
+          <span
+            style={{
+              fontFamily: "'IBM Plex Mono', monospace",
+              fontSize: 11,
+              letterSpacing: '.22em',
+              color: tier.numeral,
+              textTransform: 'uppercase',
+            }}
+          >
+            {tier.name}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
+
+export { getTier };
