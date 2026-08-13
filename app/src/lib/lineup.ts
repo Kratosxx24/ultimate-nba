@@ -45,6 +45,29 @@ export function summarizeLineup(slots: LineupSlot[]): LineupSummary {
   };
 }
 
+/**
+ * Draws a random five that can actually field PG/SG/SF/PF/C — one slot at a time,
+ * from the players eligible for that slot. Drawing five blind from the pool only
+ * yields a legal lineup ~7.7% of the time, so a naive random fill mostly produces
+ * rosters that can't take the floor and therefore can't be rated.
+ * Falls back to a blind draw if a slot somehow has no eligible player left.
+ */
+export function randomLegalLineup(pool: Player[]): Player[] {
+  const SLOTS = ['PG', 'SG', 'SF', 'PF', 'C'];
+  const picked: Player[] = [];
+  const usedNames = new Set<string>();
+  for (const slot of SLOTS) {
+    const eligible = pool.filter(
+      (p) => p.pos.split('/').includes(slot) && !usedNames.has(p.name),
+    );
+    if (!eligible.length) return randomPlayers(pool, LINEUP_SIZE);
+    const pick = eligible[Math.floor(Math.random() * eligible.length)];
+    usedNames.add(pick.name);
+    picked.push(pick);
+  }
+  return picked;
+}
+
 /** Picks `count` distinct random players from `pool`, honoring an optional exclusion set. */
 export function randomPlayers(pool: Player[], count: number, excludeIds: Set<string> = new Set()): Player[] {
   const eligible = pool.filter((p) => !excludeIds.has(p.id));

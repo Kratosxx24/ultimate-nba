@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
 import { getAllPlayers } from '../lib/players';
-import { emptyLineup, randomPlayers, summarizeLineup, type LineupSlot } from '../lib/lineup';
+import { emptyLineup, randomLegalLineup, summarizeLineup, type LineupSlot } from '../lib/lineup';
 import type { Player } from '../types/player';
 import PlayerCard from '../components/PlayerCard';
 import EmptySlot from '../components/EmptySlot';
 import LineupSummaryPanel from '../components/LineupSummaryPanel';
 import PlayerPickerModal from '../components/PlayerPickerModal';
+import DominanceCompare from '../components/DominanceCompare';
 
 interface PickerTarget {
   side: 'a' | 'b';
@@ -71,10 +72,11 @@ export default function CompareLineupsPage() {
 
   function spinSide(side: 'a' | 'b') {
     const setter = side === 'a' ? setLineupA : setLineupB;
-    setter(randomPlayers(players, 5));
+    setter(randomLegalLineup(players));
   }
 
-  const diff = summaryA.avgOvr - summaryB.avgOvr;
+  const fiveA = useMemo(() => lineupA.filter((p): p is Player => p !== null), [lineupA]);
+  const fiveB = useMemo(() => lineupB.filter((p): p is Player => p !== null), [lineupB]);
 
   return (
     <div className="space-y-6">
@@ -110,16 +112,7 @@ export default function CompareLineupsPage() {
       </div>
 
       {(summaryA.filledCount > 0 || summaryB.filledCount > 0) && (
-        <div className="border border-surface-4 bg-surface-2 p-4 text-center">
-          {diff === 0 ? (
-            <span className="text-text-mid">Dead even on average OVR.</span>
-          ) : (
-            <span className="text-text-hi">
-              <span className="font-semibold text-blue-300">Lineup {diff > 0 ? 'A' : 'B'}</span>{' '}
-              leads by {Math.abs(diff).toFixed(1)} avg OVR
-            </span>
-          )}
-        </div>
+        <DominanceCompare lineupA={fiveA} lineupB={fiveB} pool={players} />
       )}
 
       {pickerTarget && (

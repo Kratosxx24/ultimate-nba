@@ -3,6 +3,7 @@ import { getAllPlayers } from '../lib/players';
 import { getTeamColors } from '../lib/teamColors';
 import { archetypeFamily } from '../lib/archetype';
 import OvrBadge, { getTier } from '../components/OvrBadge';
+import DominancePanel from '../components/DominancePanel';
 import { useTheme } from '../lib/ThemeContext';
 import type { Player } from '../types/player';
 
@@ -24,6 +25,29 @@ const POSITION_COLOR: Record<Position, string> = {
 
 const FLASH_STEPS = 30;
 const FLASH_TOTAL_DELAY = (step: number) => 43 + Math.pow(step / FLASH_STEPS, 2.4) * 129;
+
+// Some franchises appear under two teamKeys in the data. The Sonics relocated to
+// OKC and became the Thunder — canonicalize so rolling "the franchise" in any decade
+// surfaces both eras' players as one combo, the same as the original app's
+// conference.js. Player cards still show their own real-era teamKey/color; only the
+// roll banner's team identity (name + color) is era-adjusted via eraIdentity below.
+const TEAM_ALIAS: Record<string, string> = { Sonics: 'Thunder' };
+function canonTeam(teamKey: string): string {
+  return TEAM_ALIAS[teamKey] || teamKey;
+}
+
+const ERA_NAME: Record<string, { before: number; label: string; colorKey: string }[]> = {
+  Thunder: [{ before: 2009, label: 'SuperSonics', colorKey: 'Sonics' }],
+};
+function eraIdentity(canonKey: string, decade: number): { label: string; colorKey: string } {
+  const rules = ERA_NAME[canonKey];
+  if (rules) {
+    for (const rule of rules) {
+      if (decade < rule.before) return { label: rule.label, colorKey: rule.colorKey };
+    }
+  }
+  return { label: canonKey, colorKey: canonKey };
+}
 
 function decadeOf(eraTeam: string): number {
   const m = eraTeam.match(/^'?(\d{2,4})/);
@@ -99,8 +123,9 @@ export default function DynastyRoulettePage() {
   const rollablePairs = useMemo(() => {
     const seen = new Map<string, Combo>();
     for (const p of players) {
-      const key = `${p.teamKey}::${decadeOf(p.eraTeam)}`;
-      if (!seen.has(key)) seen.set(key, { teamKey: p.teamKey, decade: decadeOf(p.eraTeam) });
+      const teamKey = canonTeam(p.teamKey);
+      const key = `${teamKey}::${decadeOf(p.eraTeam)}`;
+      if (!seen.has(key)) seen.set(key, { teamKey, decade: decadeOf(p.eraTeam) });
     }
     return [...seen.values()];
   }, [players]);
@@ -124,11 +149,18 @@ export default function DynastyRoulettePage() {
   const lockedCount = POSITIONS.length - openPositions.length;
   const allLocked = openPositions.length === 0;
 
+  // The five in slot order, for the Dominance Rating panel. Only meaningful once all
+  // five spots are locked — DR is defined on a complete PG/SG/SF/PF/C lineup.
+  const lockedFive = useMemo(
+    () => (allLocked ? POSITIONS.map((pos) => roster[pos]).filter((p): p is Player => p !== null) : []),
+    [roster, allLocked],
+  );
+
   const fillablePositions = useMemo(() => {
     if (!combo) return new Set<Position>();
     const out = new Set<Position>();
     for (const p of players) {
-      if (p.teamKey !== combo.teamKey || decadeOf(p.eraTeam) !== combo.decade || usedNames.has(p.name)) continue;
+      if (canonTeam(p.teamKey) !== combo.teamKey || decadeOf(p.eraTeam) !== combo.decade || usedNames.has(p.name)) continue;
       for (const pos of positionsOf(p)) {
         if ((POSITIONS as readonly string[]).includes(pos) && openPositions.includes(pos as Position)) {
           out.add(pos as Position);
@@ -143,7 +175,7 @@ export default function DynastyRoulettePage() {
     const seen = new Set<string>();
     return players
       .filter((p) => {
-        if (p.teamKey !== combo.teamKey || decadeOf(p.eraTeam) !== combo.decade) return false;
+        if (canonTeam(p.teamKey) !== combo.teamKey || decadeOf(p.eraTeam) !== combo.decade) return false;
         if (usedNames.has(p.name) || seen.has(p.name)) return false;
         if (!positionsOf(p).includes(pos)) return false;
         seen.add(p.name);
@@ -153,15 +185,20 @@ export default function DynastyRoulettePage() {
       .slice(0, 5); // cap the display pool at 5, like the original — best OVR first
   }
 
-  const teamColors = getTeamColors((flashCombo ?? combo)?.teamKey);
+  const shownComboForColor = flashCombo ?? combo;
+  const shownIdentity = shownComboForColor ? eraIdentity(shownComboForColor.teamKey, shownComboForColor.decade) : null;
+  const teamColors = getTeamColors(shownIdentity?.colorKey ?? shownComboForColor?.teamKey);
 
   function comboFillsAnyOpen(c: Combo, open: Position[], used: Set<string>): boolean {
     return players.some(
-      (p) => p.teamKey === c.teamKey && decadeOf(p.eraTeam) === c.decade && !used.has(p.name) && positionsOf(p).some((pos) => open.includes(pos as Position)),
+      (p) => canonTeam(p.teamKey) === c.teamKey && decadeOf(p.eraTeam) === c.decade && !used.has(p.name) && positionsOf(p).some((pos) => open.includes(pos as Position)),
     );
   }
 
-  function flashRoll(finalPick: () => Combo, onLand: (c: Combo) => void) {
+  // `flashPool` is what the intermediate flicker samples from — pass a pool already
+  // narrowed to "same decade" (switchTeam) or "same team" (rerollDecade) so only the
+  // half that's actually rerolling visibly changes, instead of both flickering together.
+  function flashRoll(flashPool: Combo[], finalPick: () => Combo, onLand: (c: Combo) => void) {
     setRolling(true);
     setViewPos(null);
     let step = 0;
@@ -173,7 +210,7 @@ export default function DynastyRoulettePage() {
         onLand(landed);
         return;
       }
-      const r = rollablePairs[Math.floor(Math.random() * rollablePairs.length)];
+      const r = flashPool[Math.floor(Math.random() * flashPool.length)];
       setFlashCombo(r);
       step++;
       timeoutRef.current = window.setTimeout(tick, FLASH_TOTAL_DELAY(step));
@@ -186,6 +223,7 @@ export default function DynastyRoulettePage() {
     const fillable = rollablePairs.filter((c) => comboFillsAnyOpen(c, openPositions, usedNames));
     if (!fillable.length) return;
     flashRoll(
+      rollablePairs,
       () => fillable[Math.floor(Math.random() * fillable.length)],
       (landed) => {
         setCombo(landed);
@@ -199,7 +237,9 @@ export default function DynastyRoulettePage() {
     const opts = rollablePairs.filter((c) => c.decade === combo.decade && comboFillsAnyOpen(c, openPositions, usedNames));
     if (!opts.length) return;
     setUsedTeamReroll(true);
+    // Only the team half flickers — every candidate frame is pinned to the current decade.
     flashRoll(
+      opts,
       () => opts[Math.floor(Math.random() * opts.length)],
       (landed) => setCombo(landed),
     );
@@ -210,7 +250,9 @@ export default function DynastyRoulettePage() {
     const opts = rollablePairs.filter((c) => c.teamKey === combo.teamKey && comboFillsAnyOpen(c, openPositions, usedNames));
     if (!opts.length) return;
     setUsedDecadeReroll(true);
+    // Only the decade half flickers — every candidate frame is pinned to the current team.
     flashRoll(
+      opts,
       () => opts[Math.floor(Math.random() * opts.length)],
       (landed) => setCombo(landed),
     );
@@ -242,7 +284,7 @@ export default function DynastyRoulettePage() {
     <div className="space-y-6">
       {/* roll banner — compact, centered */}
       <div
-        className="border border-surface-4 px-5 py-3 flex flex-col items-center text-center gap-1.5"
+        className="border border-surface-4 rounded-2xl px-5 py-4 flex flex-col items-center text-center gap-1.5 transition-[background] duration-500"
         style={{
           background: shownCombo
             ? `linear-gradient(120deg, ${teamColors.primary}22, var(--color-surface-1))`
@@ -260,7 +302,7 @@ export default function DynastyRoulettePage() {
                   color: teamColors.primary,
                 }}
               >
-                {shownCombo.teamKey}
+                {shownIdentity?.label ?? shownCombo.teamKey}
               </span>
               <span
                 style={{
@@ -283,7 +325,7 @@ export default function DynastyRoulettePage() {
         <button
           type="button"
           onClick={() => setVeteranMode((v) => !v)}
-          className="px-3 py-1.5 border border-surface-4 text-xs font-mono uppercase tracking-[.1em] hover:bg-surface-3 transition-colors flex items-center gap-2"
+          className="px-3 py-1.5 border border-surface-4 rounded-full text-xs font-mono uppercase tracking-[.1em] hover:bg-surface-3 transition-colors flex items-center gap-2"
         >
           <span
             className="w-1.5 h-1.5 rounded-full inline-block"
@@ -297,7 +339,11 @@ export default function DynastyRoulettePage() {
             type="button"
             onClick={spin}
             disabled={rolling || awaiting || allLocked}
-            className="px-3 py-1 bg-amber-500 text-[#1A1410] text-[10px] font-semibold font-mono uppercase tracking-[.08em] hover:bg-amber-300 disabled:opacity-50 transition-colors"
+            className="px-7 py-3 rounded-full text-[#1A1410] text-sm font-semibold font-mono uppercase tracking-[.1em] transition-all duration-200 ease-out disabled:opacity-45 disabled:cursor-not-allowed disabled:scale-100 disabled:shadow-none hover:scale-[1.04] active:scale-[0.97]"
+            style={{
+              background: 'linear-gradient(135deg, var(--color-amber-300, #F0A56C), var(--color-amber-500))',
+              boxShadow: rolling ? '0 0 0 6px rgba(240,164,90,.14)' : '0 4px 18px rgba(240,164,90,.35)',
+            }}
           >
             🎲 {allLocked ? 'Complete' : awaiting ? 'Pick a spot' : combo ? 'Spin for next spot' : 'Spin'}
           </button>
@@ -308,7 +354,7 @@ export default function DynastyRoulettePage() {
                 type="button"
                 onClick={switchTeam}
                 disabled={usedTeamReroll}
-                className="text-[9px] font-mono uppercase tracking-[.08em] px-1.5 py-1 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="text-[9px] font-mono uppercase tracking-[.08em] px-2 py-1 border rounded-full disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
               >
                 {usedTeamReroll ? '✓ Team used' : 'Switch team'}
@@ -317,7 +363,7 @@ export default function DynastyRoulettePage() {
                 type="button"
                 onClick={rerollDecade}
                 disabled={usedDecadeReroll}
-                className="text-[9px] font-mono uppercase tracking-[.08em] px-1.5 py-1 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="text-[9px] font-mono uppercase tracking-[.08em] px-2 py-1 border rounded-full disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
               >
                 {usedDecadeReroll ? '✓ Decade used' : 'Re-roll decade'}
@@ -340,12 +386,12 @@ export default function DynastyRoulettePage() {
 
       {/* draft overlay — replaces the position row in place while awaiting a pick with a chosen position */}
       {drafting && viewPos ? (
-        <div className="border border-surface-4 p-4 animate-[confOverlayIn_.18s_ease]" style={{ background: 'var(--color-surface-1)' }}>
+        <div className="border border-surface-4 rounded-2xl p-4 animate-[confOverlayIn_.18s_ease]" style={{ background: 'var(--color-surface-1)' }}>
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 mb-4">
             <div className="text-sm">
               <span className="text-text-hi">Drafting </span>
               <b style={{ color: 'var(--color-amber-500)' }}>{viewPos}</b>
-              <span className="text-text-low"> · {combo?.teamKey} {combo?.decade}s</span>
+              <span className="text-text-low"> · {combo && eraIdentity(combo.teamKey, combo.decade).label} {combo?.decade}s</span>
             </div>
             <div className="flex items-center gap-2 justify-self-center">
               {POSITIONS.map((pos) => {
@@ -379,7 +425,7 @@ export default function DynastyRoulettePage() {
               type="button"
               onClick={() => setViewPos(null)}
               title="Back to spots"
-              className="w-8 h-8 justify-self-end border border-surface-4 text-text-low hover:border-amber-500 hover:text-text-hi transition-colors"
+              className="w-8 h-8 justify-self-end border border-surface-4 rounded-full text-text-low hover:border-amber-500 hover:text-text-hi transition-colors"
             >
               ✕
             </button>
@@ -391,7 +437,7 @@ export default function DynastyRoulettePage() {
               return (
                 <div
                   key={p.id}
-                  className="flex flex-col p-4 gap-2.5 w-[260px] flex-none"
+                  className="flex flex-col p-4 gap-2.5 w-[260px] flex-none rounded-xl overflow-hidden transition-transform duration-150 hover:-translate-y-0.5"
                   style={{ background: 'var(--color-surface-2)', borderTop: `4px solid ${pc.primary}`, border: '1px solid var(--color-surface-4)', borderTopWidth: 4, borderTopColor: pc.primary }}
                 >
                   <div className="flex items-start justify-between gap-2">
@@ -425,7 +471,7 @@ export default function DynastyRoulettePage() {
                   <button
                     type="button"
                     onClick={() => pickForPosition(viewPos, p)}
-                    className="mt-1 py-2 text-xs font-mono uppercase tracking-[.08em] font-semibold text-white transition-colors"
+                    className="mt-1 py-2 rounded-lg text-xs font-mono uppercase tracking-[.08em] font-semibold text-white transition-colors"
                     style={{ background: 'var(--color-amber-600)' }}
                     onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-amber-500)')}
                     onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--color-amber-600)')}
@@ -452,7 +498,7 @@ export default function DynastyRoulettePage() {
               return (
                 <div
                   key={pos}
-                  className="p-4 flex flex-col items-center text-center gap-2.5 min-h-[180px] justify-center"
+                  className="p-4 flex flex-col items-center text-center gap-2.5 min-h-[180px] justify-center rounded-xl overflow-hidden"
                   style={{
                     background: 'var(--color-surface-1)',
                     borderLeft: '1px solid var(--color-surface-4)',
@@ -478,7 +524,7 @@ export default function DynastyRoulettePage() {
                 type="button"
                 disabled={!isFillable}
                 onClick={() => isFillable && setViewPos(pos)}
-                className="border border-dashed p-4 flex flex-col items-center justify-center gap-2.5 min-h-[180px] transition-colors"
+                className="border border-dashed rounded-xl p-4 flex flex-col items-center justify-center gap-2.5 min-h-[180px] transition-all duration-150 hover:scale-[1.02]"
                 style={{
                   borderColor: awaiting ? (isFillable ? posColor : 'var(--color-surface-4)') : posColor,
                   background: isFillable ? `${posColor}14` : 'var(--color-surface-1)',
@@ -499,6 +545,8 @@ export default function DynastyRoulettePage() {
           })}
         </div>
       )}
+
+      {lockedFive.length === 5 && <DominancePanel five={lockedFive} pool={players} />}
 
       {(combo || POSITIONS.some((pos) => roster[pos])) && (
         <button

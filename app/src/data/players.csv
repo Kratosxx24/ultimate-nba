@@ -1,4 +1,4 @@
-'62 Lakers,Elgin Baylor,SF,26,38.3,18.6,4.6,34,49.2,0.198,47,45,Elite Shot Creator,Lakers,1.4,0.5,54,26,FINALS,48.3
+'62 Lakers,Elgin Baylor,SF,26,38.3,18.6,4.6,34,49.2,0.198,47,38,Elite Shot Creator,Lakers,1.4,0.5,54,26,FINALS,48.3
 '64 Celtics,Bill Russell,C,27,15.0,24.1,4.7,17,52.0,0.280,42,51,Elite Enforcer,Celtics,1.7,4.5,59,21,CHAMPION,44.7
 '64 Royals,Oscar Robertson,PG,27,31.4,10.4,11.5,31,52.5,0.218,48,32,Generational Playmaker,Royals,2.0,0.4,55,25,CF,45.3
 '64 Warriors,Wilt Chamberlain,C,26,36.9,22.3,5.0,40,55.0,0.250,49,47,Elite Post Scorer,Warriors,1.5,3.5,48,32,FINALS,47.6
@@ -198,7 +198,7 @@
 '95 Spurs,David Robinson,C,29,27.6,10.8,2.9,28,60.2,0.273,43,43,Elite Enforcer,Spurs,1.65,3.2,62,20,CF,38.0
 '95 Timberwolves,Isaiah Rider,SG,14,20.4,3.3,3.3,26,53.0,0.110,38,26,Shot Creator,Timberwolves,1,0.3,21,61,MISSED,35.8
 '96 Bulls,Bill Wennington,C,3,5.3,2.5,0.6,13,51.5,0.100,30,26,Post Scorer,Bulls,0.3,0.6,72,10,CHAMPION,14.6
-'96 Bulls,Dennis Rodman,PF,20,5.5,14.9,2.5,10,54.3,0.120,30,49,Elite Enforcer,Bulls,0.6,0.4,72,10,CHAMPION,32.6
+'96 Bulls,Dennis Rodman,PF,20,5.5,14.9,2.5,10,54.3,0.120,30,51,Elite Enforcer,Bulls,0.6,0.4,72,10,CHAMPION,32.6
 '96 Bulls,Jud Buechler,SF,2,3.8,1.5,0.8,11,54.0,0.100,28,28,Off-Ball Sniper,Bulls,0.5,0.2,72,10,CHAMPION,12.7
 '96 Bulls,Luc Longley,C,8,9.1,5.1,1.9,16,51.5,0.105,32,40,Post Scorer,Bulls,0.4,0.9,72,10,CHAMPION,26.9
 '96 Bulls,Michael Jordan,SG,30,30.4,6.6,4.3,33,58.2,0.317,50,50,Elite Shot Creator,Bulls,2.2,0.5,72,10,CHAMPION,37.7
@@ -967,3 +967,9 @@
 '26 Spurs,De'Aaron Fox,PG,20,18.6,3.8,6.2,28,57.8,0.110,40,32,Elite Transition Maestro,Spurs,1.5,0.4,62,20,FINALS,31.0
 '26 Spurs,Dylan Harper,PG/SG,12,11.8,3.4,3.9,22,57.4,0.130,33,32,Secondary Playmaker,Spurs,1,0.3,62,20,FINALS,22.6
 '26 Spurs,Victor Wembanyama,C/PF,28,25.0,11.5,3.1,28,60.5,0.260,41,50,Defensive Unicorn,Spurs,1.1,3.5,62,20,FINALS,29.2
+'14 Spurs,Tim Duncan,PF/C,22,15.1,9.7,3.0,25.2,53.5,0.164,39,47,Elite Enforcer,Spurs,0.6,1.9,62,20,CHAMPION,29.2
+'14 Spurs,Tony Parker,PG,19,16.7,2.3,5.7,26.5,55.5,0.141,40,30,Elite Transition Maestro,Spurs,0.5,0.1,62,20,CHAMPION,29.4
+'14 Spurs,Manu Ginobili,SG,15,12.3,3.0,4.3,24.7,59.0,0.176,35,32,Secondary Playmaker,Spurs,1.0,0.3,62,20,CHAMPION,22.8
+'21 Suns,Chris Paul,PG,23,16.4,4.5,8.9,22.6,59.9,0.201,40,38,Elite Playmaker,Suns,1.4,0.3,51,21,FINALS,31.4
+'21 Suns,Devin Booker,SG/PG,25,25.6,4.2,4.3,32.7,58.7,0.104,41,28,Elite Shot Creator,Suns,0.8,0.2,51,21,FINALS,33.9
+'93 Suns,Mark West,C,7,5.3,5.6,0.4,11.9,60.9,0.104,26,38,Enforcer,Suns,0.2,1.3,62,20,FINALS,19.0

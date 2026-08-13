@@ -52,7 +52,7 @@
 // ============================================================================
 
 const PLAYER_CSV = `
-'62 Lakers,Elgin Baylor,SF,26,38.3,18.6,4.6,34,49.2,0.198,47,45,Elite Shot Creator,Lakers,1.4,0.5,54,26,FINALS,48.3
+'62 Lakers,Elgin Baylor,SF,26,38.3,18.6,4.6,34,49.2,0.198,47,38,Elite Shot Creator,Lakers,1.4,0.5,54,26,FINALS,48.3
 '64 Celtics,Bill Russell,C,27,15.0,24.1,4.7,17,52.0,0.280,42,51,Elite Enforcer,Celtics,1.7,4.5,59,21,CHAMPION,44.7
 '64 Royals,Oscar Robertson,PG,27,31.4,10.4,11.5,31,52.5,0.218,48,32,Generational Playmaker,Royals,2.0,0.4,55,25,CF,45.3
 '64 Warriors,Wilt Chamberlain,C,26,36.9,22.3,5.0,40,55.0,0.250,49,47,Elite Post Scorer,Warriors,1.5,3.5,48,32,FINALS,47.6
@@ -252,14 +252,14 @@ const PLAYER_CSV = `
 '95 Spurs,David Robinson,C,29,27.6,10.8,2.9,28,60.2,0.273,43,43,Elite Enforcer,Spurs,1.65,3.2,62,20,CF,38.0
 '95 Timberwolves,Isaiah Rider,SG,14,20.4,3.3,3.3,26,53.0,0.110,38,26,Shot Creator,Timberwolves,1,0.3,21,61,MISSED,35.8
 '96 Bulls,Bill Wennington,C,3,5.3,2.5,0.6,13,51.5,0.100,30,26,Post Scorer,Bulls,0.3,0.6,72,10,CHAMPION,14.6
-'96 Bulls,Dennis Rodman,PF,20,5.5,14.9,2.5,10,54.3,0.120,30,49,Elite Enforcer,Bulls,0.6,0.4,72,10,CHAMPION,32.6
+'96 Bulls,Dennis Rodman,PF,20,5.5,14.9,2.5,10,54.3,0.120,30,51,Elite Enforcer,Bulls,0.6,0.4,72,10,CHAMPION,32.6
 '96 Bulls,Jud Buechler,SF,2,3.8,1.5,0.8,11,54.0,0.100,28,28,Off-Ball Sniper,Bulls,0.5,0.2,72,10,CHAMPION,12.7
 '96 Bulls,Luc Longley,C,8,9.1,5.1,1.9,16,51.5,0.105,32,40,Post Scorer,Bulls,0.4,0.9,72,10,CHAMPION,26.9
 '96 Bulls,Michael Jordan,SG,30,30.4,6.6,4.3,33,58.2,0.317,50,50,Elite Shot Creator,Bulls,2.2,0.5,72,10,CHAMPION,37.7
 '96 Bulls,Ron Harper,PG,10,7.4,2.7,2.6,13,53.1,0.110,28,46,Lockdown Defender,Bulls,1.1,0.3,72,10,CHAMPION,26.9
 '96 Bulls,Scottie Pippen,SF,24,19.4,6.4,5.9,23,55.1,0.194,42,48,Floor General,Bulls,1.9,0.6,72,10,CHAMPION,36.7
 '96 Bulls,Steve Kerr,PG,10,8.4,1.3,2.3,12,66.7,0.180,33,24,Off-Ball Sniper,Bulls,0.7,0.1,72,10,CHAMPION,24.5
-'96 Bulls,Toni Kukoc,SF,18,13.1,4.0,3.5,20,58.9,0.200,42,34,Secondary Playmaker,Bulls,1.1,0.3,72,10,CHAMPION,28.7
+'96 Bulls,Toni Kukoc,SF/PF,18,13.1,4.0,3.5,20,58.9,0.200,42,34,Secondary Playmaker,Bulls,1.1,0.3,72,10,CHAMPION,28.7
 '96 Cavaliers,Terrell Brandon,PG,16,19.3,3.3,6.5,23,56.0,0.155,40,32,Floor General,Cavaliers,1.8,0.2,47,35,R1,35.7
 '96 Heat,Bimbo Coles,PG,8,9.5,2.5,5.0,17,52.0,0.085,28,30,Secondary Playmaker,Heat,1.3,0.2,42,40,R1,35.2
 '96 Jazz,Jeff Hornacek,SG,16,12.5,3.0,4.5,18,57.0,0.120,36,30,Off-Ball Sniper,Jazz,1.1,0.1,55,27,CF,33.6
@@ -489,7 +489,7 @@ const PLAYER_CSV = `
 '07 Bobcats,Adam Morrison,SF,1,11.8,2.9,2.1,24,46.5,0.000,22,14,Shot Creator,Hornets,0.6,0.1,33,49,MISSED,29.8
 '07 Hornets,Chris Paul,PG,22,17.3,4.4,8.9,24,57.5,0.220,42,38,Elite Playmaker,Hornets,2.2,0.1,39,43,MISSED,36.8
 '07 Bobcats,Gerald Wallace,SF,11,14.5,7.9,2.0,20,51.0,0.085,32,36,Lockdown Defender,Hornets,1.7,1.1,33,49,MISSED,36.7
-'07 Jazz,Andrei Kirilenko,PF,16,11.8,6.0,2.8,17,53.0,0.165,33,48,Defensive Unicorn,Jazz,1.4,1.4,51,31,CF,29.3
+'07 Jazz,Andrei Kirilenko,PF/SF,16,11.8,6.0,2.8,17,53.0,0.165,33,48,Defensive Unicorn,Jazz,1.4,1.4,51,31,CF,29.3
 '07 Jazz,Carlos Boozer,PF,24,20.9,11.7,3.0,26,58.5,0.200,43,34,Elite Post Scorer,Jazz,0.9,0.3,51,31,CF,34.6
 '07 Jazz,Deron Williams,PG,22,16.2,3.3,9.3,28,51.8,0.155,38,29,Heliocentric Playmaker,Jazz,1.4,0.1,51,31,CF,36.9
 '07 Jazz,Kirk Snyder,SG,7,6.5,2.4,1.2,14,48.5,0.065,24,28,3&D Wing,Jazz,0.7,0.2,51,31,CF,14.4
@@ -516,7 +516,7 @@ const PLAYER_CSV = `
 '08 Blazers,LaMarcus Aldridge,PF,18,17.8,8.5,1.9,23,51.5,0.130,38,34,Post Scorer,Blazers,0.6,1.2,41,41,MISSED,34.7
 '08 Cavaliers,Ben Wallace,C,9,4.0,7.9,1.0,9,44.0,0.080,22,46,Enforcer,Cavaliers,1,1.7,45,37,R2,27.4
 '08 Celtics,Eddie House,PG,4,7.5,2.1,1.9,17,51.0,0.090,34,26,Off-Ball Sniper,Celtics,0.5,0.1,66,16,CHAMPION,16.6
-'08 Celtics,James Posey,SF,8,7.4,4.4,1.5,13,58.7,0.134,32,38,3&D Wing,Celtics,1,0.4,66,16,CHAMPION,26.4
+'08 Celtics,James Posey,SF/PF,8,7.4,4.4,1.5,13,58.7,0.134,32,38,3&D Wing,Celtics,1,0.4,66,16,CHAMPION,26.4
 '08 Celtics,Kevin Garnett,PF/C,27,18.8,9.2,3.4,23,58.8,0.265,39,49,Elite Enforcer,Celtics,1.4,1.3,66,16,CHAMPION,32.8
 '08 Celtics,Leon Powe,PF,4,7.9,4.1,0.3,16,62.0,0.180,20,26,Enforcer,Celtics,0.4,0.4,66,16,CHAMPION,13.5
 '08 Celtics,Paul Pierce,SF,24,19.6,5.1,3.5,28,59.9,0.195,39,38,Shot Creator,Celtics,1.4,0.4,66,16,CHAMPION,35.9
@@ -681,7 +681,7 @@ const PLAYER_CSV = `
 '14 Spurs,Boris Diaw,PF,14,9.1,4.1,2.8,15,56.4,0.130,38,38,Secondary Playmaker,Spurs,0.8,0.2,62,20,CHAMPION,22.5
 '14 Spurs,Danny Green,SG,12,9.1,3.4,1.5,14,59.0,0.150,36,42,3&D Wing,Spurs,1.1,0.7,62,20,CHAMPION,26.2
 '14 Spurs,Kawhi Leonard,SF,18,16.5,6.2,2.5,18,57.0,0.155,39,48,Elite Lockdown Defender,Spurs,1.7,0.6,62,20,CHAMPION,29.1
-'14 Spurs,Marco Belinelli,SG,10,9.4,2.5,2.0,17,57.0,0.140,35,28,Off-Ball Sniper,Spurs,0.6,0.1,62,20,CHAMPION,24.7
+'14 Spurs,Marco Belinelli,SG/SF,10,9.4,2.5,2.0,17,57.0,0.140,35,28,Off-Ball Sniper,Spurs,0.6,0.1,62,20,CHAMPION,24.7
 '14 Spurs,Matt Bonner,PF,6,5.7,3.3,0.8,13,56.0,0.115,28,26,Stretch Big,Spurs,0.3,0.1,62,20,CHAMPION,11.3
 '14 Spurs,Patty Mills,PG,6,10.2,2.1,1.8,18,58.0,0.150,38,30,Off-Ball Sniper,Spurs,0.7,0.1,62,20,CHAMPION,18.9
 '14 Spurs,Tiago Splitter,C,5,8.2,6.2,1.5,14,54.5,0.170,32,40,Rim Runner,Spurs,0.4,0.9,62,20,CHAMPION,21.5
@@ -905,7 +905,7 @@ const PLAYER_CSV = `
 '22 Warriors,Draymond Green,PF/C,15,7.5,7.3,7.1,14,49.5,0.090,32,46,Floor General,Warriors,1.3,1.1,53,29,CHAMPION,28.9
 '22 Warriors,Jordan Poole,SG,17,18.5,3.4,4.0,26,59.8,0.120,38,26,Shot Creator,Warriors,0.9,0.3,53,29,CHAMPION,30.0
 '22 Warriors,Kevon Looney,C,7,6.1,6.0,2.0,11.5,62.0,0.145,22,27,Enforcer,Warriors,0.5,0.4,53,29,CHAMPION,21.1
-'22 Warriors,Klay Thompson,SG,19,20.4,3.9,2.8,23,57.8,0.135,39,38,Elite Off-Ball Sniper,Warriors,0.8,0.5,53,29,CHAMPION,29.4
+'22 Warriors,Klay Thompson,SG/SF,19,20.4,3.9,2.8,23,57.8,0.135,39,38,Elite Off-Ball Sniper,Warriors,0.8,0.5,53,29,CHAMPION,29.4
 '22 Warriors,Stephen Curry,PG,26,25.5,5.2,6.3,30,63.9,0.231,44,32,Elite Shot Creator,Warriors,1.3,0.4,53,29,CHAMPION,34.5
 '23 76ers,Tobias Harris,PF,16,14.5,6.4,2.1,20,58.0,0.130,39,34,3&D Wing,76ers,0.7,0.5,54,28,R2,32.9
 '23 Bucks,Khris Middleton,SF,17,19.6,5.1,5.0,24,57.5,0.135,39,36,Shot Creator,Bucks,1,0.2,58,24,R1,24.3
@@ -996,7 +996,7 @@ const PLAYER_CSV = `
 '25 Thunder,Aaron Wiggins,SG,7,12.4,3.9,2.0,17,57.0,0.100,32,34,3&D Wing,Thunder,0.9,0.3,68,14,CHAMPION,22.9
 '25 Thunder,Alex Caruso,PG,9,9.0,4.5,3.5,13,55.0,0.110,28,48,Elite Lockdown Defender,Thunder,1.5,0.6,68,14,CHAMPION,19.3
 '25 Thunder,Cason Wallace,PG/SG,9,9.0,3.8,2.2,14,52.0,0.090,26,35,3&D Wing,Thunder,1.1,0.5,68,14,CHAMPION,27.6
-'25 Thunder,Chet Holmgren,C,17,15.0,8.0,1.3,19,63.2,0.175,37,45,Stretch Big,Thunder,0.7,2,68,14,CHAMPION,27.4
+'25 Thunder,Chet Holmgren,C/PF,17,15.0,8.0,1.3,19,63.2,0.175,37,45,Stretch Big,Thunder,0.7,2,68,14,CHAMPION,27.4
 '25 Thunder,Isaiah Hartenstein,C,8,11.2,10.7,3.8,14,64.0,0.210,30,38,Enforcer,Thunder,0.9,1.1,68,14,CHAMPION,27.9
 '25 Thunder,Jalen Williams,SF,20,21.6,5.3,5.1,24,62.1,0.170,34,34,Secondary Playmaker,Thunder,1.4,0.6,68,14,CHAMPION,32.4
 '25 Thunder,Lu Dort,SG,11,10.1,4.0,1.7,15,58.5,0.110,30,46,3&D Wing,Thunder,1,0.5,68,14,CHAMPION,29.7
@@ -1021,4 +1021,10 @@ const PLAYER_CSV = `
 '26 Spurs,De'Aaron Fox,PG,20,18.6,3.8,6.2,28,57.8,0.110,40,32,Elite Transition Maestro,Spurs,1.5,0.4,62,20,FINALS,31.0
 '26 Spurs,Dylan Harper,PG/SG,12,11.8,3.4,3.9,22,57.4,0.130,33,32,Secondary Playmaker,Spurs,1,0.3,62,20,FINALS,22.6
 '26 Spurs,Victor Wembanyama,C/PF,28,25.0,11.5,3.1,28,60.5,0.260,41,50,Defensive Unicorn,Spurs,1.1,3.5,62,20,FINALS,29.2
+'14 Spurs,Tim Duncan,PF/C,22,15.1,9.7,3.0,25.2,53.5,0.164,39,47,Elite Enforcer,Spurs,0.6,1.9,62,20,CHAMPION,29.2
+'14 Spurs,Tony Parker,PG,19,16.7,2.3,5.7,26.5,55.5,0.141,40,30,Elite Transition Maestro,Spurs,0.5,0.1,62,20,CHAMPION,29.4
+'14 Spurs,Manu Ginobili,SG,15,12.3,3.0,4.3,24.7,59.0,0.176,35,32,Secondary Playmaker,Spurs,1.0,0.3,62,20,CHAMPION,22.8
+'21 Suns,Chris Paul,PG,23,16.4,4.5,8.9,22.6,59.9,0.201,40,38,Elite Playmaker,Suns,1.4,0.3,51,21,FINALS,31.4
+'21 Suns,Devin Booker,SG/PG,25,25.6,4.2,4.3,32.7,58.7,0.104,41,28,Elite Shot Creator,Suns,0.8,0.2,51,21,FINALS,33.9
+'93 Suns,Mark West,C,7,5.3,5.6,0.4,11.9,60.9,0.104,26,38,Enforcer,Suns,0.2,1.3,62,20,FINALS,19.0
 `;

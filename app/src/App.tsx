@@ -79,7 +79,7 @@ function AppShell() {
         </main>
 
         <footer className="border-t border-hairline py-4 text-center text-xs font-mono text-text-low">
-          Ultimate NBA — v35 formula ·{' '}
+          Ultimate NBA — v38 formula ·{' '}
           <NavLink to="/how-to-use" className="hover:text-text-mid transition-colors">
             How it works
           </NavLink>

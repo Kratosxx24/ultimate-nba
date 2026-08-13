@@ -1,4 +1,4 @@
-// Reference: ../../../FORMULA.md (v35 — opponent playoff strength era).
+// Reference: ../../../FORMULA.md (v38 — era-relative rebounding + rebounding outlier).
 // This is a straight TypeScript port of ../../../compute_ovr.js — keep the two in sync.
 // Every formula change should land in compute_ovr.js first (it's the fast CLI sandbox
 // for testing formula tweaks), then get mirrored here.
@@ -52,6 +52,18 @@ function roundKey(r: string): keyof typeof ROUND_WEIGHT {
   if (u.includes('R2') || u.includes('SEMI')) return 'R2';
   return 'R1';
 }
+
+// v38 — real league-average team rebounds per game by decade (Basketball-Reference,
+// NBA League Averages / Per Game). Reference constants, same role as ERA_AVG_TS.
+const ERA_AVG_TRB: Record<number, number> = {
+  1960: 65.56,
+  1970: 48.65,
+  1980: 43.54,
+  1990: 41.45,
+  2000: 41.76,
+  2010: 42.59,
+  2020: 43.36,
+};
 
 const ERA_AVG_TS: Record<number, number> = {
   1960: 55.4,
@@ -109,9 +121,21 @@ export function computePlayers(
   const groups: Record<PosGroup, RawPlayer[]> = { PG: [], SG: [], SF: [], PF: [], C: [] };
   rawPlayers.forEach((p) => groups[posGroup(p.pos)].push(p));
 
+  // v38 — ERA-RELATIVE REBOUNDING. Real league-average team rebounds per game by
+  // decade, from Basketball-Reference. A hand-set REFERENCE table exactly like
+  // ERA_AVG_TS — deliberately not derived from this dataset, whose 1960s bucket is
+  // five all-time greats. The 1960s had 54% more rebounds available than the 2010s.
+  const TRB_BASE = ERA_AVG_TRB[2010];
+  const rpgEraOf = new Map<RawPlayer, number>();
+  rawPlayers.forEach((p) => {
+    const decade = Math.floor(yearOf(p.eraTeam) / 10) * 10;
+    rpgEraOf.set(p, p.rpg * (TRB_BASE / (ERA_AVG_TRB[decade] ?? TRB_BASE)));
+  });
+
   const stlBlkPctOf = new Map<RawPlayer, number>();
   const rebPctOf = new Map<RawPlayer, number>();
   const defPctOf = new Map<RawPlayer, number>();
+  const defCreditOf = new Map<RawPlayer, number>();
   rawPlayers.forEach((p) => {
     const g = groups[posGroup(p.pos)];
     const stlBlkPct = percentileRank(
@@ -119,12 +143,37 @@ export function computePlayers(
       p.stl + p.blk,
     );
     const rebPct = percentileRank(
-      g.map((x) => x.rpg),
-      p.rpg,
+      g.map((x) => rpgEraOf.get(x)!),
+      rpgEraOf.get(p)!,
     );
     stlBlkPctOf.set(p, stlBlkPct);
     rebPctOf.set(p, rebPct);
-    defPctOf.set(p, stlBlkPct * 0.6 + rebPct * 0.4);
+    // v37 — STRONGEST-EVIDENCE defPct, gated on the hand-assigned defBase.
+    // The flat 60/40 blend read Dennis Rodman '96 (rebPct 1.00, stlBlkPct 0.17) at
+    // the 50th defensive percentile, zeroing BOTH his defCombo (gated at .70) and
+    // the defensive half of twoWay (gated at .60). Positioning/physicality defense
+    // does not appear in STL+BLK. `led` judges a defender on whichever signal is
+    // stronger; `credit` restricts that claim to players the HUMAN rating already
+    // calls defenders, so high-rebound/low-defense bigs are untouched.
+    const blend = stlBlkPct * 0.6 + rebPct * 0.4;
+    const led = Math.max(stlBlkPct, rebPct) * 0.75 + Math.min(stlBlkPct, rebPct) * 0.25;
+    const credit = Math.max(0, Math.min(1, (p.defBase - 34) / 14));
+    defCreditOf.set(p, credit);
+    defPctOf.set(p, blend + credit * Math.max(0, led - blend));
+  });
+
+  // v38 — REBOUNDING OUTLIER. rebPct is a percentile and therefore saturates:
+  // Rodman's 14.9 RPG and Garnett's 13.9 both read ~1.00, so the formula can say
+  // "best in the pool" but never "historic outlier." This measures how far past the
+  // league's 97th percentile a player is in real ERA-ADJUSTED boards, gated on the
+  // same defBase credit so rebounding volume is never a back door to defensive
+  // value. Reading era-adjusted boards is what keeps the 1960s out of it.
+  const rpgEraSorted = rawPlayers.map((p) => rpgEraOf.get(p)!).sort((a, b) => a - b);
+  const OUT_BAR = rpgEraSorted[Math.floor(rpgEraSorted.length * 0.97)];
+  rawPlayers.forEach((p) => {
+    const over = Math.max(0, rpgEraOf.get(p)! - OUT_BAR);
+    const outlier = Math.min(0.12, over * 0.05) * defCreditOf.get(p)!;
+    defPctOf.set(p, Math.min(1, defPctOf.get(p)! + outlier));
   });
 
   const decadeBuckets: Record<number, RawPlayer[]> = {};

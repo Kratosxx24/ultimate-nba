@@ -1,4 +1,54 @@
-# Ultimate NBA — Rating Formula (v36 — 5-way position groups)
+# Ultimate NBA — Rating Formula (v38 — era-relative rebounding + rebounding outlier)
+
+**This session (v38): rebounding is finally era-normalized, and the rebPct
+percentile ceiling is broken.** Two changes, both in STEP 0:
+
+1. **`ERA_AVG_TRB`** — real league-average team rebounds per game by decade,
+   sourced from Basketball-Reference. Rebounding was the last major stat in the
+   formula with NO era normalization, and the effect is larger than shooting's:
+   the 1960s had **65.6** team rebounds per game against **42.6** in the 2010s,
+   54% more. `rebPct` now ranks era-adjusted boards.
+2. **Rebounding outlier term** — `rebPct` is a percentile and saturates, so
+   Rodman's 14.9 RPG and Garnett's 13.9 both read ~1.00 and the formula could
+   say "best in the pool" but never "historic outlier." A bounded term now
+   measures how far past the league's 97th percentile a player is in real
+   era-adjusted boards, gated on the same `defBase` credit as v37's `led`.
+
+Together these close the *residual* limitation logged when v37 closed open item
+#1. **Dennis Rodman '96 Bulls: 86 → 89** (80 → 89 cumulative from v36).
+119 players rise, 98 fall, 758 unchanged; 7 move by 3 or more.
+
+**Two hand-rating corrections this session** (made because the ratings were
+wrong, not to hit a target):
+- **Dennis Rodman '96 `defBase` 49 → 51**, tying Bill Russell atop the scale.
+- **Elgin Baylor '62 `defBase` 45 → 38.** At 45 he was rated a better defender
+  than Walt Frazier (44), Scottie Pippen '91 (44), Gary Payton '94 (44), David
+  Robinson '91 (44) and Patrick Ewing '94 (44) — indefensible for an
+  offense-first scorer with chronic knee problems. 38 puts him with Havlicek and
+  Elvin Hayes. His OFF stays at 47; 38.3 PPG earns it. Baylor 97 → 96.
+
+---
+
+# (v37 — strongest-evidence defPct)
+
+**This session (v37): `defPct` now takes a defender's STRONGEST signal, gated on
+the hand-assigned `defBase`.** This closes "Known open item #1" (Rodman/Laimbeer
+positioning defense), which had been open since v34. See STEP 0 and the
+"Strongest-evidence defPct" section below. Dennis Rodman '96 Bulls goes 80 → 86;
+109 players rise, 60 fall, 806 are unchanged, and only 4 move by 3 or more.
+
+**Also this session (data, not formula):** six missing player-seasons added
+(Tim Duncan / Tony Parker / Manu Ginobili '14 Spurs, Chris Paul / Devin Booker
+'21 Suns, Mark West '93 Suns — all stats sourced from Basketball-Reference), and
+six `pos` values widened to a real second position (Chet Holmgren '25 → `C/PF`,
+Klay Thompson '22 → `SG/SF`, Toni Kukoc '96 → `SF/PF`, James Posey '08 →
+`SF/PF`, Andrei Kirilenko '07 → `PF/SF`, Marco Belinelli '14 → `SG/SF`). Only
+SECONDARY slots were appended — no primary position changed, so no OVR moved
+from the `pos` edits. Roster is now 975 player-seasons.
+
+---
+
+# (v36 — 5-way position groups)
 
 This is the complete, from-scratch stats-based OVR formula built over multiple
 tuning sessions. `players.js` in this folder has real STL/BLK data (columns 15-16,
@@ -75,16 +125,73 @@ STEP 0 — PREPROCESSING (once, across the whole dataset)
 ═══════════════════════════════════════════════════════════════
 Position groups: PG / SG / SF / PF / C  (use primary/first-listed position;
                   an unrecognized primary position falls back to SF)
+ERA_AVG_TRB = league-average TEAM rebounds per game, by decade (v38, real
+              reference constants from Basketball-Reference — NOT dataset-derived):
+    1960s: 65.56   1970s: 48.65   1980s: 43.54   1990s: 41.45
+    2000s: 41.76   2010s: 42.59   2020s: 43.36
+rpgEra     = RPG × (ERA_AVG_TRB[2010s] / ERA_AVG_TRB[player's decade])
+              [v38 — rebounding was the LAST major stat with no era normalization,
+               and the effect is bigger than shooting's: the 1960s had 54% more
+               rebounds available per game than the 2010s. The 1990s were the
+               lowest-rebounding era, so 90s boards are slightly harder-earned.]
+
 stlBlkPct  = percentile rank of (STL+BLK) WITHIN position group
-rebPct     = percentile rank of RPG WITHIN position group
-defPct     = stlBlkPct × 0.6 + rebPct × 0.4
-              [previously defPct was STL+BLK only, which is blind to elite
-               rebounders whose defensive value is real but doesn't show up
-               in steals/blocks — Dennis Rodman '96 Bulls scored in the
-               13th percentile on defPct despite historic rebounding.
-               Blending in rebPct fixes this for Rodman/Laimbeer-type
-               bruisers without overriding STL+BLK as the primary signal
-               for perimeter/rim-protection defenders]
+rebPct     = percentile rank of rpgEra WITHIN position group   [v38: era-adjusted]
+
+blend      = stlBlkPct × 0.6 + rebPct × 0.4          [the v36 formula — now a FLOOR]
+led        = max(stlBlkPct, rebPct) × 0.75 + min(stlBlkPct, rebPct) × 0.25
+defCredit  = clamp((defBase − 34) / 14, 0, 1)        [defBase 34 → 0, 48 → 1]
+defPct     = blend + defCredit × max(0, led − blend)
+
+OUT_BAR    = 97th percentile of rpgEra ACROSS THE WHOLE DATASET  (currently 12.38)
+rebOutlier = min(0.12, max(0, rpgEra − OUT_BAR) × 0.05) × defCredit
+defPct     = min(1, defPct + rebOutlier)
+              [v38 — rebPct is a PERCENTILE and therefore saturates: Rodman '96
+               (14.9 RPG) and Garnett '04 (13.9) both sit at ~1.00, so the formula
+               could say "best in the pool" but never "historic outlier." This
+               reads ABSOLUTE era-adjusted boards against a league-wide bar so
+               that distinction can exist. Gated on the same defCredit as `led`,
+               so rebounding volume is never a back door to defensive value for a
+               non-defender. The bar is LEAGUE-WIDE, not per-position: an earlier
+               per-position version was abandoned because centers all rebound, so
+               the C bar sat at 13.6 while the SG bar sat at 5.4 — Josh Hart (9.4
+               RPG) scored a bigger "outlier" than Rodman, while Mutombo, Wemby,
+               Hakeem and Mark Eaton all LOST ground on a rebounding term.
+               Historic rebounding is historic regardless of position; rebPct
+               already handles "unusual for your spot."]
+              [v37 — STRONGEST EVIDENCE, GATED ON THE HAND RATING.
+               v34 changed defPct from STL+BLK-only to the 60/40 blend, which
+               helped but did not fix the problem: Dennis Rodman '96 Bulls has
+               rebPct 1.00 (the highest in the dataset, 10th in RPG league-wide
+               all-time) and stlBlkPct 0.17, giving blend = 0.501 — the greatest
+               rebounder ever reading as an exactly average defender. Worse, two
+               bonuses are gated above that value (defCombo at 0.70, the
+               defensive half of twoWay at 0.60), so he collected ZERO from
+               both. Positioning and physicality defense simply do not appear in
+               STL+BLK, and a fixed 60/40 blend forces every defender to be
+               judged mostly on events.
+
+               `led` fixes that by judging a defender on whichever signal is
+               stronger — it is symmetric, so it also rewards event-heavy /
+               glass-light defenders (Manute Bol '86: stlBlkPct 0.97, rebPct
+               0.19, +4 OVR).
+
+               `defCredit` is the essential half. Ungated, `led` treats
+               REBOUNDING VOLUME as proof of DEFENSE, which is only true for
+               some players — it handed +4 to Kevin Love '14, Domantas Sabonis
+               '24, Karl-Anthony Towns '25, Zach Randolph '11 and Carlos Boozer
+               '03, and +5 to Josh Giddey '25, all high-rebound/low-defense
+               players. But the formula already knew the difference: their
+               hand-assigned defBase values are 31, 30, 32, 34 and 30, against
+               Rodman 49, Bol 48, Oakley 44 and Laimbeer 42. So the human rating
+               decides WHETHER a player may claim positioning defense, and the
+               stats decide HOW MUCH. This is the hybrid philosophy applied
+               exactly: hand ratings anchor, real stats modulate.
+
+               Gating cut the blast radius from 55 players moving ≥3 OVR to 4,
+               and every previously-validated reference case (Shaq '93 Magic,
+               McGrady '04 Magic, Draymond Green '19, Robert Williams III '22,
+               Dejounte Murray '22) is unchanged or moved by at most 1.]
 tsPctEra   = percentile rank of TS% WITHIN decade bucket (decade = floor(year/10)*10)
 eraAvgTs   = average TS% for that decade
   Reference era averages found this session:
@@ -332,12 +439,17 @@ OVR = round(SCALED), capped at 100 if SCALED > 100.
 ```
 
 ## Known open items / judgment calls (still open, low priority)
-1. **Bill Laimbeer / Dennis Rodman vs Robert Williams III**: `defPct` now blends
-   STL+BLK (60%) with rebounding percentile (40%), which meaningfully helped
-   Rodman/Laimbeer, but they still can't fully match a shot-blocking specialist
-   on defPct alone — positioning/physicality defense still isn't fully
-   captured by any box-score stat. Left as-is; a real, acknowledged formula
-   limitation, not a bug.
+1. ~~**Bill Laimbeer / Dennis Rodman vs Robert Williams III**~~ — **CLOSED in v37.**
+   `defPct` now takes a defender's strongest signal (`led`) rather than forcing a
+   fixed 60/40 event-weighted blend, gated on `defBase` so only players the hand
+   rating already calls defenders may claim it. Rodman '96 80 → 86, Laimbeer '90
+   71 → 73, Oakley '94 75 → 78, Manute Bol '86 58 → 62. See STEP 0 and the
+   "Strongest-evidence defPct" section.
+   *Residual limitation:* `rebPct` is a percentile and therefore saturates —
+   Rodman's 14.9 RPG and Garnett's 13.9 both sit at ~1.00, so the formula still
+   cannot express "historic outlier rebounder" as distinct from "best in the
+   pool." Breaking that ceiling would need a non-percentile rebounding term and
+   would touch every rebounder; not attempted.
 2. **Harden's real-world defensive reputation**: the hand-anchored `defBase`
    is what catches this (not a computed term) — if `defBase` is ever revised
    for a player, that's the lever that matters most for "he doesn't really
@@ -509,6 +621,264 @@ that changed this session; everything else (STEP 1-3, 5-9) is unchanged.
   { "name": "Jaden McDaniels", "eraTeam": "'25 Timberwolves", "scaled": 70.1, "ovr": 70, "playoff": "CF" },
   { "name": "Tyrone Hill", "eraTeam": "'95 Cavaliers", "scaled": 70.1, "ovr": 70, "playoff": "R1" },
   { "name": "Kenny Smith", "eraTeam": "'94 Rockets", "scaled": 69.6, "ovr": 70, "playoff": "CHAMPION" }
+]
+```
+
+## Strongest-evidence defPct (shipped this session — v37)
+
+`defPct` no longer forces every defender through a fixed 60/40 STL+BLK/rebounding
+blend. A player is now judged on whichever defensive signal is stronger, but only
+in proportion to how high his hand-assigned `defBase` already is. See STEP 0 for
+the full rationale.
+
+**Why it was needed.** Rodman '96 sat at defPct 0.501 — below the 0.60 and 0.70
+gates on `twoWay` and `defCombo` — so the best rebounder in the dataset earned
+nothing from either defensive bonus.
+
+**Biggest movers (975 players: 109 up, 60 down, 806 unchanged; only 4 move ≥3):**
+
+| player | v36 | v37 | rpg | stl+blk | defBase |
+|---|---:|---:|---:|---:|---:|
+| Dennis Rodman '96 Bulls | 80 | **86** | 14.9 | 1.0 | 49 |
+| Manute Bol '86 Bullets | 58 | **62** | 6.0 | 5.4 | 48 |
+| Charles Oakley '94 Knicks | 75 | **78** | 11.7 | 1.5 | 44 |
+| Ben Simmons '22 Nets | 55 | **58** | 6.9 | 0.0 | 42 |
+| Michael Cooper '87 Lakers | 77 | 79 | 3.1 | 2.1 | 44 |
+| Andrei Kirilenko '04 Jazz | 82 | 84 | 8.1 | 5.2 | 48 |
+| Ron Artest '04 Pacers | 80 | 82 | 5.0 | 3.1 | 46 |
+| Rudy Gobert '22 Jazz | 87 | 89 | 14.7 | 2.8 | 48 |
+| Bill Laimbeer '90 Pistons | 71 | 73 | 9.4 | 1.0 | 42 |
+| Serge Ibaka '12 Thunder | 79 | 81 | 7.5 | 4.5 | 44 |
+
+Every gainer is a recognised defender. The fallers are all −1 and are all
+offense-first guards who rebound well for their position (Westbrook '17, Harden
+'21, Kyrie '24, Cade '25, Jamal Murray '23, Klay '17) — they lose nothing
+absolute; everyone else's defense rose and they were the ones quietly collecting
+defensive credit for rebounding volume.
+
+**Reference-case regression check — all clean:**
+
+| case | v36 | v37 |
+|---|---:|---:|
+| Shaquille O'Neal '93 Magic | 91 | 91 |
+| Tracy McGrady '04 Magic | 88 | 88 |
+| Draymond Green '19 Warriors | 75 | 75 |
+| Robert Williams III '22 Celtics | 83 | 83 |
+| Dejounte Murray '22 Spurs | 83 | 84 |
+| Dennis Rodman '90 Pistons | 80 | 80 |
+
+### Top 30 (by SCALED = OVR), v37
+```json
+[
+  { "name": "LeBron James", "eraTeam": "'13 Heat", "scaled": 100.5, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Michael Jordan", "eraTeam": "'91 Bulls", "scaled": 100.5, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Wilt Chamberlain", "eraTeam": "'67 76ers", "scaled": 100.5, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Michael Jordan", "eraTeam": "'96 Bulls", "scaled": 100.4, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Wilt Chamberlain", "eraTeam": "'64 Warriors", "scaled": 100.2, "ovr": 100, "playoff": "FINALS" },
+  { "name": "Michael Jordan", "eraTeam": "'92 Bulls", "scaled": 100.1, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Stephen Curry", "eraTeam": "'16 Warriors", "scaled": 99.9, "ovr": 100, "playoff": "FINALS" },
+  { "name": "Shaquille O'Neal", "eraTeam": "'00 Lakers", "scaled": 99.8, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "LeBron James", "eraTeam": "'18 Cavs", "scaled": 99.8, "ovr": 100, "playoff": "FINALS" },
+  { "name": "LeBron James", "eraTeam": "'09 Cavs", "scaled": 99.7, "ovr": 100, "playoff": "CF" },
+  { "name": "Kevin Durant", "eraTeam": "'17 Warriors", "scaled": 99.5, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Kareem Abdul-Jabbar", "eraTeam": "'80 Lakers", "scaled": 99.2, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Hakeem Olajuwon", "eraTeam": "'94 Rockets", "scaled": 99.1, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Shai Gilgeous-Alexander", "eraTeam": "'25 Thunder", "scaled": 99.1, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Giannis Antetokounmpo", "eraTeam": "'21 Bucks", "scaled": 99.1, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Larry Bird", "eraTeam": "'86 Celtics", "scaled": 99.1, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Tim Duncan", "eraTeam": "'03 Spurs", "scaled": 99.0, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Shaquille O'Neal", "eraTeam": "'01 Lakers", "scaled": 99.0, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "LeBron James", "eraTeam": "'16 Cavs", "scaled": 98.9, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Charles Barkley", "eraTeam": "'93 Suns", "scaled": 98.7, "ovr": 99, "playoff": "FINALS" },
+  { "name": "Kevin Garnett", "eraTeam": "'04 Timberwolves", "scaled": 98.5, "ovr": 98, "playoff": "CF" },
+  { "name": "Magic Johnson", "eraTeam": "'87 Lakers", "scaled": 98.2, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Kawhi Leonard", "eraTeam": "'19 Raptors", "scaled": 98.1, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Nikola Jokic", "eraTeam": "'23 Nuggets", "scaled": 98.0, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Elgin Baylor", "eraTeam": "'62 Lakers", "scaled": 97.9, "ovr": 98, "playoff": "FINALS" },
+  { "name": "Anthony Davis", "eraTeam": "'20 Lakers", "scaled": 97.9, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Bill Russell", "eraTeam": "'64 Celtics", "scaled": 97.8, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "LeBron James", "eraTeam": "'07 Cavaliers", "scaled": 97.7, "ovr": 98, "playoff": "FINALS" },
+  { "name": "Victor Wembanyama", "eraTeam": "'26 Spurs", "scaled": 97.6, "ovr": 98, "playoff": "FINALS" },
+  { "name": "Hakeem Olajuwon", "eraTeam": "'86 Rockets", "scaled": 97.5, "ovr": 98, "playoff": "FINALS" }
+]
+```
+
+### Random 30 (by SCALED = OVR), v37
+```json
+[
+  { "name": "Luka Doncic", "eraTeam": "'24 Mavericks", "scaled": 97.3, "ovr": 97, "playoff": "FINALS" },
+  { "name": "LeBron James", "eraTeam": "'20 Lakers", "scaled": 95.9, "ovr": 96, "playoff": "CHAMPION" },
+  { "name": "Allen Iverson", "eraTeam": "'01 76ers", "scaled": 93.8, "ovr": 94, "playoff": "FINALS" },
+  { "name": "Bob McAdoo", "eraTeam": "'75 Braves", "scaled": 88.5, "ovr": 89, "playoff": "R2" },
+  { "name": "John Stockton", "eraTeam": "'91 Jazz", "scaled": 88.1, "ovr": 88, "playoff": "CF" },
+  { "name": "Jason Kidd", "eraTeam": "'02 Nets", "scaled": 88.0, "ovr": 88, "playoff": "FINALS" },
+  { "name": "Patrick Ewing", "eraTeam": "'97 Knicks", "scaled": 86.1, "ovr": 86, "playoff": "R2" },
+  { "name": "Kyrie Irving", "eraTeam": "'15 Cavaliers", "scaled": 86.1, "ovr": 86, "playoff": "FINALS" },
+  { "name": "Shawn Marion", "eraTeam": "'11 Mavericks", "scaled": 85.2, "ovr": 85, "playoff": "CHAMPION" },
+  { "name": "Dennis Johnson", "eraTeam": "'86 Celtics", "scaled": 85.2, "ovr": 85, "playoff": "CHAMPION" },
+  { "name": "Chet Holmgren", "eraTeam": "'25 Thunder", "scaled": 83.4, "ovr": 83, "playoff": "CHAMPION" },
+  { "name": "Jrue Holiday", "eraTeam": "'24 Celtics", "scaled": 82.9, "ovr": 83, "playoff": "CHAMPION" },
+  { "name": "Baron Davis", "eraTeam": "'03 Hornets", "scaled": 81.1, "ovr": 81, "playoff": "R1" },
+  { "name": "Wes Unseld", "eraTeam": "'78 Bullets", "scaled": 79.0, "ovr": 79, "playoff": "CHAMPION" },
+  { "name": "Darius Garland", "eraTeam": "'25 Cavs", "scaled": 76.3, "ovr": 76, "playoff": "CF" },
+  { "name": "Al Horford", "eraTeam": "'13 Hawks", "scaled": 73.1, "ovr": 73, "playoff": "R1" },
+  { "name": "VJ Edgecombe", "eraTeam": "'26 76ers", "scaled": 71.9, "ovr": 72, "playoff": "R2" },
+  { "name": "Mike Bibby", "eraTeam": "'02 Kings", "scaled": 70.2, "ovr": 70, "playoff": "R2" },
+  { "name": "Marvin Williams", "eraTeam": "'09 Hawks", "scaled": 67.4, "ovr": 67, "playoff": "R2" },
+  { "name": "De'Andre Hunter", "eraTeam": "'25 Cavs", "scaled": 67.2, "ovr": 67, "playoff": "CF" },
+  { "name": "Keith Van Horn", "eraTeam": "'03 Sixers", "scaled": 66.8, "ovr": 67, "playoff": "R2" },
+  { "name": "Jalen Green", "eraTeam": "'24 Rockets", "scaled": 66.8, "ovr": 67, "playoff": "MISSED" },
+  { "name": "Delonte West", "eraTeam": "'09 Cavaliers", "scaled": 66.7, "ovr": 67, "playoff": "CF" },
+  { "name": "Jameer Nelson", "eraTeam": "'11 Magic", "scaled": 64.7, "ovr": 65, "playoff": "R1" },
+  { "name": "Matt Barnes", "eraTeam": "'07 Warriors", "scaled": 61.8, "ovr": 62, "playoff": "R2" },
+  { "name": "Greg Monroe", "eraTeam": "'17 Bucks", "scaled": 58.9, "ovr": 59, "playoff": "R1" },
+  { "name": "Glen Davis", "eraTeam": "'10 Celtics", "scaled": 56.1, "ovr": 56, "playoff": "FINALS" },
+  { "name": "Joe Smith", "eraTeam": "'97 Timberwolves", "scaled": 55.3, "ovr": 55, "playoff": "R1" },
+  { "name": "Frank Johnson", "eraTeam": "'93 Suns", "scaled": 50.1, "ovr": 50, "playoff": "FINALS" },
+  { "name": "Kirk Snyder", "eraTeam": "'07 Jazz", "scaled": 41.9, "ovr": 42, "playoff": "CF" }
+]
+```
+
+## Era-relative rebounding + rebounding outlier (shipped this session — v38)
+
+### Why era-relative rebounding was needed
+
+Real league-average team rebounds per game (Basketball-Reference, NBA League
+Averages / Per Game), and the resulting normalization factor against a 2010s base:
+
+| decade | seasons | TRB/team/game | factor |
+|---|---:|---:|---:|
+| 1960s | 16 | 65.56 | ×0.650 |
+| 1970s | 20 | 48.65 | ×0.875 |
+| 1980s | 20 | 43.54 | ×0.978 |
+| 1990s | 20 | 41.45 | ×1.028 |
+| 2000s | 20 | 41.76 | ×1.020 |
+| 2010s | 20 | 42.59 | ×1.000 |
+| 2020s | 14 | 43.36 | ×0.982 |
+
+These are REFERENCE CONSTANTS, deliberately not derived from this dataset. A
+dataset-derived mean is invalid for the early decades: the 1960s bucket here is
+five all-time greats, so normalizing against it defines Wilt and Russell as
+average — a first attempt did exactly that and scaled Wilt's 24.2 RPG to 6.6,
+which is nonsense. The 1990s were the LOWEST-rebounding era in the data, so
+1990s boards are slightly harder-earned than they look (Rodman 14.9 → 15.3).
+
+### Why the outlier term was needed
+
+`rebPct` saturates. Rodman '96 and Garnett '04 both sit at ~1.00 despite a full
+rebound per game between them. The outlier term reads absolute era-adjusted
+boards against a league-wide 97th-percentile bar (12.38 era-adjusted RPG), so
+"historic" can exist as a category distinct from "best in the pool."
+
+Reading ERA-ADJUSTED boards is what keeps the 1960s out of it: Elgin Baylor's
+18.6 becomes **12.1**, below the bar, so he collects nothing. An earlier version
+measured against a PER-POSITION bar and was abandoned — because centers all
+rebound, the C bar sat at 13.6 while the SG bar sat at 5.4, so Josh Hart (9.4
+RPG) scored a bigger "outlier" than Rodman while Mutombo, Wembanyama, Hakeem and
+Mark Eaton all LOST ground on a rebounding term. Position-relative was the wrong
+frame; historic rebounding is historic regardless of position, and `rebPct`
+already handles "unusual for your spot."
+
+### Movers, v36 → v38 (cumulative, includes v37)
+
+| player | v36 | v38 | note |
+|---|---:|---:|---|
+| Dennis Rodman '96 Bulls | 80 | **89** | +6 from v37, +3 from v38 |
+| Rudy Gobert '22 Jazz | 87 | **91** | 14.7 RPG, defBase 48 |
+| Charles Oakley '94 Knicks | 75 | **79** | |
+| Manute Bol '86 Bullets | 58 | **62** | event-led side of `led` |
+| DeAndre Jordan '15 Clippers | 81 | **84** | |
+| Andre Drummond '19 Pistons | 81 | **84** | |
+| Dave Cowens '74 Celtics | 90 | 92 | |
+| Bill Laimbeer '90 Pistons | 71 | 73 | |
+| Elgin Baylor '62 Lakers | 97 | 96 | hand-rating correction, not the formula |
+| David Thompson '77 Nuggets | 83 | 81 | era-adjusted down |
+
+### Reference-case regression check — all clean
+
+| case | v36 | v38 |
+|---|---:|---:|
+| Wilt Chamberlain '67 76ers | 100 | 100 |
+| Bill Russell '64 Celtics | 98 | 98 |
+| Shaquille O'Neal '93 Magic | 91 | 92 |
+| Tracy McGrady '04 Magic | 88 | 88 |
+| Draymond Green '19 Warriors | 75 | 75 |
+| Robert Williams III '22 Celtics | 83 | 83 |
+
+Wilt and Russell are unchanged: their era-adjusted 15.7 RPG still tops every
+position pool, so the clamp costs them nothing.
+
+### Top 30 (by SCALED = OVR), v38
+
+```json
+[
+  { "name": "LeBron James", "eraTeam": "'13 Heat", "scaled": 100.5, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Michael Jordan", "eraTeam": "'91 Bulls", "scaled": 100.5, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Wilt Chamberlain", "eraTeam": "'67 76ers", "scaled": 100.5, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Michael Jordan", "eraTeam": "'96 Bulls", "scaled": 100.4, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Wilt Chamberlain", "eraTeam": "'64 Warriors", "scaled": 100.2, "ovr": 100, "playoff": "FINALS" },
+  { "name": "Shaquille O'Neal", "eraTeam": "'00 Lakers", "scaled": 100.2, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Michael Jordan", "eraTeam": "'92 Bulls", "scaled": 100.1, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Stephen Curry", "eraTeam": "'16 Warriors", "scaled": 99.9, "ovr": 100, "playoff": "FINALS" },
+  { "name": "LeBron James", "eraTeam": "'18 Cavs", "scaled": 99.8, "ovr": 100, "playoff": "FINALS" },
+  { "name": "LeBron James", "eraTeam": "'09 Cavs", "scaled": 99.7, "ovr": 100, "playoff": "CF" },
+  { "name": "Kevin Durant", "eraTeam": "'17 Warriors", "scaled": 99.5, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Shaquille O'Neal", "eraTeam": "'01 Lakers", "scaled": 99.3, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Tim Duncan", "eraTeam": "'03 Spurs", "scaled": 99.2, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Hakeem Olajuwon", "eraTeam": "'94 Rockets", "scaled": 99.2, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Kareem Abdul-Jabbar", "eraTeam": "'80 Lakers", "scaled": 99.1, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Shai Gilgeous-Alexander", "eraTeam": "'25 Thunder", "scaled": 99.1, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Larry Bird", "eraTeam": "'86 Celtics", "scaled": 99.1, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Giannis Antetokounmpo", "eraTeam": "'21 Bucks", "scaled": 99.0, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "LeBron James", "eraTeam": "'16 Cavs", "scaled": 99.0, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Charles Barkley", "eraTeam": "'93 Suns", "scaled": 98.9, "ovr": 99, "playoff": "FINALS" },
+  { "name": "Kevin Garnett", "eraTeam": "'04 Timberwolves", "scaled": 98.6, "ovr": 99, "playoff": "CF" },
+  { "name": "Magic Johnson", "eraTeam": "'87 Lakers", "scaled": 98.2, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Kawhi Leonard", "eraTeam": "'19 Raptors", "scaled": 98.2, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Dwight Howard", "eraTeam": "'09 Magic", "scaled": 98.1, "ovr": 98, "playoff": "FINALS" },
+  { "name": "Nikola Jokic", "eraTeam": "'23 Nuggets", "scaled": 98.0, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Bill Russell", "eraTeam": "'64 Celtics", "scaled": 97.8, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Anthony Davis", "eraTeam": "'20 Lakers", "scaled": 97.8, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "LeBron James", "eraTeam": "'07 Cavaliers", "scaled": 97.7, "ovr": 98, "playoff": "FINALS" },
+  { "name": "Moses Malone", "eraTeam": "'83 Sixers", "scaled": 97.5, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Victor Wembanyama", "eraTeam": "'26 Spurs", "scaled": 97.5, "ovr": 97, "playoff": "FINALS" }
+]
+```
+
+### Random 30 (by SCALED = OVR), v38
+
+```json
+[
+  { "name": "Luka Doncic", "eraTeam": "'24 Mavericks", "scaled": 97.3, "ovr": 97, "playoff": "FINALS" },
+  { "name": "LeBron James", "eraTeam": "'20 Lakers", "scaled": 95.9, "ovr": 96, "playoff": "CHAMPION" },
+  { "name": "Allen Iverson", "eraTeam": "'01 76ers", "scaled": 93.8, "ovr": 94, "playoff": "FINALS" },
+  { "name": "John Stockton", "eraTeam": "'91 Jazz", "scaled": 88.1, "ovr": 88, "playoff": "CF" },
+  { "name": "Jason Kidd", "eraTeam": "'02 Nets", "scaled": 88.0, "ovr": 88, "playoff": "FINALS" },
+  { "name": "Bob McAdoo", "eraTeam": "'75 Braves", "scaled": 87.9, "ovr": 88, "playoff": "R2" },
+  { "name": "Patrick Ewing", "eraTeam": "'97 Knicks", "scaled": 86.3, "ovr": 86, "playoff": "R2" },
+  { "name": "Kyrie Irving", "eraTeam": "'15 Cavaliers", "scaled": 86.0, "ovr": 86, "playoff": "FINALS" },
+  { "name": "Shawn Marion", "eraTeam": "'11 Mavericks", "scaled": 85.0, "ovr": 85, "playoff": "CHAMPION" },
+  { "name": "Dennis Johnson", "eraTeam": "'86 Celtics", "scaled": 84.9, "ovr": 85, "playoff": "CHAMPION" },
+  { "name": "Chet Holmgren", "eraTeam": "'25 Thunder", "scaled": 83.2, "ovr": 83, "playoff": "CHAMPION" },
+  { "name": "Jrue Holiday", "eraTeam": "'24 Celtics", "scaled": 82.8, "ovr": 83, "playoff": "CHAMPION" },
+  { "name": "Baron Davis", "eraTeam": "'03 Hornets", "scaled": 81.1, "ovr": 81, "playoff": "R1" },
+  { "name": "Wes Unseld", "eraTeam": "'78 Bullets", "scaled": 77.2, "ovr": 77, "playoff": "CHAMPION" },
+  { "name": "Darius Garland", "eraTeam": "'25 Cavs", "scaled": 76.2, "ovr": 76, "playoff": "CF" },
+  { "name": "Al Horford", "eraTeam": "'13 Hawks", "scaled": 73.0, "ovr": 73, "playoff": "R1" },
+  { "name": "VJ Edgecombe", "eraTeam": "'26 76ers", "scaled": 71.8, "ovr": 72, "playoff": "R2" },
+  { "name": "Mike Bibby", "eraTeam": "'02 Kings", "scaled": 70.3, "ovr": 70, "playoff": "R2" },
+  { "name": "Marvin Williams", "eraTeam": "'09 Hawks", "scaled": 67.6, "ovr": 68, "playoff": "R2" },
+  { "name": "De'Andre Hunter", "eraTeam": "'25 Cavs", "scaled": 67.1, "ovr": 67, "playoff": "CF" },
+  { "name": "Keith Van Horn", "eraTeam": "'03 Sixers", "scaled": 66.9, "ovr": 67, "playoff": "R2" },
+  { "name": "Delonte West", "eraTeam": "'09 Cavaliers", "scaled": 66.7, "ovr": 67, "playoff": "CF" },
+  { "name": "Jalen Green", "eraTeam": "'24 Rockets", "scaled": 66.6, "ovr": 67, "playoff": "MISSED" },
+  { "name": "Jameer Nelson", "eraTeam": "'11 Magic", "scaled": 64.6, "ovr": 65, "playoff": "R1" },
+  { "name": "Matt Barnes", "eraTeam": "'07 Warriors", "scaled": 61.9, "ovr": 62, "playoff": "R2" },
+  { "name": "Greg Monroe", "eraTeam": "'17 Bucks", "scaled": 58.9, "ovr": 59, "playoff": "R1" },
+  { "name": "Glen Davis", "eraTeam": "'10 Celtics", "scaled": 56.1, "ovr": 56, "playoff": "FINALS" },
+  { "name": "Joe Smith", "eraTeam": "'97 Timberwolves", "scaled": 55.4, "ovr": 55, "playoff": "R1" },
+  { "name": "Frank Johnson", "eraTeam": "'93 Suns", "scaled": 50.1, "ovr": 50, "playoff": "FINALS" },
+  { "name": "Kirk Snyder", "eraTeam": "'07 Jazz", "scaled": 42.0, "ovr": 42, "playoff": "CF" }
 ]
 ```
 

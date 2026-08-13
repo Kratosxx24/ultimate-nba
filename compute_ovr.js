@@ -78,11 +78,57 @@ function percentileRank(arr, val) {
 // STEP 0 — preprocessing
 const groups = { PG: [], SG: [], SF: [], PF: [], C: [] };
 players.forEach(p => groups[posGroup(p.pos)].push(p));
+
+// v38 — ERA-RELATIVE REBOUNDING. Real league-average team rebounds per game, by
+// decade, sourced from Basketball-Reference (NBA League Averages / Per Game).
+// This is a hand-set REFERENCE table exactly like ERA_AVG_TS — deliberately NOT
+// derived from this dataset, because the 1960s bucket here is five all-time
+// greats, so a dataset mean would define Wilt and Russell as "average."
+// The 1960s had 54% more rebounds available per game than the 2010s; rebounding
+// was the last major stat in the formula with no era normalization at all.
+const ERA_AVG_TRB = { 1960: 65.56, 1970: 48.65, 1980: 43.54, 1990: 41.45, 2000: 41.76, 2010: 42.59, 2020: 43.36 };
+const TRB_BASE = ERA_AVG_TRB[2010];
+players.forEach(p => {
+  const decade = Math.floor(yearOf(p.eraTeam) / 10) * 10;
+  p.rpgEra = p.rpg * (TRB_BASE / (ERA_AVG_TRB[decade] ?? TRB_BASE));
+});
+
 players.forEach(p => {
   const g = groups[posGroup(p.pos)];
   p.stlBlkPct = percentileRank(g.map(x => x.stl + x.blk), p.stl + p.blk);
-  p.rebPct = percentileRank(g.map(x => x.rpg), p.rpg);
-  p.defPct = p.stlBlkPct * 0.6 + p.rebPct * 0.4;
+  p.rebPct = percentileRank(g.map(x => x.rpgEra), p.rpgEra);
+  // v37 — STRONGEST-EVIDENCE defPct, gated on the hand-assigned defBase.
+  // The flat 60/40 blend read Dennis Rodman '96 (rebPct 1.00, stlBlkPct 0.17) at
+  // the 50th defensive percentile, which zeroed BOTH his defCombo (gated at .70)
+  // and the defensive half of twoWay (gated at .60) — the greatest rebounder ever
+  // scoring as an average defender. Positioning/physicality defense simply does
+  // not appear in STL+BLK. `led` lets a defender be judged on whichever signal is
+  // stronger; `credit` restricts that claim to players the HUMAN rating already
+  // calls defenders, so high-rebound/low-defense bigs (Kevin Love 31, Sabonis 30,
+  // Towns 32, Randolph 34) are untouched while Rodman (49), Bol (48), Oakley (44)
+  // and Laimbeer (42) collect. Hand rating decides WHETHER, stats decide HOW MUCH.
+  const blend = p.stlBlkPct * 0.6 + p.rebPct * 0.4;                                  // v36 blend, now a floor
+  const led = Math.max(p.stlBlkPct, p.rebPct) * 0.75 + Math.min(p.stlBlkPct, p.rebPct) * 0.25;
+  const credit = Math.max(0, Math.min(1, (p.defBase - 34) / 14));                    // defBase 34→0, 48→1
+  p.defPct = blend + credit * Math.max(0, led - blend);
+  p.defCredit = credit;
+});
+
+// v38 — REBOUNDING OUTLIER. rebPct is a PERCENTILE, so it saturates: Rodman's 14.9
+// RPG and Garnett's 13.9 both sit at ~1.00 and the formula cannot say "historic
+// outlier," only "best in the pool." This measures how far past the league's 97th
+// percentile a player actually is, in real (era-adjusted) boards, and lets that
+// lift defPct above the percentile ceiling. Gated on the same defBase credit as
+// `led`, so rebounding volume never becomes a back door to defensive value for a
+// non-defender. Reading ERA-ADJUSTED boards is what keeps the 1960s out of it —
+// Elgin Baylor's 18.6 becomes 12.1, below the bar, so he collects nothing.
+const OUT_K = 0.05, OUT_CAP = 0.12;
+const rpgEraSorted = players.map(p => p.rpgEra).sort((a, b) => a - b);
+const OUT_BAR = rpgEraSorted[Math.floor(rpgEraSorted.length * 0.97)];
+players.forEach(p => {
+  const over = Math.max(0, p.rpgEra - OUT_BAR);
+  p.rebOutlier = Math.min(OUT_CAP, over * OUT_K) * p.defCredit;
+  p.defPct = Math.min(1, p.defPct + p.rebOutlier);
 });
 
 const decadeBuckets = {};
