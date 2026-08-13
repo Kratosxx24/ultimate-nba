@@ -4,7 +4,6 @@ import PlayerCard from '../components/PlayerCard';
 
 export default function HomePage() {
   const players = getAllPlayers();
-  const teamCount = new Set(players.map((p) => p.eraTeam)).size;
   const top = players.slice(0, 4);
 
   return (
@@ -21,9 +20,6 @@ export default function HomePage() {
         >
           ULTIMATE NBA
         </h1>
-        <p className="text-text-mid mt-3 max-w-xl">
-          {players.length} player-seasons across {teamCount} eraTeams.
-        </p>
       </div>
 
       <div>

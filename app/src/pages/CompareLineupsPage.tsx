@@ -85,7 +85,6 @@ export default function CompareLineupsPage() {
         >
           Compare Lineups
         </h1>
-        <p className="text-sm text-text-mid mt-1">Two lineups, head to head.</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">

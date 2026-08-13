@@ -61,7 +61,6 @@ export default function DynastyRoulettePage() {
           >
             Dynasty Roulette
           </h1>
-          <p className="text-sm text-text-mid mt-1">Spin, reroll, repeat.</p>
         </div>
         <div className="flex gap-2">
           <button

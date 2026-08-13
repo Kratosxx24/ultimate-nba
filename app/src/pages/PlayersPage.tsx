@@ -156,9 +156,6 @@ export default function PlayersPage() {
             SEASONS
           </h1>
         </div>
-        <p className="text-sm text-text-mid max-w-[66ch]">
-          Showing {rows.length.toLocaleString()} of {players.length.toLocaleString()}.
-        </p>
       </div>
 
       <div className="flex gap-2 flex-wrap items-center">
