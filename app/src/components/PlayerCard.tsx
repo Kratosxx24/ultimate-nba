@@ -1,5 +1,6 @@
 import type { Player } from '../types/player';
 import OvrBadge, { getTier } from './OvrBadge';
+import { useTheme } from '../lib/ThemeContext';
 
 interface PlayerCardProps {
   player: Player;
@@ -37,7 +38,8 @@ export default function PlayerCard({ player, onRemove, onReroll, compact, onClic
   const { year, team } = parseYear(player.eraTeam);
   const [first, last] = splitName(player.name);
   const hue = teamHue(player.teamKey || player.eraTeam);
-  const tier = getTier(player.OVR);
+  const { theme } = useTheme();
+  const tier = getTier(player.OVR, theme);
   const dim = player.OVR < 60;
 
   const spineBg = `linear-gradient(180deg, hsl(${hue} 42% 14%), hsl(${hue} 30% 8%))`;

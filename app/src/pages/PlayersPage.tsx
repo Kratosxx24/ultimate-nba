@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAllPlayers } from '../lib/players';
 import OvrBadge, { getTier } from '../components/OvrBadge';
 import type { Player } from '../types/player';
+import { useTheme } from '../lib/ThemeContext';
 
 type NumericKey =
   | 'OVR'
@@ -83,6 +84,7 @@ function yearOf(p: Player): number {
 }
 
 export default function PlayersPage() {
+  const { theme } = useTheme();
   const players = useMemo(() => getAllPlayers(), []);
   const [query, setQuery] = useState('');
   const [sortKey, setSortKey] = useState<NumericKey>('OVR');
@@ -163,7 +165,7 @@ export default function PlayersPage() {
         </div>
 
         {rows.map(({ p, year }, i) => {
-          const tier = getTier(p.OVR);
+          const tier = getTier(p.OVR, theme);
           const dim = p.OVR < 60;
           return (
             <Link

@@ -4,6 +4,8 @@ import { getAllPlayers, getPlayerById } from '../lib/players';
 import playoffOpponentsJson from '../data/playoffOpponents.json';
 import type { OpponentSeries, Player } from '../types/player';
 import OvrBadge, { getTier } from '../components/OvrBadge';
+import { useTheme } from '../lib/ThemeContext';
+import CareerArcChart from '../components/CareerArcChart';
 
 const playoffOpponents = playoffOpponentsJson as Record<string, OpponentSeries[]>;
 
@@ -43,6 +45,7 @@ function ordinal(n: number): string {
  * playoff path. */
 export default function SeasonDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const { theme } = useTheme();
   const player = id ? getPlayerById(decodeURIComponent(id)) : undefined;
   const allPlayers = useMemo(() => getAllPlayers(), []);
 
@@ -62,7 +65,7 @@ export default function SeasonDetailPage() {
     );
   }
 
-  const tier = getTier(player.OVR);
+  const tier = getTier(player.OVR, theme);
   const rank = allPlayers.findIndex((p) => p.id === player.id) + 1;
   const [year, ...teamParts] = player.eraTeam.split(/\s+/);
   const team = teamParts.join(' ') || player.eraTeam;
@@ -159,7 +162,7 @@ export default function SeasonDetailPage() {
                 fontSize: 'clamp(30px,5.2vw,60px)',
                 lineHeight: 0.9,
                 letterSpacing: '-.015em',
-                color: 'var(--color-text-hi)',
+                color: '#FBF7F2',
               }}
             >
               {player.name.toUpperCase()}
@@ -167,12 +170,12 @@ export default function SeasonDetailPage() {
             <div className="flex items-center gap-2.5 mt-4 flex-wrap">
               <span
                 className="inline-flex items-center gap-2 font-mono text-[11.5px] px-2.5 py-1.5 whitespace-nowrap"
-                style={{ background: 'var(--color-surface-2)', border: '1px solid var(--color-surface-4)', color: 'var(--color-text-body-hi)' }}
+                style={{ background: '#1C1817', border: '1px solid #3A332D', color: '#F5EFE8' }}
               >
                 <span className="w-[3px] h-3.5" style={{ background: 'var(--color-amber-500)' }} />
                 '{year.slice(-2)} {player.teamKey} · {record} · {player.playoffRound}
               </span>
-              <span className="text-[11.5px] px-2.5 py-1.5 text-text-mid border border-surface-4">{player.pos}</span>
+              <span className="text-[11.5px] px-2.5 py-1.5" style={{ color: '#C9C2BA', border: '1px solid #3A332D' }}>{player.pos}</span>
             </div>
           </div>
 
@@ -182,8 +185,8 @@ export default function SeasonDetailPage() {
               <button className="text-xs font-semibold px-3.5 py-2" style={{ color: 'var(--color-surface-0)', background: 'var(--color-amber-500)' }}>
                 Add to lineup
               </button>
-              <button className="text-xs px-3.5 py-2 text-text-body-hi border border-[#4A423D]">Compare</button>
-              <button className="text-xs px-3.5 py-2 text-text-body-hi border border-[#4A423D]">Share</button>
+              <button className="text-xs px-3.5 py-2 border" style={{ color: '#F5EFE8', borderColor: '#4A423D' }}>Compare</button>
+              <button className="text-xs px-3.5 py-2 border" style={{ color: '#F5EFE8', borderColor: '#4A423D' }}>Share</button>
             </div>
           </div>
         </div>
@@ -193,9 +196,9 @@ export default function SeasonDetailPage() {
           style={{ gridTemplateColumns: `repeat(auto-fit, minmax(100px, 1fr))`, borderColor: '#322C29' }}
         >
           {stats.map((s, i) => (
-            <div key={s.label} className="px-4 py-4" style={{ borderRight: i < stats.length - 1 ? '1px solid var(--color-hairline)' : undefined }}>
-              <div className="font-mono text-[9.5px] tracking-[.12em] text-muted">{s.label}</div>
-              <div className="font-mono font-tnum text-[22px] text-text-hi mt-1">{s.value}</div>
+            <div key={s.label} className="px-4 py-4" style={{ borderRight: i < stats.length - 1 ? '1px solid #322C29' : undefined }}>
+              <div className="font-mono text-[9.5px] tracking-[.12em]" style={{ color: '#8A837B' }}>{s.label}</div>
+              <div className="font-mono font-tnum text-[22px] mt-1" style={{ color: '#FBF7F2' }}>{s.value}</div>
               <div className="h-[3px] mt-2" style={{ background: '#2A2422' }}>
                 <div
                   className="h-[3px]"
@@ -315,7 +318,7 @@ export default function SeasonDetailPage() {
                   className="grid items-center px-5 py-2.5 border-b border-hairline last:border-b-0 hover:bg-surface-3"
                   style={{ gridTemplateColumns: '54px minmax(0,1fr) 60px 76px 58px 58px', background: i % 2 === 1 ? 'var(--color-surface-2)' : undefined }}
                 >
-                  <span style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 78,'wght' 700", fontSize: 17, color: getTier(t.OVR).numeral }} className="font-tnum">
+                  <span style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 78,'wght' 700", fontSize: 17, color: getTier(t.OVR, theme).numeral }} className="font-tnum">
                     {t.eraTeam.match(/^\d{4}/)?.[0]}
                   </span>
                   <span className="flex items-center gap-2 min-w-0">
@@ -332,7 +335,12 @@ export default function SeasonDetailPage() {
             </div>
           )}
 
-          {/* career arc — every other season for this player */}
+          {/* career arc — dot chart of the player's OVR across all seasons */}
+          {careerArc.length > 1 && (
+            <CareerArcChart seasons={careerArc.map((s) => ({ id: s.id, year: yearOf(s), ovr: s.OVR }))} />
+          )}
+
+          {/* other seasons — every other season for this player, in a table */}
           <div className="border border-hairline bg-surface-1">
             <div className="px-5 py-4 border-b border-hairline">
               <div style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 86,'wght' 700", fontSize: 18 }} className="text-text-hi">
@@ -371,7 +379,7 @@ export default function SeasonDetailPage() {
                       }}
                     >
                       <span
-                        style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 78,'wght' 700", fontSize: 17, color: getTier(s.OVR).numeral }}
+                        style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 78,'wght' 700", fontSize: 17, color: getTier(s.OVR, theme).numeral }}
                         className="font-tnum"
                       >
                         '{String(yearOf(s)).slice(-2)}

@@ -4,6 +4,7 @@ import DynastyRoulettePage from './pages/DynastyRoulettePage';
 import CompareLineupsPage from './pages/CompareLineupsPage';
 import PlayersPage from './pages/PlayersPage';
 import SeasonDetailPage from './pages/SeasonDetailPage';
+import { ThemeProvider, useTheme } from './lib/ThemeContext';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home', end: true },
@@ -12,12 +13,26 @@ const NAV_LINKS = [
   { to: '/players', label: 'Players' },
 ];
 
-function App() {
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className="ml-auto px-2.5 py-1.5 text-[11px] font-mono uppercase tracking-[.14em] text-text-low hover:text-text-mid border border-hairline transition-colors"
+      title="Toggle light/dark theme"
+    >
+      {theme === 'dark' ? 'Dark' : 'Light'}
+    </button>
+  );
+}
+
+function AppShell() {
   return (
     <HashRouter>
       <div className="min-h-screen flex flex-col bg-surface-0 text-text-body-hi">
-        <header className="border-b border-hairline bg-[#0F0D0C]/90 backdrop-blur sticky top-0 z-10">
-          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-6">
+        <header className="border-b border-hairline bg-[var(--color-surface-0)]/90 backdrop-blur sticky top-0 z-10">
+          <div className="max-w-[1520px] mx-auto px-4 py-3 flex items-center gap-6">
             <span
               className="tracking-tight"
               style={{
@@ -47,10 +62,11 @@ function App() {
                 </NavLink>
               ))}
             </nav>
+            <ThemeToggle />
           </div>
         </header>
 
-        <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8">
+        <main className="flex-1 max-w-[1520px] w-full mx-auto px-4 py-8">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/roulette" element={<DynastyRoulettePage />} />
@@ -65,6 +81,14 @@ function App() {
         </footer>
       </div>
     </HashRouter>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppShell />
+    </ThemeProvider>
   );
 }
 

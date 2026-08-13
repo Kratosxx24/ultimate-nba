@@ -1,3 +1,5 @@
+import { useTheme } from '../lib/ThemeContext';
+
 export type BadgeSize = 'xs' | 'sm' | 'md' | 'lg' | 'hero';
 
 interface Tier {
@@ -10,7 +12,7 @@ interface Tier {
   flat: boolean; // true = no edge padding, single flat fill
 }
 
-function getTier(ovr: number): Tier {
+function getTierDark(ovr: number): Tier {
   if (ovr >= 95) {
     return {
       name: 'Immortal',
@@ -99,6 +101,99 @@ function getTier(ovr: number): Tier {
   };
 }
 
+function getTierLight(ovr: number): Tier {
+  if (ovr >= 95) {
+    return {
+      name: 'Immortal',
+      numeral: '#8A5A10',
+      edge: 'linear-gradient(150deg,#B07A18,#8A5A10)',
+      edgeWidth: 2.5,
+      inner: '#FFF9EE',
+      glow: 'rgba(138,90,16,.28)',
+      flat: false,
+    };
+  }
+  if (ovr >= 90) {
+    return {
+      name: 'Legend',
+      numeral: '#8A6208',
+      edge: '#B8860B',
+      edgeWidth: 2,
+      inner: '#FFFCF5',
+      glow: 'rgba(184,134,11,.18)',
+      flat: false,
+    };
+  }
+  if (ovr >= 85) {
+    return {
+      name: 'Superstar',
+      numeral: '#A8500F',
+      edge: '#C4611A',
+      edgeWidth: 2,
+      inner: '#FFF8F2',
+      glow: null,
+      flat: false,
+    };
+  }
+  if (ovr >= 80) {
+    return {
+      name: 'All-Star',
+      numeral: '#2B4276',
+      edge: '#3F5FA6',
+      edgeWidth: 1.5,
+      inner: '#F5F8FE',
+      glow: null,
+      flat: false,
+    };
+  }
+  if (ovr >= 75) {
+    return {
+      name: 'Starter',
+      numeral: '#465C86',
+      edge: '#8B99B5',
+      edgeWidth: 1,
+      inner: '#F7F8FB',
+      glow: null,
+      flat: false,
+    };
+  }
+  if (ovr >= 70) {
+    return {
+      name: 'Rotation',
+      numeral: '#5A5249',
+      edge: '#C4B8A6',
+      edgeWidth: 1,
+      inner: '#F5F1E9',
+      glow: null,
+      flat: false,
+    };
+  }
+  if (ovr >= 60) {
+    return {
+      name: 'Bench',
+      numeral: '#6B6259',
+      edge: '#ECE6DD',
+      edgeWidth: 0,
+      inner: '#ECE6DD',
+      glow: null,
+      flat: true,
+    };
+  }
+  return {
+    name: 'Deep Bench',
+    numeral: '#847B71',
+    edge: '#EFEAE2',
+    edgeWidth: 0,
+    inner: '#EFEAE2',
+    glow: null,
+    flat: true,
+  };
+}
+
+function getTier(ovr: number, theme: 'dark' | 'light' = 'dark'): Tier {
+  return theme === 'light' ? getTierLight(ovr) : getTierDark(ovr);
+}
+
 const SIZE_CONFIG: Record<
   BadgeSize,
   { box: number; numeral: number; clip: string; rule: boolean; label: boolean }
@@ -117,7 +212,8 @@ export default function OvrBadge({
   ovr: number;
   size?: BadgeSize;
 }) {
-  const tier = getTier(ovr);
+  const { theme } = useTheme();
+  const tier = getTier(ovr, theme);
   const cfg = SIZE_CONFIG[size];
   // Mockup: xs/sm never glow (edge thickens instead below 24px). md=5px, lg=8px, hero=20/26px per tier.
   const glowPx = size === 'hero' ? (ovr >= 95 ? 20 : 26) : size === 'lg' ? 8 : size === 'md' ? 5 : 0;
