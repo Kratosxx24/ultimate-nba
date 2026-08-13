@@ -1,16 +1,19 @@
 import { useMemo, useRef, useState } from 'react';
 import { getAllPlayers } from '../lib/players';
 import { getTeamColors } from '../lib/teamColors';
-import { emptyLineup, summarizeLineup, type LineupSlot } from '../lib/lineup';
-import PlayerCard from '../components/PlayerCard';
-import EmptySlot from '../components/EmptySlot';
+import { summarizeLineup } from '../lib/lineup';
+import OvrBadge, { getTier } from '../components/OvrBadge';
 import LineupSummaryPanel from '../components/LineupSummaryPanel';
 import PlayerPickerModal from '../components/PlayerPickerModal';
+import { useTheme } from '../lib/ThemeContext';
 import type { Player } from '../types/player';
 
 // Ported from the original NBA Ultimate Lineup Builder's "Dynasty Roulette" (conference.js):
-// each of the five spots is its own spin. Spin lands a team + decade, you draft one player
-// from that era into an open spot, the spot locks, then you spin again for the next spot.
+// five fixed position slots (PG/SG/SF/PF/C), each its own spin. Spin lands a team + decade,
+// you draft one player from that era into an OPEN position, the spot locks, then spin again.
+const POSITIONS = ['PG', 'SG', 'SF', 'PF', 'C'] as const;
+type Position = (typeof POSITIONS)[number];
+
 const FLASH_STEPS = 30;
 const FLASH_TOTAL_DELAY = (step: number) => 43 + Math.pow(step / FLASH_STEPS, 2.4) * 129;
 
@@ -22,12 +25,20 @@ function decadeOf(eraTeam: string): number {
   return Math.floor(year / 10) * 10;
 }
 
+function positionsOf(p: Player): string[] {
+  return p.pos.split('/').map((s) => s.trim());
+}
+
 interface Combo {
   teamKey: string;
   decade: number;
 }
 
+type Roster = Record<Position, Player | null>;
+const emptyRoster = (): Roster => ({ PG: null, SG: null, SF: null, PF: null, C: null });
+
 export default function DynastyRoulettePage() {
+  const { theme } = useTheme();
   const players = useMemo(() => getAllPlayers(), []);
 
   const rollablePairs = useMemo(() => {
@@ -39,33 +50,59 @@ export default function DynastyRoulettePage() {
     return [...seen.values()];
   }, [players]);
 
-  const [slots, setSlots] = useState<LineupSlot[]>(emptyLineup());
+  const [roster, setRoster] = useState<Roster>(emptyRoster());
   const [combo, setCombo] = useState<Combo | null>(null);
   const [flashCombo, setFlashCombo] = useState<Combo | null>(null);
   const [rolling, setRolling] = useState(false);
   const [awaiting, setAwaiting] = useState(false); // rolled, not yet drafted from
   const [usedTeamReroll, setUsedTeamReroll] = useState(false);
   const [usedDecadeReroll, setUsedDecadeReroll] = useState(false);
-  const [pickerIndex, setPickerIndex] = useState<number | null>(null);
+  const [pickerPos, setPickerPos] = useState<Position | null>(null);
   const [veteranMode, setVeteranMode] = useState(false);
   const timeoutRef = useRef<number | null>(null);
 
-  const usedNames = useMemo(() => new Set(slots.filter((p): p is Player => p !== null).map((p) => p.name)), [slots]);
-  const openCount = slots.filter((s) => s === null).length;
+  const usedNames = useMemo(
+    () => new Set(POSITIONS.map((pos) => roster[pos]).filter((p): p is Player => p !== null).map((p) => p.name)),
+    [roster],
+  );
+  const openPositions = useMemo(() => POSITIONS.filter((pos) => !roster[pos]), [roster]);
+  const allLocked = openPositions.length === 0;
 
-  const pool: Player[] = useMemo(() => {
+  // Which open positions can THIS roll actually fill (has an unused player at that spot)?
+  const fillablePositions = useMemo(() => {
+    if (!combo) return new Set<Position>();
+    const out = new Set<Position>();
+    for (const p of players) {
+      if (p.teamKey !== combo.teamKey || decadeOf(p.eraTeam) !== combo.decade || usedNames.has(p.name)) continue;
+      for (const pos of positionsOf(p)) {
+        if ((POSITIONS as readonly string[]).includes(pos) && openPositions.includes(pos as Position)) {
+          out.add(pos as Position);
+        }
+      }
+    }
+    return out;
+  }, [players, combo, usedNames, openPositions]);
+
+  function poolFor(pos: Position): Player[] {
     if (!combo) return [];
     const seen = new Set<string>();
     return players.filter((p) => {
       if (p.teamKey !== combo.teamKey || decadeOf(p.eraTeam) !== combo.decade) return false;
       if (usedNames.has(p.name) || seen.has(p.name)) return false;
+      if (!positionsOf(p).includes(pos)) return false;
       seen.add(p.name);
       return true;
     });
-  }, [players, combo, usedNames]);
+  }
 
-  const summary = summarizeLineup(slots);
+  const summary = summarizeLineup(POSITIONS.map((pos) => roster[pos]));
   const teamColors = getTeamColors((flashCombo ?? combo)?.teamKey);
+
+  function comboFillsAnyOpen(c: Combo, open: Position[], used: Set<string>): boolean {
+    return players.some(
+      (p) => p.teamKey === c.teamKey && decadeOf(p.eraTeam) === c.decade && !used.has(p.name) && positionsOf(p).some((pos) => open.includes(pos as Position)),
+    );
+  }
 
   function flashRoll(finalPick: () => Combo, onLand: (c: Combo) => void) {
     setRolling(true);
@@ -87,11 +124,8 @@ export default function DynastyRoulettePage() {
   }
 
   function spin() {
-    if (rolling || awaiting || openCount === 0) return;
-    const used = usedNames;
-    const fillable = rollablePairs.filter((c) =>
-      players.some((p) => p.teamKey === c.teamKey && decadeOf(p.eraTeam) === c.decade && !used.has(p.name)),
-    );
+    if (rolling || awaiting || allLocked) return;
+    const fillable = rollablePairs.filter((c) => comboFillsAnyOpen(c, openPositions, usedNames));
     if (!fillable.length) return;
     flashRoll(
       () => fillable[Math.floor(Math.random() * fillable.length)],
@@ -104,9 +138,7 @@ export default function DynastyRoulettePage() {
 
   function switchTeam() {
     if (rolling || !awaiting || usedTeamReroll || !combo) return;
-    const opts = rollablePairs.filter(
-      (c) => c.decade === combo.decade && players.some((p) => p.teamKey === c.teamKey && decadeOf(p.eraTeam) === c.decade && !usedNames.has(p.name)),
-    );
+    const opts = rollablePairs.filter((c) => c.decade === combo.decade && comboFillsAnyOpen(c, openPositions, usedNames));
     if (!opts.length) return;
     setUsedTeamReroll(true);
     flashRoll(
@@ -117,9 +149,7 @@ export default function DynastyRoulettePage() {
 
   function rerollDecade() {
     if (rolling || !awaiting || usedDecadeReroll || !combo) return;
-    const opts = rollablePairs.filter(
-      (c) => c.teamKey === combo.teamKey && players.some((p) => p.teamKey === c.teamKey && decadeOf(p.eraTeam) === c.decade && !usedNames.has(p.name)),
-    );
+    const opts = rollablePairs.filter((c) => c.teamKey === combo.teamKey && comboFillsAnyOpen(c, openPositions, usedNames));
     if (!opts.length) return;
     setUsedDecadeReroll(true);
     flashRoll(
@@ -128,15 +158,15 @@ export default function DynastyRoulettePage() {
     );
   }
 
-  function pickForSlot(i: number, p: Player) {
-    setSlots((prev) => prev.map((s, idx) => (idx === i ? p : s)));
+  function pickForPosition(pos: Position, p: Player) {
+    setRoster((prev) => ({ ...prev, [pos]: p }));
     setAwaiting(false);
-    setPickerIndex(null);
+    setPickerPos(null);
   }
 
   function clearAll() {
     if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-    setSlots(emptyLineup());
+    setRoster(emptyRoster());
     setCombo(null);
     setFlashCombo(null);
     setRolling(false);
@@ -146,7 +176,6 @@ export default function DynastyRoulettePage() {
   }
 
   const shownCombo = flashCombo ?? combo;
-  const allLocked = openCount === 0;
 
   return (
     <div className="space-y-6">
@@ -184,7 +213,7 @@ export default function DynastyRoulettePage() {
             🎲 Dynasty Roulette · 82&#8209;0 run
           </div>
           <div
-            className={rolling ? 'flex items-baseline gap-3' : 'flex items-baseline gap-3'}
+            className="flex items-baseline gap-3"
             style={rolling ? { animation: 'cbRollPulse 0.12s ease-in-out infinite alternate' } : undefined}
           >
             {shownCombo ? (
@@ -218,8 +247,8 @@ export default function DynastyRoulettePage() {
               : allLocked
                 ? 'Dynasty complete — five locked picks across five rolls.'
                 : awaiting
-                  ? 'Pick an open spot to draft from this era — that spot locks for good.'
-                  : 'Spin for a team + decade, draft one player into an open spot, then spin again for the next.'}
+                  ? 'Pick a highlighted position to draft from this era — that spot locks for good.'
+                  : 'Spin for a team + decade, draft one player into an open position, then spin again for the next.'}
             {veteranMode && !rolling && ' Veteran mode is on: ratings and archetypes stay hidden while you draft.'}
           </p>
           {awaiting && !rolling && (
@@ -255,20 +284,61 @@ export default function DynastyRoulettePage() {
         </button>
       </div>
 
+      {/* five position slots, horizontal row */}
+      <div className="grid grid-cols-5 gap-3">
+        {POSITIONS.map((pos) => {
+          const player = roster[pos];
+          const isFillable = awaiting && fillablePositions.has(pos);
+          const isDimmed = awaiting && !player && !fillablePositions.has(pos);
+
+          if (player) {
+            const tier = getTier(player.OVR, theme);
+            const pc = getTeamColors(player.teamKey);
+            return (
+              <div key={pos} className="border p-3 flex flex-col items-center text-center gap-2" style={{ borderColor: `${pc.primary}55`, background: 'var(--color-surface-1)' }}>
+                <span className="font-mono text-[10px] uppercase tracking-[.14em] text-muted">{pos}</span>
+                <OvrBadge ovr={player.OVR} size="md" />
+                <div className="text-sm leading-tight" style={{ color: tier.numeral === '#6B655F' ? undefined : 'var(--color-text-hi)' }}>
+                  {player.name}
+                </div>
+                <div className="font-mono text-[10px] text-text-low">{player.eraTeam}</div>
+              </div>
+            );
+          }
+
+          return (
+            <button
+              key={pos}
+              type="button"
+              disabled={!isFillable}
+              onClick={() => isFillable && setPickerPos(pos)}
+              className="border border-dashed p-3 flex flex-col items-center justify-center gap-2 min-h-[128px] transition-colors"
+              style={{
+                borderColor: isFillable ? 'var(--color-amber-500)' : 'var(--color-surface-4)',
+                background: isFillable ? 'var(--color-card-hover)' : 'var(--color-surface-1)',
+                opacity: isDimmed ? 0.4 : 1,
+                filter: isDimmed ? 'grayscale(.35)' : undefined,
+                cursor: isFillable ? 'pointer' : 'default',
+              }}
+            >
+              <span
+                className="font-mono text-[11px] uppercase tracking-[.14em]"
+                style={{ color: isFillable ? 'var(--color-amber-500)' : 'var(--color-text-low)' }}
+              >
+                {pos}
+              </span>
+              <span className="text-lg text-text-low">+</span>
+              <span className="text-[10px] font-mono text-text-low text-center">
+                {isFillable ? 'draft here' : awaiting ? 'unavailable' : 'spin to unlock'}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
       <div className="grid md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 space-y-2">
-          {slots.map((slot, i) =>
-            slot ? (
-              <PlayerCard key={slot.id} player={slot} compact />
-            ) : (
-              <EmptySlot
-                key={i}
-                label={awaiting && combo ? `Slot ${i + 1} — draft from ${combo.teamKey} ${combo.decade}s` : `Slot ${i + 1} — spin to unlock`}
-                onClick={awaiting ? () => setPickerIndex(i) : undefined}
-              />
-            ),
-          )}
-          {(combo || slots.some(Boolean)) && (
+        <div className="md:col-span-2">
+          {(combo || POSITIONS.some((pos) => roster[pos])) && (
             <button
               type="button"
               onClick={clearAll}
@@ -278,18 +348,17 @@ export default function DynastyRoulettePage() {
             </button>
           )}
         </div>
-
         <div>
           <LineupSummaryPanel summary={summary} title="Dynasty Summary" />
         </div>
       </div>
 
-      {pickerIndex !== null && (
+      {pickerPos !== null && (
         <PlayerPickerModal
-          players={pool}
+          players={poolFor(pickerPos)}
           blind={veteranMode}
-          onClose={() => setPickerIndex(null)}
-          onSelect={(p) => pickForSlot(pickerIndex, p)}
+          onClose={() => setPickerPos(null)}
+          onSelect={(p) => pickForPosition(pickerPos, p)}
         />
       )}
     </div>
