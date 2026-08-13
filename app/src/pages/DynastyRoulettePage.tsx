@@ -37,6 +37,24 @@ function positionsOf(p: Player): string[] {
   return p.pos.split('/').map((s) => s.trim());
 }
 
+// eraTeam is formatted like "'96 Bulls" — split so year and team can share the same
+// font/color treatment as the roll banner's decade (amber) + team (brand color) pairing.
+function splitEraTeam(eraTeam: string): { year: string; team: string } {
+  const m = eraTeam.match(/^('?\d{2,4})\s*(.*)$/);
+  if (m) return { year: m[1], team: m[2] || eraTeam };
+  return { year: '', team: eraTeam };
+}
+
+function YearTeam({ eraTeam, teamColor }: { eraTeam: string; teamColor: string }) {
+  const { year, team } = splitEraTeam(eraTeam);
+  return (
+    <div className="font-mono text-[11px] flex items-baseline gap-1">
+      <span style={{ color: 'var(--color-amber-500)' }}>{year}</span>
+      <span style={{ color: teamColor }}>{team}</span>
+    </div>
+  );
+}
+
 interface Combo {
   teamKey: string;
   decade: number;
@@ -373,7 +391,7 @@ export default function DynastyRoulettePage() {
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <div className="font-mono text-[11px] text-text-low">{p.eraTeam}</div>
+                      <YearTeam eraTeam={p.eraTeam} teamColor={pc.primary} />
                       <div className="text-base font-semibold text-text-hi leading-tight break-words">{p.name}</div>
                     </div>
                     {veteranMode ? (
@@ -443,7 +461,7 @@ export default function DynastyRoulettePage() {
                   <div className="text-base leading-tight" style={{ color: tier.numeral === '#6B655F' ? undefined : 'var(--color-text-hi)' }}>
                     {player.name}
                   </div>
-                  <div className="font-mono text-[11px] text-text-low">{player.eraTeam}</div>
+                  <YearTeam eraTeam={player.eraTeam} teamColor={pc.primary} />
                   <ArchetypeBadge archetype={player.archetype} />
                 </div>
               );
