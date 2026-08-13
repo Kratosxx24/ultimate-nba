@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 import { getAllPlayers } from '../lib/players';
 import { getTeamColors } from '../lib/teamColors';
 import { summarizeLineup } from '../lib/lineup';
-import { ARCHETYPE_STYLE, archetypeFamily } from '../lib/archetype';
+import { archetypeFamily } from '../lib/archetype';
 import OvrBadge, { getTier } from '../components/OvrBadge';
 import LineupSummaryPanel from '../components/LineupSummaryPanel';
 import { useTheme } from '../lib/ThemeContext';
@@ -47,13 +47,21 @@ interface Combo {
 type Roster = Record<Position, Player | null>;
 const emptyRoster = (): Roster => ({ PG: null, SG: null, SF: null, PF: null, C: null });
 
+// Solid-fill variant of the shared archetype palette — the translucent/light-text version
+// reads fine in a dense table row but washes out on these bigger draft cards, especially
+// in light mode, so these cards use the family hue as a solid background with white text.
+const ARCHETYPE_SOLID: Record<string, string> = {
+  playmaking: '#3D6BB0',
+  defense: '#3E8F73',
+  scoring: '#C46A2E',
+  post: '#8460AE',
+  role: '#6B655F',
+};
+
 function ArchetypeBadge({ archetype }: { archetype: string }) {
-  const s = ARCHETYPE_STYLE[archetypeFamily(archetype)];
+  const bg = ARCHETYPE_SOLID[archetypeFamily(archetype)];
   return (
-    <span
-      className="inline-block text-[10px] px-2 py-0.5 rounded-full"
-      style={{ background: s.bg, color: s.text, border: `1px solid ${s.border}` }}
-    >
+    <span className="inline-block text-[10.5px] font-semibold px-2 py-0.5 rounded-full text-white" style={{ background: bg }}>
       {archetype}
     </span>
   );
@@ -253,18 +261,18 @@ export default function DynastyRoulettePage() {
                   style={{
                     fontFamily: 'Archivo, sans-serif',
                     fontVariationSettings: "'wdth' 72,'wght' 800",
-                    fontSize: 22,
+                    fontSize: 36,
                     color: teamColors.primary,
                   }}
                 >
                   {shownCombo.teamKey}
                 </span>
-                <span className="font-mono text-sm" style={{ color: 'var(--color-amber-500)' }}>
+                <span className="font-mono text-lg" style={{ color: 'var(--color-amber-500)' }}>
                   {shownCombo.decade}s
                 </span>
               </>
             ) : (
-              <span className="text-text-mid" style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 22 }}>
+              <span className="text-text-mid" style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 36 }}>
                 Hit spin to roll
               </span>
             )}
@@ -274,18 +282,18 @@ export default function DynastyRoulettePage() {
             type="button"
             onClick={spin}
             disabled={rolling || awaiting || allLocked}
-            className="px-4 py-1.5 bg-amber-500 text-[#1A1410] text-xs font-semibold font-mono uppercase tracking-[.08em] hover:bg-amber-300 disabled:opacity-50 transition-colors"
+            className="px-3 py-1 bg-amber-500 text-[#1A1410] text-[10px] font-semibold font-mono uppercase tracking-[.08em] hover:bg-amber-300 disabled:opacity-50 transition-colors"
           >
             🎲 {allLocked ? 'Complete' : awaiting ? 'Pick a spot' : combo ? 'Spin for next spot' : 'Spin'}
           </button>
 
           {awaiting && !rolling && (
-            <div className="flex gap-2">
+            <div className="flex gap-1.5">
               <button
                 type="button"
                 onClick={switchTeam}
                 disabled={usedTeamReroll}
-                className="text-[10px] font-mono uppercase tracking-[.08em] px-2 py-1 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="text-[9px] font-mono uppercase tracking-[.08em] px-1.5 py-1 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
               >
                 {usedTeamReroll ? '✓ Team used' : 'Switch team'}
@@ -294,7 +302,7 @@ export default function DynastyRoulettePage() {
                 type="button"
                 onClick={rerollDecade}
                 disabled={usedDecadeReroll}
-                className="text-[10px] font-mono uppercase tracking-[.08em] px-2 py-1 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="text-[9px] font-mono uppercase tracking-[.08em] px-1.5 py-1 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
               >
                 {usedDecadeReroll ? '✓ Decade used' : 'Re-roll decade'}
@@ -377,11 +385,11 @@ export default function DynastyRoulettePage() {
                       <div className="text-sm font-semibold text-text-hi leading-tight break-words">{p.name}</div>
                     </div>
                     {veteranMode ? (
-                      <span className="font-mono text-[10px] px-2 py-1 rounded" style={{ background: 'var(--color-surface-3)', color: 'var(--color-text-low)' }}>
+                      <span className="font-mono text-sm px-2.5 py-1.5 rounded" style={{ background: 'var(--color-surface-3)', color: 'var(--color-text-low)' }}>
                         ?
                       </span>
                     ) : (
-                      <OvrBadge ovr={p.OVR} size="xs" />
+                      <OvrBadge ovr={p.OVR} size="sm" />
                     )}
                   </div>
                   {!veteranMode && <ArchetypeBadge archetype={p.archetype} />}
