@@ -6,19 +6,33 @@ import OvrBadge from './OvrBadge';
 interface PlayerPickerModalProps {
   onSelect: (player: Player) => void;
   onClose: () => void;
+  /** Constrain the pool (e.g. to a rolled team+decade). Defaults to every player-season. */
+  players?: Player[];
+  /** Blind-draft: hides rating/archetype and shuffles order — ball knowledge only. */
+  blind?: boolean;
 }
 
-export default function PlayerPickerModal({ onSelect, onClose }: PlayerPickerModalProps) {
+function shuffle<T>(arr: T[]): T[] {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+export default function PlayerPickerModal({ onSelect, onClose, players, blind }: PlayerPickerModalProps) {
   const [query, setQuery] = useState('');
-  const allPlayers = useMemo(() => getAllPlayers(), []);
+  const allPlayers = useMemo(() => players ?? getAllPlayers(), [players]);
+  const ordered = useMemo(() => (blind ? shuffle(allPlayers) : allPlayers), [allPlayers, blind]);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return allPlayers.slice(0, 40);
-    return allPlayers
+    if (!q) return ordered.slice(0, 40);
+    return ordered
       .filter((p) => p.name.toLowerCase().includes(q) || p.eraTeam.toLowerCase().includes(q))
       .slice(0, 40);
-  }, [query, allPlayers]);
+  }, [query, ordered]);
 
   return (
     <div
@@ -50,11 +64,20 @@ export default function PlayerPickerModal({ onSelect, onClose }: PlayerPickerMod
               onClick={() => onSelect(p)}
               className="w-full flex items-center gap-3 px-2 py-2 hover:bg-surface-3 text-left"
             >
-              <OvrBadge ovr={p.OVR} size="sm" />
+              {blind ? (
+                <div
+                  className="flex-none w-9 h-9 flex items-center justify-center text-text-low"
+                  style={{ background: 'var(--color-surface-3)', clipPath: 'polygon(0 0,100% 0,100% 74%,78% 100%,0 100%)' }}
+                >
+                  ?
+                </div>
+              ) : (
+                <OvrBadge ovr={p.OVR} size="sm" />
+              )}
               <div className="min-w-0 flex-1">
                 <div className="text-sm text-text-hi truncate">{p.name}</div>
                 <div className="text-xs font-mono text-text-low truncate">
-                  {p.eraTeam} · {p.pos}
+                  {blind ? p.eraTeam.replace(/^'(\d{2}).*/, "'$1") : `${p.eraTeam} · ${p.pos}`}
                 </div>
               </div>
             </button>
