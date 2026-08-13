@@ -26,37 +26,9 @@ export default function HomePage() {
         </p>
       </div>
 
-      <div className="grid sm:grid-cols-2 gap-4">
-        <Link
-          to="/roulette"
-          className="border border-surface-4 bg-gradient-to-br from-amber-900/40 to-transparent p-6 hover:border-amber-500 transition-colors"
-        >
-          <div className="text-2xl mb-1">🎰</div>
-          <div
-            className="text-text-hi"
-            style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 82,'wght' 700", fontSize: 19 }}
-          >
-            Dynasty Roulette
-          </div>
-        </Link>
-
-        <Link
-          to="/compare"
-          className="border border-surface-4 bg-gradient-to-br from-blue-900/40 to-transparent p-6 hover:border-blue-500 transition-colors"
-        >
-          <div className="text-2xl mb-1">⚖️</div>
-          <div
-            className="text-text-hi"
-            style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 82,'wght' 700", fontSize: 19 }}
-          >
-            Compare Lineups
-          </div>
-        </Link>
-      </div>
-
       <div>
         <div className="flex items-baseline gap-3 mb-4">
-          <span className="font-mono text-[11px] tracking-[.22em] text-muted">02</span>
+          <span className="font-mono text-[11px] tracking-[.22em] text-muted">01</span>
           <h2
             className="text-text-hi"
             style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 78,'wght' 800", fontSize: 24 }}
