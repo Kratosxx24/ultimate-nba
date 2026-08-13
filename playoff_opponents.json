@@ -1,0 +1,6678 @@
+{
+"'62 Lakers": [
+{
+"round": "R1",
+"opponent": "Detroit Pistons",
+"opponentWins": 37,
+"opponentLosses": 43,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Boston Celtics",
+"opponentWins": 60,
+"opponentLosses": 20,
+"result": "lost 4-3"
+}
+],
+"'64 Celtics": [
+{
+"round": "CF",
+"opponent": "Cincinnati Royals",
+"opponentWins": 55,
+"opponentLosses": 25,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "San Francisco Warriors",
+"opponentWins": 48,
+"opponentLosses": 32,
+"result": "won 4-1"
+}
+],
+"'64 Royals": [
+{
+"round": "CF",
+"opponent": "Boston Celtics",
+"opponentWins": 59,
+"opponentLosses": 21,
+"result": "lost 4-1"
+}
+],
+"'64 Warriors": [
+{
+"round": "CF",
+"opponent": "St. Louis Hawks",
+"opponentWins": 46,
+"opponentLosses": 34,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Boston Celtics",
+"opponentWins": 59,
+"opponentLosses": 21,
+"result": "lost 4-1"
+}
+],
+"'67 76ers": [
+{
+"round": "R1",
+"opponent": "Cincinnati Royals",
+"opponentWins": 39,
+"opponentLosses": 42,
+"result": "won 3-1"
+},
+{
+"round": "CF",
+"opponent": "Boston Celtics",
+"opponentWins": 60,
+"opponentLosses": 21,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "San Francisco Warriors",
+"opponentWins": 44,
+"opponentLosses": 37,
+"result": "won 4-2"
+}
+],
+"'70 Knicks": [
+{
+"round": "R1",
+"opponent": "Baltimore Bullets",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Milwaukee Bucks",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 4-3"
+}
+],
+"'70 Lakers": [
+{
+"round": "R1",
+"opponent": "Phoenix Suns",
+"opponentWins": 39,
+"opponentLosses": 43,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Atlanta Hawks",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "New York Knicks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 4-3"
+}
+],
+"'71 Bucks": [
+{
+"round": "R1",
+"opponent": "San Francisco Warriors",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Baltimore Bullets",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-0"
+}
+],
+"'72 Knicks": [
+{
+"round": "R1",
+"opponent": "Baltimore Bullets",
+"opponentWins": 38,
+"opponentLosses": 44,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Boston Celtics",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 69,
+"opponentLosses": 13,
+"result": "lost 4-1"
+}
+],
+"'72 Lakers": [
+{
+"round": "R1",
+"opponent": "Chicago Bulls",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Milwaukee Bucks",
+"opponentWins": 63,
+"opponentLosses": 19,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "New York Knicks",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-1"
+}
+],
+"'73 Knicks": [
+{
+"round": "R1",
+"opponent": "Baltimore Bullets",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Boston Celtics",
+"opponentWins": 68,
+"opponentLosses": 14,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "won 4-1"
+}
+],
+"'74 Celtics": [
+{
+"round": "R1",
+"opponent": "Buffalo Braves",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "New York Knicks",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Milwaukee Bucks",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-3"
+}
+],
+"'74 Knicks": [
+{
+"round": "CF",
+"opponent": "Boston Celtics",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 4-1"
+}
+],
+"'75 Braves": [
+{
+"round": "R2",
+"opponent": "Washington Bullets",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 4-3"
+}
+],
+"'75 Warriors": [
+{
+"round": "R2",
+"opponent": "Seattle SuperSonics",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Chicago Bulls",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Washington Bullets",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "won 4-0"
+}
+],
+"'76 Suns": [
+{
+"round": "R2",
+"opponent": "Seattle SuperSonics",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Golden State Warriors",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Boston Celtics",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 4-2"
+}
+],
+"'77 Blazers": [
+{
+"round": "R1",
+"opponent": "Chicago Bulls",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 2-1"
+},
+{
+"round": "R2",
+"opponent": "Denver Nuggets",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-2"
+}
+],
+"'77 Bulls": [
+{
+"round": "R1",
+"opponent": "Portland Trail Blazers",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "lost 1-2"
+}
+],
+"'77 Nuggets": [
+{
+"round": "R1 (Conf. Semis, bye in mini-round)",
+"opponent": "Portland Trail Blazers",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "lost 2-4"
+}
+],
+"'78 Bullets": [
+{
+"round": "R1",
+"opponent": "Atlanta Hawks",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 2-0"
+},
+{
+"round": "R2",
+"opponent": "San Antonio Spurs",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Seattle SuperSonics",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-3"
+}
+],
+"'79 Sonics": [
+{
+"round": "R2 (Conf. Semis, bye in R1)",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Phoenix Suns",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Washington Bullets",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-1"
+}
+],
+"'80 Lakers": [
+{
+"round": "R2 (Conf. Semis, bye in R1)",
+"opponent": "Phoenix Suns",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Seattle SuperSonics",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-2"
+}
+],
+"'80 Spurs": [
+{
+"round": "R1",
+"opponent": "Houston Rockets",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "lost 1-2"
+}
+],
+"'81 Sixers": [
+{
+"round": "R1",
+"opponent": "Indiana Pacers",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 2-0"
+},
+{
+"round": "R2",
+"opponent": "Milwaukee Bucks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Boston Celtics",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 3-4"
+}
+],
+"'81 Celtics": [
+{
+"round": "R1",
+"opponent": "New York Knicks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Chicago Bulls",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Houston Rockets",
+"opponentWins": 40,
+"opponentLosses": 42,
+"result": "won 4-2"
+}
+],
+"'82 Nuggets": [
+{
+"round": "R1",
+"opponent": "Phoenix Suns",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "lost 1-2"
+}
+],
+"'82 Rockets": [
+{
+"round": "R1",
+"opponent": "Seattle SuperSonics",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 1-2"
+}
+],
+"'83 Sixers": [
+{
+"round": "R1",
+"opponent": "New York Knicks",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-0"
+},
+{
+"round": "CF (Conf. Finals, bye in R2)",
+"opponent": "Milwaukee Bucks",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-0"
+}
+],
+"'84 Jazz": [
+{
+"round": "R1",
+"opponent": "Denver Nuggets",
+"opponentWins": 38,
+"opponentLosses": 44,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Phoenix Suns",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "lost 2-4"
+}
+],
+"'84 Knicks": [
+{
+"round": "R1",
+"opponent": "Detroit Pistons",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Boston Celtics",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 3-4"
+}
+],
+"'85 Bucks": [
+{
+"round": "R1",
+"opponent": "Chicago Bulls",
+"opponentWins": 38,
+"opponentLosses": 44,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 0-4"
+}
+],
+"'85 Celtics": [
+{
+"round": "R1",
+"opponent": "Cleveland Cavaliers",
+"opponentWins": 36,
+"opponentLosses": 46,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Detroit Pistons",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 2-4"
+}
+],
+"'85 Jazz": [
+{
+"round": "R1",
+"opponent": "Houston Rockets",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Denver Nuggets",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 1-4"
+}
+],
+"'85 Nuggets": [
+{
+"round": "R1",
+"opponent": "San Antonio Spurs",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Utah Jazz",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 1-4"
+}
+],
+"'86 Bucks": [
+{
+"round": "R1",
+"opponent": "New Jersey Nets",
+"opponentWins": 39,
+"opponentLosses": 43,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Boston Celtics",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 0-4"
+}
+],
+"'86 Celtics": [
+{
+"round": "R1",
+"opponent": "Chicago Bulls",
+"opponentWins": 30,
+"opponentLosses": 52,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Atlanta Hawks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Milwaukee Bucks",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "Houston Rockets",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-2"
+}
+],
+"'86 Hawks": [
+{
+"round": "R1",
+"opponent": "Detroit Pistons",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Boston Celtics",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 1-4"
+}
+],
+"'86 Mavericks": [
+{
+"round": "R1",
+"opponent": "Utah Jazz",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 2-4"
+}
+],
+"'86 Rockets": [
+{
+"round": "R1",
+"opponent": "Sacramento Kings",
+"opponentWins": 37,
+"opponentLosses": 45,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Denver Nuggets",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Boston Celtics",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 2-4"
+}
+],
+"'86 Bullets": [
+{
+"round": "R1",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 2-3"
+}
+],
+"'86 Pistons": [
+{
+"round": "R1",
+"opponent": "Atlanta Hawks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 1-3"
+}
+],
+"'87 Bucks": [
+{
+"round": "R1",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Boston Celtics",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "lost 3-4"
+}
+],
+"'87 Celtics": [
+{
+"round": "R1",
+"opponent": "Chicago Bulls",
+"opponentWins": 40,
+"opponentLosses": 42,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Milwaukee Bucks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Detroit Pistons",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 65,
+"opponentLosses": 17,
+"result": "lost 2-4"
+}
+],
+"'87 Lakers": [
+{
+"round": "R1",
+"opponent": "Denver Nuggets",
+"opponentWins": 37,
+"opponentLosses": 45,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Golden State Warriors",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Seattle SuperSonics",
+"opponentWins": 39,
+"opponentLosses": 43,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "Boston Celtics",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-2"
+}
+],
+"'87 Pacers": [
+{
+"round": "R1",
+"opponent": "Atlanta Hawks",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 1-3"
+}
+],
+"'87 Warriors": [
+{
+"round": "R1",
+"opponent": "Utah Jazz",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 65,
+"opponentLosses": 17,
+"result": "lost 1-4"
+}
+],
+"'87 SuperSonics": [
+{
+"round": "R1",
+"opponent": "Dallas Mavericks",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Houston Rockets",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 65,
+"opponentLosses": 17,
+"result": "lost 0-4"
+}
+],
+"'88 Trail Blazers": [
+{
+"round": "R1",
+"opponent": "Utah Jazz",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "lost 1-3"
+}
+],
+"'88 Cavaliers": [
+{
+"round": "R1",
+"opponent": "Bulls",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 3-2"
+}
+],
+"'88 Hawks": [
+{
+"round": "R1",
+"opponent": "Bucks",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Celtics",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 4-3"
+}
+],
+"'88 Knicks": [
+{
+"round": "R1",
+"opponent": "Celtics",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 3-1"
+}
+],
+"'88 Lakers": [
+{
+"round": "R1",
+"opponent": "Spurs",
+"opponentWins": 31,
+"opponentLosses": 51,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Jazz",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Mavericks",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Pistons",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-3"
+}
+],
+"'89 Sixers": [
+{
+"round": "R1",
+"opponent": "Knicks",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 3-0"
+}
+],
+"'89 Bucks": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Pistons",
+"opponentWins": 63,
+"opponentLosses": 19,
+"result": "lost 4-0"
+}
+],
+"'89 Cavs": [
+{
+"round": "R1",
+"opponent": "Bulls",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "lost 3-2"
+}
+],
+"'89 Hawks": [
+{
+"round": "R1",
+"opponent": "Bucks",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "lost 3-2"
+}
+],
+"'89 Pistons": [
+{
+"round": "R1",
+"opponent": "Celtics",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Bucks",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Bulls",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Lakers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-0"
+}
+],
+"'90 Blazers": [
+{
+"round": "R1",
+"opponent": "Mavericks",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Spurs",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Suns",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Pistons",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "lost 4-1"
+}
+],
+"'90 Pistons": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Knicks",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Bulls",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Blazers",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-1"
+}
+],
+"'91 Blazers": [
+{
+"round": "R1",
+"opponent": "SuperSonics",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Jazz",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Lakers",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-2"
+}
+],
+"'91 Bulls": [
+{
+"round": "R1",
+"opponent": "Knicks",
+"opponentWins": 39,
+"opponentLosses": 43,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "76ers",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Pistons",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "Lakers",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-1"
+}
+],
+"'91 Jazz": [
+{
+"round": "R1",
+"opponent": "Suns",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Trail Blazers",
+"opponentWins": 63,
+"opponentLosses": 19,
+"result": "lost 4-1"
+}
+],
+"'91 Spurs": [
+{
+"round": "R1",
+"opponent": "Warriors",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "lost 3-1"
+}
+],
+"'91 Warriors": [
+{
+"round": "R1",
+"opponent": "Spurs",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Lakers",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-1"
+}
+],
+"'92 Warriors": [
+{
+"round": "R1",
+"opponent": "SuperSonics",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "lost 1-3"
+}
+],
+"'92 Blazers": [
+{
+"round": "R1",
+"opponent": "Lakers",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Suns",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Jazz",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Bulls",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 2-4"
+}
+],
+"'92 Bulls": [
+{
+"round": "R1",
+"opponent": "Heat",
+"opponentWins": 38,
+"opponentLosses": 44,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Knicks",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Cavaliers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Trail Blazers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-2"
+}
+],
+"'92 Cavs": [
+{
+"round": "R1",
+"opponent": "Nets",
+"opponentWins": 40,
+"opponentLosses": 42,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Celtics",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Bulls",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 2-4"
+}
+],
+"'92 Cavaliers": [
+{
+"round": "R1",
+"opponent": "Nets",
+"opponentWins": 40,
+"opponentLosses": 42,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Celtics",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Bulls",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 2-4"
+}
+],
+"'92 Clippers": [
+{
+"round": "R1",
+"opponent": "Jazz",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "lost 2-3"
+}
+],
+"'92 SuperSonics": [
+{
+"round": "R1",
+"opponent": "Warriors",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Jazz",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "lost 2-4"
+}
+],
+"'93 Blazers": [
+{
+"round": "R1",
+"opponent": "Spurs",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "lost 1-3"
+}
+],
+"'93 Bulls": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Cavaliers",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Knicks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Suns",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "won 4-2"
+}
+],
+"'93 Cavs": [
+{
+"round": "R1",
+"opponent": "Nets",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Bulls",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 0-4"
+}
+],
+"'93 Hornets": [
+{
+"round": "R1",
+"opponent": "Celtics",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Knicks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 1-4"
+}
+],
+"'93 Jazz": [
+{
+"round": "R1",
+"opponent": "SuperSonics",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "lost 2-3"
+}
+],
+"'93 Knicks": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Hornets",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Bulls",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 2-4"
+}
+],
+"'93 Nets": [
+{
+"round": "R1",
+"opponent": "Cavaliers",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 2-3"
+}
+],
+"'93 Pacers": [
+{
+"round": "R1",
+"opponent": "Knicks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 1-3"
+}
+],
+"'93 Sonics": [
+{
+"round": "R1",
+"opponent": "Jazz",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Rockets",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Suns",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 3-4"
+}
+],
+"'93 SuperSonics": [
+{
+"round": "R1",
+"opponent": "Utah Jazz",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Houston Rockets",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Phoenix Suns",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 4-2"
+}
+],
+"'93 Spurs": [
+{
+"round": "R1",
+"opponent": "Portland Trail Blazers",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Phoenix Suns",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 4-2"
+}
+],
+"'93 Suns": [
+{
+"round": "R1",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 39,
+"opponentLosses": 43,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "San Antonio Spurs",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Seattle SuperSonics",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Chicago Bulls",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 4-2"
+}
+],
+"'94 Hawks": [
+{
+"round": "R1",
+"opponent": "Miami Heat",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Indiana Pacers",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "lost 4-2"
+}
+],
+"'94 Hornets": [
+{
+"round": "R1",
+"opponent": "New York Knicks",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 3-1"
+}
+],
+"'94 Knicks": [
+{
+"round": "R1",
+"opponent": "New Jersey Nets",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Chicago Bulls",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Indiana Pacers",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Houston Rockets",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-3"
+}
+],
+"'94 Nets": [
+{
+"round": "R1",
+"opponent": "New York Knicks",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 3-1"
+}
+],
+"'94 Nuggets": [
+{
+"round": "R1",
+"opponent": "Seattle SuperSonics",
+"opponentWins": 63,
+"opponentLosses": 19,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Utah Jazz",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 4-3"
+}
+],
+"'94 Pacers": [
+{
+"round": "R1",
+"opponent": "Orlando Magic",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Atlanta Hawks",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "New York Knicks",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 4-3"
+}
+],
+"'94 Rockets": [
+{
+"round": "R1",
+"opponent": "Portland Trail Blazers",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Phoenix Suns",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Utah Jazz",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "New York Knicks",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-3"
+}
+],
+"'94 SuperSonics": [
+{
+"round": "R1",
+"opponent": "Denver Nuggets",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "lost 3-2"
+}
+],
+"'94 Warriors": [
+{
+"round": "R1",
+"opponent": "Phoenix Suns",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 3-0"
+}
+],
+"'95 Bulls": [
+{
+"round": "R1",
+"opponent": "Charlotte Hornets",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Orlando Magic",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 4-2"
+}
+],
+"'95 Cavaliers": [
+{
+"round": "R1",
+"opponent": "New York Knicks",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "lost 3-1"
+}
+],
+"'95 Knicks": [
+{
+"round": "R1",
+"opponent": "Cleveland Cavaliers",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Indiana Pacers",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 4-3"
+}
+],
+"'95 Magic": [
+{
+"round": "R1",
+"opponent": "Boston Celtics",
+"opponentWins": 35,
+"opponentLosses": 47,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Chicago Bulls",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Indiana Pacers",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Houston Rockets",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "lost 4-0"
+}
+],
+"'95 Rockets": [
+{
+"round": "R1",
+"opponent": "Utah Jazz",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Phoenix Suns",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "San Antonio Spurs",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Orlando Magic",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-0"
+}
+],
+"'95 Sonics": [
+{
+"round": "R1",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "lost 1-3"
+}
+],
+"'95 SuperSonics": [
+{
+"round": "R1",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "lost 1-3"
+}
+],
+"'95 Spurs": [
+{
+"round": "R1",
+"opponent": "Denver Nuggets",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Houston Rockets",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "lost 2-4"
+}
+],
+"'96 Bulls": [
+{
+"round": "R1",
+"opponent": "Miami Heat",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "New York Knicks",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Orlando Magic",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "Seattle SuperSonics",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "won 4-2"
+}
+],
+"'96 Cavaliers": [
+{
+"round": "R1",
+"opponent": "New York Knicks",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "lost 0-3"
+}
+],
+"'96 Heat": [
+{
+"round": "R1",
+"opponent": "Chicago Bulls",
+"opponentWins": 72,
+"opponentLosses": 10,
+"result": "lost 0-3"
+}
+],
+"'96 Jazz": [
+{
+"round": "R1",
+"opponent": "Portland Trail Blazers",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "San Antonio Spurs",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Seattle SuperSonics",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "lost 3-4"
+}
+],
+"'96 Knicks": [
+{
+"round": "R1",
+"opponent": "Cleveland Cavaliers",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Chicago Bulls",
+"opponentWins": 72,
+"opponentLosses": 10,
+"result": "lost 1-4"
+}
+],
+"'96 Magic": [
+{
+"round": "R1",
+"opponent": "Detroit Pistons",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Atlanta Hawks",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Chicago Bulls",
+"opponentWins": 72,
+"opponentLosses": 10,
+"result": "lost 0-4"
+}
+],
+"'96 Pacers": [
+{
+"round": "R1",
+"opponent": "Atlanta Hawks",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "lost 2-3"
+}
+],
+"'96 Rockets": [
+{
+"round": "R1",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Seattle SuperSonics",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "lost 0-4"
+}
+],
+"'96 SuperSonics": [
+{
+"round": "R1",
+"opponent": "Sacramento Kings",
+"opponentWins": 39,
+"opponentLosses": 43,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Houston Rockets",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Utah Jazz",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Chicago Bulls",
+"opponentWins": 72,
+"opponentLosses": 10,
+"result": "lost 2-4"
+}
+],
+"'97 Bulls": [
+{
+"round": "R1",
+"opponent": "Washington Bullets",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Atlanta Hawks",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Miami Heat",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Utah Jazz",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "won 4-2"
+}
+],
+"'97 Hawks": [
+{
+"round": "R1",
+"opponent": "Detroit Pistons",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Chicago Bulls",
+"opponentWins": 69,
+"opponentLosses": 13,
+"result": "lost 1-4"
+}
+],
+"'97 Heat": [
+{
+"round": "R1",
+"opponent": "Orlando Magic",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "New York Knicks",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Chicago Bulls",
+"opponentWins": 69,
+"opponentLosses": 13,
+"result": "lost 1-4"
+}
+],
+"'97 Hornets": [
+{
+"round": "R1",
+"opponent": "Knicks",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 0-3"
+}
+],
+"'97 Jazz": [
+{
+"round": "R1",
+"opponent": "Clippers",
+"opponentWins": 36,
+"opponentLosses": 46,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Lakers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Rockets",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Bulls",
+"opponentWins": 69,
+"opponentLosses": 13,
+"result": "lost 2-4"
+}
+],
+"'97 Knicks": [
+{
+"round": "R1",
+"opponent": "Hornets",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Heat",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "lost 3-4"
+}
+],
+"'97 Magic": [
+{
+"round": "R1",
+"opponent": "Heat",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "lost 2-3"
+}
+],
+"'97 Pistons": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 2-3"
+}
+],
+"'97 Sonics": [
+{
+"round": "R1",
+"opponent": "Suns",
+"opponentWins": 40,
+"opponentLosses": 42,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Rockets",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 3-4"
+}
+],
+"'97 Timberwolves": [
+{
+"round": "R1",
+"opponent": "Rockets",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 0-3"
+}
+],
+"'97 Bullets": [
+{
+"round": "R1",
+"opponent": "Bulls",
+"opponentWins": 69,
+"opponentLosses": 13,
+"result": "lost 0-3"
+}
+],
+"'98 Blazers": [
+{
+"round": "R1",
+"opponent": "Lakers",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "lost 1-3"
+}
+],
+"'98 Bulls": [
+{
+"round": "R1",
+"opponent": "Nets",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Hornets",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Pacers",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Jazz",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "won 4-2"
+}
+],
+"'98 Cavaliers": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 1-3"
+}
+],
+"'98 Hornets": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Bulls",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 1-4"
+}
+],
+"'98 Jazz": [
+{
+"round": "R1",
+"opponent": "Rockets",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Spurs",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Lakers",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "Bulls",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 2-4"
+}
+],
+"'98 Lakers": [
+{
+"round": "R1",
+"opponent": "Blazers",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Sonics",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Jazz",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 0-4"
+}
+],
+"'98 Pacers": [
+{
+"round": "R1",
+"opponent": "Cavaliers",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Knicks",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Bulls",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 3-4"
+}
+],
+"'98 Suns": [
+{
+"round": "R1",
+"opponent": "Spurs",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 1-3"
+}
+],
+"'98 Timberwolves": [
+{
+"round": "R1",
+"opponent": "SuperSonics",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "lost 2-3"
+}
+],
+"'99 Trail Blazers": [
+{
+"round": "R1",
+"opponent": "Suns",
+"opponentWins": 27,
+"opponentLosses": 23,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Jazz",
+"opponentWins": 37,
+"opponentLosses": 13,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Spurs",
+"opponentWins": 37,
+"opponentLosses": 13,
+"result": "lost 0-4"
+}
+],
+"'99 Heat": [
+{
+"round": "R1",
+"opponent": "Knicks",
+"opponentWins": 27,
+"opponentLosses": 23,
+"result": "lost 2-3"
+}
+],
+"'99 Knicks": [
+{
+"round": "R1",
+"opponent": "Heat",
+"opponentWins": 33,
+"opponentLosses": 17,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Hawks",
+"opponentWins": 31,
+"opponentLosses": 19,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Pacers",
+"opponentWins": 33,
+"opponentLosses": 17,
+"result": "won 4-2"
+},
+{
+"round": "FINALS",
+"opponent": "Spurs",
+"opponentWins": 37,
+"opponentLosses": 13,
+"result": "lost 1-4"
+}
+],
+"'99 Lakers": [
+{
+"round": "R1",
+"opponent": "Rockets",
+"opponentWins": 31,
+"opponentLosses": 19,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Spurs",
+"opponentWins": 37,
+"opponentLosses": 13,
+"result": "lost 0-4"
+}
+],
+"'99 Pacers": [
+{
+"round": "R1",
+"opponent": "Bucks",
+"opponentWins": 28,
+"opponentLosses": 22,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "76ers",
+"opponentWins": 28,
+"opponentLosses": 22,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Knicks",
+"opponentWins": 27,
+"opponentLosses": 23,
+"result": "lost 2-4"
+}
+],
+"'99 Spurs": [
+{
+"round": "R1",
+"opponent": "Timberwolves",
+"opponentWins": 25,
+"opponentLosses": 25,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Lakers",
+"opponentWins": 31,
+"opponentLosses": 19,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Trail Blazers",
+"opponentWins": 35,
+"opponentLosses": 15,
+"result": "won 4-0"
+},
+{
+"round": "FINALS",
+"opponent": "Knicks",
+"opponentWins": 27,
+"opponentLosses": 23,
+"result": "won 4-1"
+}
+],
+"'00 Blazers": [
+{
+"round": "R1",
+"opponent": "Timberwolves",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Jazz",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Lakers",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 3-4"
+}
+],
+"'00 Hornets": [
+{
+"round": "R1",
+"opponent": "76ers",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "lost 1-3"
+}
+],
+"'00 Knicks": [
+{
+"round": "R1",
+"opponent": "Raptors",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Heat",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Pacers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 2-4"
+}
+],
+"'00 Lakers": [
+{
+"round": "R1",
+"opponent": "Kings",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Suns",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Trail Blazers",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-3"
+},
+{
+"round": "FINALS",
+"opponent": "Pacers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-2"
+}
+],
+"'00 Pacers": [
+{
+"round": "R1",
+"opponent": "Bucks",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "76ers",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Knicks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-2"
+},
+{
+"round": "FINALS",
+"opponent": "Lakers",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 2-4"
+}
+],
+"'00 Raptors": [
+{
+"round": "R1",
+"opponent": "Knicks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 0-3"
+}
+],
+"'01 76ers": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Raptors",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Bucks",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-3"
+},
+{
+"round": "FINALS",
+"opponent": "Lakers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 1-4"
+}
+],
+"'01 Bucks": [
+{
+"round": "R1",
+"opponent": "Magic",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Hornets",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "76ers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 3-4"
+}
+],
+"'01 Kings": [
+{
+"round": "R1",
+"opponent": "Suns",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Lakers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 0-4"
+}
+],
+"'01 Lakers": [
+{
+"round": "R1",
+"opponent": "Trail Blazers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Kings",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Spurs",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "76ers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-1"
+}
+],
+"'01 Magic": [
+{
+"round": "R1",
+"opponent": "Bucks",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 1-3"
+}
+],
+"'01 Mavericks": [
+{
+"round": "R1",
+"opponent": "Jazz",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Spurs",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 1-4"
+}
+],
+"'01 Raptors": [
+{
+"round": "R1",
+"opponent": "Knicks",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "76ers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 3-4"
+}
+],
+"'01 Spurs": [
+{
+"round": "R1",
+"opponent": "Timberwolves",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Mavericks",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Lakers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 0-4"
+}
+],
+"'02 Celtics": [
+{
+"round": "R1",
+"opponent": "76ers",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Pistons",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Nets",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 2-4"
+}
+],
+"'02 Hornets": [
+{
+"round": "R1",
+"opponent": "Magic",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Nets",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 1-4"
+}
+],
+"'02 Kings": [
+{
+"round": "R1",
+"opponent": "Jazz",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 3-1"
+},
+{
+"round": "R2",
+"opponent": "Mavericks",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Lakers",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 3-4"
+}
+],
+"'02 Lakers": [
+{
+"round": "R1",
+"opponent": "Trail Blazers",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Spurs",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Kings",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Nets",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-0"
+}
+],
+"'02 Magic": [
+{
+"round": "R1",
+"opponent": "Hornets",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "lost 1-3"
+}
+],
+"'02 Mavericks": [
+{
+"round": "R1",
+"opponent": "Timberwolves",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 3-0"
+},
+{
+"round": "R2",
+"opponent": "Kings",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "lost 1-4"
+}
+],
+"'02 Nets": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 3-2"
+},
+{
+"round": "R2",
+"opponent": "Hornets",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Celtics",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Lakers",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 0-4"
+}
+],
+"'02 Pacers": [
+{
+"round": "R1",
+"opponent": "Nets",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 2-3"
+}
+],
+"'03 76ers": [
+{
+"round": "R1",
+"opponent": "Hornets",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Pistons",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 2-4"
+}
+],
+"'03 Sixers": [
+{
+"round": "R1",
+"opponent": "Hornets",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Pistons",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 2-4"
+}
+],
+"'03 Blazers": [
+{
+"round": "R1",
+"opponent": "Mavericks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 3-4"
+}
+],
+"'03 Bucks": [
+{
+"round": "R1",
+"opponent": "New Jersey Nets",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "lost 2-4"
+}
+],
+"'03 Celtics": [
+{
+"round": "R1",
+"opponent": "Indiana Pacers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "New Jersey Nets",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "lost 0-4"
+}
+],
+"'03 Hornets": [
+{
+"round": "R1",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "lost 2-4"
+}
+],
+"'03 Kings": [
+{
+"round": "R1",
+"opponent": "Utah Jazz",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Dallas Mavericks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 3-4"
+}
+],
+"'03 Magic": [
+{
+"round": "R1",
+"opponent": "Detroit Pistons",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 3-4"
+}
+],
+"'03 Mavericks": [
+{
+"round": "R1",
+"opponent": "Portland Trail Blazers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Sacramento Kings",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "San Antonio Spurs",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 2-4"
+}
+],
+"'03 Nets": [
+{
+"round": "R1",
+"opponent": "Milwaukee Bucks",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Boston Celtics",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Detroit Pistons",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-0"
+},
+{
+"round": "FINALS",
+"opponent": "San Antonio Spurs",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 2-4"
+}
+],
+"'03 Pistons": [
+{
+"round": "R1",
+"opponent": "Orlando Magic",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "New Jersey Nets",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "lost 0-4"
+}
+],
+"'03 Spurs": [
+{
+"round": "R1",
+"opponent": "Phoenix Suns",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Dallas Mavericks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "won 4-2"
+},
+{
+"round": "FINALS",
+"opponent": "New Jersey Nets",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-2"
+}
+],
+"'04 Bucks": [
+{
+"round": "R1",
+"opponent": "Detroit Pistons",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 1-4"
+}
+],
+"'04 Hornets": [
+{
+"round": "R1",
+"opponent": "Miami Heat",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "lost 3-4"
+}
+],
+"'04 Kings": [
+{
+"round": "R1",
+"opponent": "Dallas Mavericks",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Minnesota Timberwolves",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 3-4"
+}
+],
+"'04 Knicks": [
+{
+"round": "R1",
+"opponent": "New Jersey Nets",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "lost 0-4"
+}
+],
+"'04 Lakers": [
+{
+"round": "R1",
+"opponent": "Houston Rockets",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "San Antonio Spurs",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Minnesota Timberwolves",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-2"
+},
+{
+"round": "FINALS",
+"opponent": "Detroit Pistons",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 1-4"
+}
+],
+"'04 Pacers": [
+{
+"round": "R1",
+"opponent": "Boston Celtics",
+"opponentWins": 36,
+"opponentLosses": 46,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Miami Heat",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Detroit Pistons",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 2-4"
+}
+],
+"'04 Pistons": [
+{
+"round": "R1",
+"opponent": "Milwaukee Bucks",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "New Jersey Nets",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Indiana Pacers",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "won 4-2"
+},
+{
+"round": "FINALS",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-1"
+}
+],
+"'04 Timberwolves": [
+{
+"round": "R1",
+"opponent": "Nuggets",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Kings",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Lakers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 4-2"
+}
+],
+"'05 Mavericks": [
+{
+"round": "R1",
+"opponent": "Rockets",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Suns",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 4-2"
+}
+],
+"'05 Pacers": [
+{
+"round": "R1",
+"opponent": "Celtics",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Pistons",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 4-2"
+}
+],
+"'05 Rockets": [
+{
+"round": "R1",
+"opponent": "Mavericks",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-3"
+}
+],
+"'05 SuperSonics": [
+{
+"round": "R1",
+"opponent": "Kings",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Spurs",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "lost 4-2"
+}
+],
+"'05 Spurs": [
+{
+"round": "R1",
+"opponent": "Nuggets",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "SuperSonics",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Suns",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Pistons",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-3"
+}
+],
+"'05 Suns": [
+{
+"round": "R1",
+"opponent": "Grizzlies",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Mavericks",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Spurs",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "lost 4-1"
+}
+],
+"'06 Bucks": [
+{
+"round": "R1",
+"opponent": "Pistons",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "lost 4-1"
+}
+],
+"'06 Cavaliers": [
+{
+"round": "R1",
+"opponent": "Wizards",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Pistons",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "lost 4-3"
+}
+],
+"'06 Clippers": [
+{
+"round": "R1",
+"opponent": "Nuggets",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Suns",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 4-3"
+}
+],
+"'06 Heat": [
+{
+"round": "R1",
+"opponent": "Bulls",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Nets",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Pistons",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Mavericks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "won 4-2"
+}
+],
+"'06 Kings": [
+{
+"round": "R1",
+"opponent": "Spurs",
+"opponentWins": 63,
+"opponentLosses": 19,
+"result": "lost 4-2"
+}
+],
+"'06 Lakers": [
+{
+"round": "R1",
+"opponent": "Suns",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 4-3"
+}
+],
+"'06 Mavericks": [
+{
+"round": "R1",
+"opponent": "Grizzlies",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Spurs",
+"opponentWins": 63,
+"opponentLosses": 19,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Suns",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Heat",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 4-2"
+}
+],
+"'06 Nets": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Heat",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 4-1"
+}
+],
+"'06 Nuggets": [
+{
+"round": "R1",
+"opponent": "Clippers",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "lost 4-1"
+}
+],
+"'06 Pacers": [
+{
+"round": "R1",
+"opponent": "Miami Heat",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 4-2"
+}
+],
+"'06 Suns": [
+{
+"round": "R1",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Los Angeles Clippers",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Dallas Mavericks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 4-2"
+}
+],
+"'06 Wizards": [
+{
+"round": "R1",
+"opponent": "Cleveland Cavaliers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 4-2"
+}
+],
+"'07 Cavaliers": [
+{
+"round": "R1",
+"opponent": "Washington Wizards",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "New Jersey Nets",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Detroit Pistons",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-2"
+},
+{
+"round": "FINALS",
+"opponent": "San Antonio Spurs",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-0"
+}
+],
+"'07 Jazz": [
+{
+"round": "R1",
+"opponent": "Houston Rockets",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Golden State Warriors",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "San Antonio Spurs",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-1"
+}
+],
+"'07 Mavericks": [
+{
+"round": "R1",
+"opponent": "Golden State Warriors",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "lost 4-2"
+}
+],
+"'07 Nuggets": [
+{
+"round": "R1",
+"opponent": "San Antonio Spurs",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-1"
+}
+],
+"'07 Raptors": [
+{
+"round": "R1",
+"opponent": "New Jersey Nets",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "lost 4-2"
+}
+],
+"'07 Rockets": [
+{
+"round": "R1",
+"opponent": "Utah Jazz",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 4-3"
+}
+],
+"'07 Spurs": [
+{
+"round": "R1",
+"opponent": "Denver Nuggets",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Phoenix Suns",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Utah Jazz",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-1"
+},
+{
+"round": "FINALS",
+"opponent": "Cleveland Cavaliers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-0"
+}
+],
+"'07 Suns": [
+{
+"round": "R1",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "San Antonio Spurs",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-2"
+}
+],
+"'07 Warriors": [
+{
+"round": "R1",
+"opponent": "Dallas Mavericks",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Utah Jazz",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 4-1"
+}
+],
+"'08 Cavaliers": [
+{
+"round": "R1",
+"opponent": "Washington Wizards",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Boston Celtics",
+"opponentWins": 66,
+"opponentLosses": 16,
+"result": "lost 4-3"
+}
+],
+"'08 Celtics": [
+{
+"round": "R1",
+"opponent": "Atlanta Hawks",
+"opponentWins": 37,
+"opponentLosses": 45,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Cleveland Cavaliers",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Detroit Pistons",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-2"
+},
+{
+"round": "FINALS",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-2"
+}
+],
+"'08 Hawks": [
+{
+"round": "R1",
+"opponent": "Boston Celtics",
+"opponentWins": 66,
+"opponentLosses": 16,
+"result": "lost 4-3"
+}
+],
+"'08 Hornets": [
+{
+"round": "R1",
+"opponent": "Dallas Mavericks",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "San Antonio Spurs",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 4-3"
+}
+],
+"'08 Jazz": [
+{
+"round": "R1",
+"opponent": "Houston Rockets",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 2-4"
+}
+],
+"'08 Magic": [
+{
+"round": "R1",
+"opponent": "Toronto Raptors",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Detroit Pistons",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "lost 1-4"
+}
+],
+"'08 Nuggets": [
+{
+"round": "R1",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 0-4"
+}
+],
+"'08 Raptors": [
+{
+"round": "R1",
+"opponent": "Orlando Magic",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 1-4"
+}
+],
+"'08 Spurs": [
+{
+"round": "R1",
+"opponent": "Phoenix Suns",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "New Orleans Hornets",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 1-4"
+}
+],
+"'09 Cavaliers": [
+{
+"round": "R1",
+"opponent": "Detroit Pistons",
+"opponentWins": 39,
+"opponentLosses": 43,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Atlanta Hawks",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Orlando Magic",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "lost 2-4"
+}
+],
+"'09 Cavs": [
+{
+"round": "R1",
+"opponent": "Detroit Pistons",
+"opponentWins": 39,
+"opponentLosses": 43,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Atlanta Hawks",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Orlando Magic",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "lost 2-4"
+}
+],
+"'09 Celtics": [
+{
+"round": "R1",
+"opponent": "Chicago Bulls",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Orlando Magic",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "lost 3-4"
+}
+],
+"'09 Hawks": [
+{
+"round": "R1",
+"opponent": "Miami Heat",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Cleveland Cavaliers",
+"opponentWins": 66,
+"opponentLosses": 16,
+"result": "lost 0-4"
+}
+],
+"'09 Lakers": [
+{
+"round": "R1",
+"opponent": "Utah Jazz",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Houston Rockets",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Denver Nuggets",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Orlando Magic",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-1"
+}
+],
+"'09 Magic": [
+{
+"round": "R1",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Boston Celtics",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Cleveland Cavaliers",
+"opponentWins": 66,
+"opponentLosses": 16,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 65,
+"opponentLosses": 17,
+"result": "lost 1-4"
+}
+],
+"'09 Nuggets": [
+{
+"round": "R1",
+"opponent": "New Orleans Hornets",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Dallas Mavericks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 65,
+"opponentLosses": 17,
+"result": "lost 2-4"
+}
+],
+"'09 Rockets": [
+{
+"round": "R1",
+"opponent": "Portland Trail Blazers",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 65,
+"opponentLosses": 17,
+"result": "lost 3-4"
+}
+],
+"'09 Spurs": [
+{
+"round": "R1",
+"opponent": "Dallas Mavericks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 1-4"
+}
+],
+"'10 Trail Blazers": [
+{
+"round": "R1",
+"opponent": "Phoenix Suns",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 2-4"
+}
+],
+"'10 Cavaliers": [
+{
+"round": "R1",
+"opponent": "Chicago Bulls",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Boston Celtics",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 2-4"
+}
+],
+"'10 Hawks": [
+{
+"round": "R1",
+"opponent": "Bucks",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Magic",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "lost 4-0"
+}
+],
+"'10 Lakers": [
+{
+"round": "R1",
+"opponent": "Thunder",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Jazz",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Suns",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Celtics",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-3"
+}
+],
+"'10 Magic": [
+{
+"round": "R1",
+"opponent": "Bobcats",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Hawks",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Celtics",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 4-2"
+}
+],
+"'10 Nuggets": [
+{
+"round": "R1",
+"opponent": "Jazz",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 4-2"
+}
+],
+"'10 Suns": [
+{
+"round": "R1",
+"opponent": "Trail Blazers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Spurs",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Lakers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 4-2"
+}
+],
+"'11 Bulls": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 37,
+"opponentLosses": 45,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Hawks",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Heat",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-1"
+}
+],
+"'11 Grizzlies": [
+{
+"round": "R1",
+"opponent": "Spurs",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Thunder",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "lost 4-3"
+}
+],
+"'11 Hornets": [
+{
+"round": "R1",
+"opponent": "Lakers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 4-2"
+}
+],
+"'11 Magic": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "lost 4-2"
+}
+],
+"'11 Mavericks": [
+{
+"round": "R1",
+"opponent": "Trail Blazers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Lakers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Thunder",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Heat",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-2"
+}
+],
+"'11 Mavs": [
+{
+"round": "R1",
+"opponent": "Trail Blazers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Lakers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Thunder",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Heat",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-2"
+}
+],
+"'11 Thunder": [
+{
+"round": "R1",
+"opponent": "Nuggets",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Grizzlies",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Mavericks",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 4-1"
+}
+],
+"'12 76ers": [
+{
+"round": "R1",
+"opponent": "Bulls",
+"opponentWins": 50,
+"opponentLosses": 16,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Celtics",
+"opponentWins": 39,
+"opponentLosses": 27,
+"result": "lost 4-3"
+}
+],
+"'12 Bulls": [
+{
+"round": "R1",
+"opponent": "76ers",
+"opponentWins": 35,
+"opponentLosses": 31,
+"result": "lost 4-2"
+}
+],
+"'10 Celtics": [
+{
+"round": "R1",
+"opponent": "Heat",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Cavaliers",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Magic",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Lakers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 4-3"
+}
+],
+"'12 Celtics": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 40,
+"opponentLosses": 26,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "76ers",
+"opponentWins": 35,
+"opponentLosses": 31,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Heat",
+"opponentWins": 46,
+"opponentLosses": 20,
+"result": "lost 4-3"
+}
+],
+"'12 Clippers": [
+{
+"round": "R1",
+"opponent": "Memphis Grizzlies",
+"opponentWins": 41,
+"opponentLosses": 25,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "San Antonio Spurs",
+"opponentWins": 50,
+"opponentLosses": 16,
+"result": "lost 4-0"
+}
+],
+"'12 Grizzlies": [
+{
+"round": "R1",
+"opponent": "Los Angeles Clippers",
+"opponentWins": 40,
+"opponentLosses": 26,
+"result": "lost 4-3"
+}
+],
+"'12 Knicks": [
+{
+"round": "R1",
+"opponent": "Miami Heat",
+"opponentWins": 46,
+"opponentLosses": 20,
+"result": "lost 4-1"
+}
+],
+"'12 Lakers": [
+{
+"round": "R1",
+"opponent": "Denver Nuggets",
+"opponentWins": 38,
+"opponentLosses": 28,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Oklahoma City Thunder",
+"opponentWins": 47,
+"opponentLosses": 19,
+"result": "lost 4-1"
+}
+],
+"'12 Pacers": [
+{
+"round": "R1",
+"opponent": "Orlando Magic",
+"opponentWins": 37,
+"opponentLosses": 29,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Miami Heat",
+"opponentWins": 46,
+"opponentLosses": 20,
+"result": "lost 4-2"
+}
+],
+"'12 Thunder": [
+{
+"round": "R1",
+"opponent": "Dallas Mavericks",
+"opponentWins": 36,
+"opponentLosses": 30,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 41,
+"opponentLosses": 25,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "San Antonio Spurs",
+"opponentWins": 50,
+"opponentLosses": 16,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Miami Heat",
+"opponentWins": 46,
+"opponentLosses": 20,
+"result": "lost 4-1"
+}
+],
+"'13 Celtics": [
+{
+"round": "R1",
+"opponent": "New York Knicks",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 4-2"
+}
+],
+"'13 Clippers": [
+{
+"round": "R1",
+"opponent": "Memphis Grizzlies",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 4-2"
+}
+],
+"'13 Grizzlies": [
+{
+"round": "R1",
+"opponent": "Los Angeles Clippers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Oklahoma City Thunder",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "San Antonio Spurs",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-0"
+}
+],
+"'13 Hawks": [
+{
+"round": "R1",
+"opponent": "Indiana Pacers",
+"opponentWins": 49,
+"opponentLosses": 32,
+"result": "lost 4-2"
+}
+],
+"'13 Heat": [
+{
+"round": "R1",
+"opponent": "Milwaukee Bucks",
+"opponentWins": 38,
+"opponentLosses": 44,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Chicago Bulls",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Indiana Pacers",
+"opponentWins": 49,
+"opponentLosses": 32,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "San Antonio Spurs",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-3"
+}
+],
+"'13 Knicks": [
+{
+"round": "R1",
+"opponent": "Boston Celtics",
+"opponentWins": 41,
+"opponentLosses": 40,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Indiana Pacers",
+"opponentWins": 49,
+"opponentLosses": 32,
+"result": "lost 4-2"
+}
+],
+"'13 Nuggets": [
+{
+"round": "R1",
+"opponent": "Golden State Warriors",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "lost 4-2"
+}
+],
+"'13 Rockets": [
+{
+"round": "R1",
+"opponent": "Oklahoma City Thunder",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 4-2"
+}
+],
+"'13 Thunder": [
+{
+"round": "R1",
+"opponent": "Houston Rockets",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Memphis Grizzlies",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 4-1"
+}
+],
+"'14 Trail Blazers": [
+{
+"round": "R1",
+"opponent": "Houston Rockets",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "San Antonio Spurs",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 4-1"
+}
+],
+"'14 Blazers": [
+{
+"round": "R1",
+"opponent": "Rockets",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Spurs",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 1-4"
+}
+],
+"'14 Bulls": [
+{
+"round": "R1",
+"opponent": "Wizards",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "lost 1-4"
+}
+],
+"'14 Clippers": [
+{
+"round": "R1",
+"opponent": "Warriors",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Thunder",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "lost 2-4"
+}
+],
+"'14 Grizzlies": [
+{
+"round": "R1",
+"opponent": "Thunder",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "lost 3-4"
+}
+],
+"'14 Mavs": [
+{
+"round": "R1",
+"opponent": "Spurs",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 3-4"
+}
+],
+"'14 Pacers": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 38,
+"opponentLosses": 44,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Wizards",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Heat",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 2-4"
+}
+],
+"'14 Raptors": [
+{
+"round": "R1",
+"opponent": "Nets",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "lost 3-4"
+}
+],
+"'14 Rockets": [
+{
+"round": "R1",
+"opponent": "Trail Blazers",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "lost 2-4"
+}
+],
+"'14 Spurs": [
+{
+"round": "R1",
+"opponent": "Mavericks",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Trail Blazers",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Thunder",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-2"
+},
+{
+"round": "FINALS",
+"opponent": "Heat",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-1"
+}
+],
+"'14 Thunder": [
+{
+"round": "R1",
+"opponent": "Grizzlies",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Clippers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Spurs",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "lost 2-4"
+}
+],
+"'14 Warriors": [
+{
+"round": "R1",
+"opponent": "Clippers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 3-4"
+}
+],
+"'14 Wizards": [
+{
+"round": "R1",
+"opponent": "Bulls",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Pacers",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 2-4"
+}
+],
+"'15 Trail Blazers": [
+{
+"round": "R1",
+"opponent": "Grizzlies",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "lost 1-4"
+}
+],
+"'15 Cavaliers": [
+{
+"round": "R1",
+"opponent": "Celtics",
+"opponentWins": 40,
+"opponentLosses": 42,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Bulls",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Hawks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "won 4-0"
+},
+{
+"round": "FINALS",
+"opponent": "Warriors",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 2-4"
+}
+],
+"'15 Clippers": [
+{
+"round": "R1",
+"opponent": "Spurs",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Rockets",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 3-4"
+}
+],
+"'15 Hawks": [
+{
+"round": "R1",
+"opponent": "Nets",
+"opponentWins": 38,
+"opponentLosses": 44,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Wizards",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Cavaliers",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 0-4"
+}
+],
+"'15 Pelicans": [
+{
+"round": "R1",
+"opponent": "Warriors",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 4-0"
+}
+],
+"'15 Warriors": [
+{
+"round": "R1",
+"opponent": "Pelicans",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Grizzlies",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Rockets",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Cavaliers",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-2"
+}
+],
+"'16 Blazers": [
+{
+"round": "R1",
+"opponent": "Clippers",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Warriors",
+"opponentWins": 73,
+"opponentLosses": 9,
+"result": "lost 4-1"
+}
+],
+"'16 Cavs": [
+{
+"round": "R1",
+"opponent": "Pistons",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Hawks",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Raptors",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Warriors",
+"opponentWins": 73,
+"opponentLosses": 9,
+"result": "won 4-3"
+}
+],
+"'16 Celtics": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "lost 4-2"
+}
+],
+"'16 Clippers": [
+{
+"round": "R1",
+"opponent": "Blazers",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "lost 4-2"
+}
+],
+"'16 Hornets": [
+{
+"round": "R1",
+"opponent": "Heat",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "lost 4-3"
+}
+],
+"'16 Pacers": [
+{
+"round": "R1",
+"opponent": "Raptors",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 4-3"
+}
+],
+"'16 Raptors": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Heat",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Cavaliers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 4-2"
+}
+],
+"'16 Spurs": [
+{
+"round": "R1",
+"opponent": "Grizzlies",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Thunder",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "lost 4-2"
+}
+],
+"'16 Warriors": [
+{
+"round": "R1",
+"opponent": "Rockets",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Blazers",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Thunder",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Cavaliers",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 4-3"
+}
+],
+"'17 Bucks": [
+{
+"round": "R1",
+"opponent": "Raptors",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 4-2"
+}
+],
+"'17 Cavs": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Raptors",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Celtics",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Warriors",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 4-1"
+}
+],
+"'17 Celtics": [
+{
+"round": "R1",
+"opponent": "Bulls",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Wizards",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Cavaliers",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 4-1"
+}
+],
+"'17 Clippers": [
+{
+"round": "R1",
+"opponent": "Jazz",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 4-3"
+}
+],
+"'17 Jazz": [
+{
+"round": "R1",
+"opponent": "Clippers",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Warriors",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 4-0"
+}
+],
+"'17 Raptors": [
+{
+"round": "R1",
+"opponent": "Bucks",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Cavaliers",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 0-4"
+}
+],
+"'17 Rockets": [
+{
+"round": "R1",
+"opponent": "Thunder",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Spurs",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "lost 2-4"
+}
+],
+"'17 Spurs": [
+{
+"round": "R1",
+"opponent": "Grizzlies",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Rockets",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Warriors",
+"opponentWins": 67,
+"opponentLosses": 15,
+"result": "lost 0-4"
+}
+],
+"'17 Thunder": [
+{
+"round": "R1",
+"opponent": "Rockets",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "lost 1-4"
+}
+],
+"'17 Warriors": [
+{
+"round": "R1",
+"opponent": "Trail Blazers",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Jazz",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Spurs",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "Cavaliers",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-1"
+}
+],
+"'17 Wizards": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Celtics",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 3-4"
+}
+],
+"'18 76ers": [
+{
+"round": "R1",
+"opponent": "Heat",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Celtics",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "lost 1-4"
+}
+],
+"'18 Blazers": [
+{
+"round": "R1",
+"opponent": "Pelicans",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "lost 0-4"
+}
+],
+"'18 Cavs": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Raptors",
+"opponentWins": 59,
+"opponentLosses": 23,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Celtics",
+"opponentWins": 55,
+"opponentLosses": 27,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Warriors",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 0-4"
+}
+],
+"'18 Pacers": [
+{
+"round": "R1",
+"opponent": "Cavaliers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 3-4"
+}
+],
+"'18 Pelicans": [
+{
+"round": "R1",
+"opponent": "Trail Blazers",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Warriors",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 1-4"
+}
+],
+"'18 Raptors": [
+{
+"round": "R1",
+"opponent": "Wizards",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Cavaliers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 0-4"
+}
+],
+"'18 Rockets": [
+{
+"round": "R1",
+"opponent": "Timberwolves",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Jazz",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Warriors",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 3-4"
+}
+],
+"'18 Spurs": [
+{
+"round": "R1",
+"opponent": "Warriors",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 1-4"
+}
+],
+"'18 Thunder": [
+{
+"round": "R1",
+"opponent": "Jazz",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "lost 2-4"
+}
+],
+"'18 Timberwolves": [
+{
+"round": "R1",
+"opponent": "Rockets",
+"opponentWins": 65,
+"opponentLosses": 17,
+"result": "lost 1-4"
+}
+],
+"'19 76ers": [
+{
+"round": "R1",
+"opponent": "Nets",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Raptors",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-3"
+}
+],
+"'19 Blazers": [
+{
+"round": "R1",
+"opponent": "Thunder",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Nuggets",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Warriors",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 4-0"
+}
+],
+"'19 Bucks": [
+{
+"round": "R1",
+"opponent": "Pistons",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Celtics",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Raptors",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-2"
+}
+],
+"'19 Celtics": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Bucks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 4-1"
+}
+],
+"'19 Jazz": [
+{
+"round": "R1",
+"opponent": "Rockets",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 4-1"
+}
+],
+"'19 Magic": [
+{
+"round": "R1",
+"opponent": "Raptors",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 4-1"
+}
+],
+"'19 Nets": [
+{
+"round": "R1",
+"opponent": "76ers",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 4-1"
+}
+],
+"'19 Pistons": [
+{
+"round": "R1",
+"opponent": "Bucks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "lost 4-0"
+}
+],
+"'19 Raptors": [
+{
+"round": "R1",
+"opponent": "Magic",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "76ers",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Bucks",
+"opponentWins": 60,
+"opponentLosses": 22,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Warriors",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-2"
+}
+],
+"'19 Thunder": [
+{
+"round": "R1",
+"opponent": "Blazers",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 4-1"
+}
+],
+"'19 Warriors": [
+{
+"round": "R1",
+"opponent": "Clippers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Rockets",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Blazers",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "Raptors",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "lost 2-4"
+}
+],
+"'20 Blazers": [
+{
+"round": "R1",
+"opponent": "Lakers",
+"opponentWins": 52,
+"opponentLosses": 19,
+"result": "lost 1-4"
+}
+],
+"'20 Bucks": [
+{
+"round": "R1",
+"opponent": "Magic",
+"opponentWins": 33,
+"opponentLosses": 40,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Heat",
+"opponentWins": 44,
+"opponentLosses": 29,
+"result": "lost 1-4"
+}
+],
+"'20 Clippers": [
+{
+"round": "R1",
+"opponent": "Mavericks",
+"opponentWins": 43,
+"opponentLosses": 32,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Nuggets",
+"opponentWins": 46,
+"opponentLosses": 27,
+"result": "lost 3-4"
+}
+],
+"'20 Heat": [
+{
+"round": "R1",
+"opponent": "Pacers",
+"opponentWins": 45,
+"opponentLosses": 28,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Bucks",
+"opponentWins": 56,
+"opponentLosses": 17,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Celtics",
+"opponentWins": 48,
+"opponentLosses": 24,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Lakers",
+"opponentWins": 52,
+"opponentLosses": 19,
+"result": "lost 2-4"
+}
+],
+"'20 Jazz": [
+{
+"round": "R1",
+"opponent": "Nuggets",
+"opponentWins": 46,
+"opponentLosses": 27,
+"result": "lost 3-4"
+}
+],
+"'20 Lakers": [
+{
+"round": "R1",
+"opponent": "Trail Blazers",
+"opponentWins": 35,
+"opponentLosses": 39,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Rockets",
+"opponentWins": 44,
+"opponentLosses": 28,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Nuggets",
+"opponentWins": 46,
+"opponentLosses": 27,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Heat",
+"opponentWins": 44,
+"opponentLosses": 29,
+"result": "won 4-2"
+}
+],
+"'20 Mavericks": [
+{
+"round": "R1",
+"opponent": "Clippers",
+"opponentWins": 49,
+"opponentLosses": 23,
+"result": "lost 4-2"
+}
+],
+"'20 Nets": [
+{
+"round": "R1",
+"opponent": "Raptors",
+"opponentWins": 53,
+"opponentLosses": 19,
+"result": "lost 4-0"
+}
+],
+"'20 Nuggets": [
+{
+"round": "R1",
+"opponent": "Jazz",
+"opponentWins": 44,
+"opponentLosses": 28,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Clippers",
+"opponentWins": 49,
+"opponentLosses": 23,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Lakers",
+"opponentWins": 52,
+"opponentLosses": 19,
+"result": "lost 4-1"
+}
+],
+"'20 Thunder": [
+{
+"round": "R1",
+"opponent": "Rockets",
+"opponentWins": 44,
+"opponentLosses": 28,
+"result": "lost 4-3"
+}
+],
+"'21 Bucks": [
+{
+"round": "R1",
+"opponent": "Heat",
+"opponentWins": 40,
+"opponentLosses": 32,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Nets",
+"opponentWins": 48,
+"opponentLosses": 24,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Hawks",
+"opponentWins": 41,
+"opponentLosses": 31,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Suns",
+"opponentWins": 51,
+"opponentLosses": 21,
+"result": "won 4-2"
+}
+],
+"'21 Celtics": [
+{
+"round": "R1",
+"opponent": "Nets",
+"opponentWins": 48,
+"opponentLosses": 24,
+"result": "lost 4-1"
+}
+],
+"'21 Clippers": [
+{
+"round": "R1",
+"opponent": "Mavericks",
+"opponentWins": 42,
+"opponentLosses": 30,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "Jazz",
+"opponentWins": 52,
+"opponentLosses": 20,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Suns",
+"opponentWins": 51,
+"opponentLosses": 21,
+"result": "lost 4-2"
+}
+],
+"'21 Hawks": [
+{
+"round": "R1",
+"opponent": "Knicks",
+"opponentWins": 41,
+"opponentLosses": 31,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "76ers",
+"opponentWins": 49,
+"opponentLosses": 23,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Bucks",
+"opponentWins": 46,
+"opponentLosses": 26,
+"result": "lost 4-2"
+}
+],
+"'21 Heat": [
+{
+"round": "R1",
+"opponent": "Bucks",
+"opponentWins": 46,
+"opponentLosses": 26,
+"result": "lost 4-0"
+}
+],
+"'21 Jazz": [
+{
+"round": "R1",
+"opponent": "Grizzlies",
+"opponentWins": 38,
+"opponentLosses": 34,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Clippers",
+"opponentWins": 47,
+"opponentLosses": 25,
+"result": "lost 4-2"
+}
+],
+"'21 Knicks": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 41,
+"opponentLosses": 31,
+"result": "lost 4-1"
+}
+],
+"'21 Lakers": [
+{
+"round": "R1",
+"opponent": "Suns",
+"opponentWins": 51,
+"opponentLosses": 21,
+"result": "lost 4-2"
+}
+],
+"'21 Nets": [
+{
+"round": "R1",
+"opponent": "Celtics",
+"opponentWins": 36,
+"opponentLosses": 36,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Bucks",
+"opponentWins": 46,
+"opponentLosses": 26,
+"result": "lost 4-3"
+}
+],
+"'21 Nuggets": [
+{
+"round": "R1",
+"opponent": "Trail Blazers",
+"opponentWins": 42,
+"opponentLosses": 30,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Suns",
+"opponentWins": 51,
+"opponentLosses": 21,
+"result": "lost 4-0"
+}
+],
+"'21 Suns": [
+{
+"round": "R1",
+"opponent": "Lakers",
+"opponentWins": 42,
+"opponentLosses": 30,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Nuggets",
+"opponentWins": 47,
+"opponentLosses": 25,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Clippers",
+"opponentWins": 47,
+"opponentLosses": 25,
+"result": "won 4-2"
+},
+{
+"round": "Finals",
+"opponent": "Bucks",
+"opponentWins": 46,
+"opponentLosses": 26,
+"result": "lost 4-2"
+}
+],
+"'21 Wizards": [
+{
+"round": "R1",
+"opponent": "76ers",
+"opponentWins": 49,
+"opponentLosses": 23,
+"result": "lost 1-4"
+}
+],
+"'22 76ers": [
+{
+"round": "R1",
+"opponent": "Raptors",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Heat",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 2-4"
+}
+],
+"'22 Bucks": [
+{
+"round": "R1",
+"opponent": "Bulls",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Celtics",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 3-4"
+}
+],
+"'22 Celtics": [
+{
+"round": "R1",
+"opponent": "Nets",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Bucks",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Heat",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "won 4-3"
+},
+{
+"round": "FINALS",
+"opponent": "Warriors",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 2-4"
+}
+],
+"'22 Grizzlies": [
+{
+"round": "R1",
+"opponent": "Timberwolves",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Warriors",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 2-4"
+}
+],
+"'22 Heat": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "76ers",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Celtics",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 3-4"
+}
+],
+"'22 Jazz": [
+{
+"round": "R1",
+"opponent": "Mavericks",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 2-4"
+}
+],
+"'22 Nets": [
+{
+"round": "R1",
+"opponent": "Celtics",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 0-4"
+}
+],
+"'22 Nuggets": [
+{
+"round": "R1",
+"opponent": "Warriors",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 1-4"
+}
+],
+"'22 Pelicans": [
+{
+"round": "R1",
+"opponent": "Suns",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "lost 2-4"
+}
+],
+"'22 Raptors": [
+{
+"round": "R1",
+"opponent": "76ers",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 2-4"
+}
+],
+"'22 Suns": [
+{
+"round": "R1",
+"opponent": "Pelicans",
+"opponentWins": 36,
+"opponentLosses": 46,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Mavericks",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "lost 3-4"
+}
+],
+"'22 Warriors": [
+{
+"round": "R1",
+"opponent": "Nuggets",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Grizzlies",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Mavericks",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-1"
+},
+{
+"round": "FINALS",
+"opponent": "Celtics",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-2"
+}
+],
+"'23 76ers": [
+{
+"round": "R1",
+"opponent": "Nets",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Celtics",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "lost 3-4"
+}
+],
+"'23 Bucks": [
+{
+"round": "R1",
+"opponent": "Heat",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "lost 1-4"
+}
+],
+"'23 Celtics": [
+{
+"round": "R1",
+"opponent": "Hawks",
+"opponentWins": 41,
+"opponentLosses": 41,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "76ers",
+"opponentWins": 54,
+"opponentLosses": 28,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Heat",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "lost 3-4"
+}
+],
+"'23 Heat": [
+{
+"round": "R1",
+"opponent": "Bucks",
+"opponentWins": 58,
+"opponentLosses": 24,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Knicks",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Celtics",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Nuggets",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 1-4"
+}
+],
+"'23 Knicks": [
+{
+"round": "R1",
+"opponent": "Cavaliers",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Heat",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "lost 2-4"
+}
+],
+"'23 Nuggets": [
+{
+"round": "R1",
+"opponent": "Timberwolves",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Suns",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Lakers",
+"opponentWins": 43,
+"opponentLosses": 39,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "Heat",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-1"
+}
+],
+"'23 Timberwolves": [
+{
+"round": "R1",
+"opponent": "Nuggets",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 1-4"
+}
+],
+"'24 76ers": [
+{
+"round": "R1",
+"opponent": "Knicks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 2-4"
+}
+],
+"'24 Celtics": [
+{
+"round": "R1",
+"opponent": "Heat",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Cavaliers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Pacers",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "Mavericks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-1"
+}
+],
+"'24 Knicks": [
+{
+"round": "R1",
+"opponent": "76ers",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Pacers",
+"opponentWins": 47,
+"opponentLosses": 35,
+"result": "lost 3-4"
+}
+],
+"'24 Magic": [
+{
+"round": "R1",
+"opponent": "Cavaliers",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "lost 3-4"
+}
+],
+"'24 Mavericks": [
+{
+"round": "R1",
+"opponent": "Clippers",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Thunder",
+"opponentWins": 57,
+"opponentLosses": 25,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Timberwolves",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Celtics",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "lost 1-4"
+}
+],
+"'24 Suns": [
+{
+"round": "R1",
+"opponent": "Timberwolves",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "lost 0-4"
+}
+],
+"'24 Thunder": [
+{
+"round": "R1",
+"opponent": "Pelicans",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Mavericks",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 2-4"
+}
+],
+"'25 Cavs": [
+{
+"round": "R1",
+"opponent": "Heat",
+"opponentWins": 37,
+"opponentLosses": 45,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Pacers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 1-4"
+}
+],
+"'25 Clippers": [
+{
+"round": "R1",
+"opponent": "Nuggets",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 3-4"
+}
+],
+"'25 Knicks": [
+{
+"round": "R1",
+"opponent": "Pistons",
+"opponentWins": 44,
+"opponentLosses": 38,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Celtics",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Pacers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "lost 2-4"
+}
+],
+"'25 Lakers": [
+{
+"round": "R1",
+"opponent": "Timberwolves",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "lost 1-4"
+}
+],
+"'25 Magic": [
+{
+"round": "R1",
+"opponent": "Celtics",
+"opponentWins": 61,
+"opponentLosses": 21,
+"result": "lost 1-4"
+}
+],
+"'25 Pacers": [
+{
+"round": "R1",
+"opponent": "Milwaukee Bucks",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Cleveland Cavaliers",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "New York Knicks",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "Oklahoma City Thunder",
+"opponentWins": 68,
+"opponentLosses": 14,
+"result": "lost 3-4"
+}
+],
+"'25 Pistons": [
+{
+"round": "R1",
+"opponent": "New York Knicks",
+"opponentWins": 51,
+"opponentLosses": 31,
+"result": "lost 2-4"
+}
+],
+"'25 Rockets": [
+{
+"round": "R1",
+"opponent": "Golden State Warriors",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "lost 3-4"
+}
+],
+"'25 Thunder": [
+{
+"round": "R1",
+"opponent": "Memphis Grizzlies",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-0"
+},
+{
+"round": "R2",
+"opponent": "Denver Nuggets",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-3"
+},
+{
+"round": "CF",
+"opponent": "Minnesota Timberwolves",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-1"
+},
+{
+"round": "Finals",
+"opponent": "Indiana Pacers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-3"
+}
+],
+"'25 Timberwolves": [
+{
+"round": "R1",
+"opponent": "Los Angeles Lakers",
+"opponentWins": 50,
+"opponentLosses": 32,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Golden State Warriors",
+"opponentWins": 48,
+"opponentLosses": 34,
+"result": "won 4-1"
+},
+{
+"round": "CF",
+"opponent": "Oklahoma City Thunder",
+"opponentWins": 68,
+"opponentLosses": 14,
+"result": "lost 1-4"
+}
+],
+"'26 76ers": [
+{
+"round": "R1",
+"opponent": "Boston Celtics",
+"opponentWins": 56,
+"opponentLosses": 26,
+"result": "won 4-3"
+},
+{
+"round": "R2",
+"opponent": "New York Knicks",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 0-4"
+}
+],
+"'26 Knicks": [
+{
+"round": "R1",
+"opponent": "Atlanta Hawks",
+"opponentWins": 46,
+"opponentLosses": 36,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Philadelphia 76ers",
+"opponentWins": 45,
+"opponentLosses": 37,
+"result": "won 4-0"
+},
+{
+"round": "CF",
+"opponent": "Cleveland Cavaliers",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-0"
+},
+{
+"round": "Finals",
+"opponent": "San Antonio Spurs",
+"opponentWins": 62,
+"opponentLosses": 20,
+"result": "won 4-1"
+}
+],
+"'26 Lakers": [
+{
+"round": "R1",
+"opponent": "Houston Rockets",
+"opponentWins": 52,
+"opponentLosses": 30,
+"result": "won 4-2"
+},
+{
+"round": "R2",
+"opponent": "Oklahoma City Thunder",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "lost 0-4"
+}
+],
+"'26 Spurs": [
+{
+"round": "R1",
+"opponent": "Portland Trail Blazers",
+"opponentWins": 42,
+"opponentLosses": 40,
+"result": "won 4-1"
+},
+{
+"round": "R2",
+"opponent": "Minnesota Timberwolves",
+"opponentWins": 49,
+"opponentLosses": 33,
+"result": "won 4-2"
+},
+{
+"round": "CF",
+"opponent": "Oklahoma City Thunder",
+"opponentWins": 64,
+"opponentLosses": 18,
+"result": "won 4-3"
+},
+{
+"round": "Finals",
+"opponent": "New York Knicks",
+"opponentWins": 53,
+"opponentLosses": 29,
+"result": "lost 1-4"
+}
+]
+}
