@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { getAllPlayers } from '../lib/players';
 import { getTeamColors } from '../lib/teamColors';
 import { emptyLineup, summarizeLineup, type LineupSlot } from '../lib/lineup';
@@ -8,7 +8,11 @@ import LineupSummaryPanel from '../components/LineupSummaryPanel';
 import PlayerPickerModal from '../components/PlayerPickerModal';
 import type { Player } from '../types/player';
 
-const SPIN_DURATION_MS = 650;
+// Ported from the original NBA Ultimate Lineup Builder's "Dynasty Roulette" (conference.js):
+// each of the five spots is its own spin. Spin lands a team + decade, you draft one player
+// from that era into an open spot, the spot locks, then you spin again for the next spot.
+const FLASH_STEPS = 30;
+const FLASH_TOTAL_DELAY = (step: number) => 43 + Math.pow(step / FLASH_STEPS, 2.4) * 129;
 
 function decadeOf(eraTeam: string): number {
   const m = eraTeam.match(/^'?(\d{2,4})/);
@@ -18,7 +22,7 @@ function decadeOf(eraTeam: string): number {
   return Math.floor(year / 10) * 10;
 }
 
-interface Roll {
+interface Combo {
   teamKey: string;
   decade: number;
 }
@@ -26,9 +30,8 @@ interface Roll {
 export default function DynastyRoulettePage() {
   const players = useMemo(() => getAllPlayers(), []);
 
-  // Every (team, decade) pair that actually has players, so a roll never lands empty.
   const rollablePairs = useMemo(() => {
-    const seen = new Map<string, Roll>();
+    const seen = new Map<string, Combo>();
     for (const p of players) {
       const key = `${p.teamKey}::${decadeOf(p.eraTeam)}`;
       if (!seen.has(key)) seen.set(key, { teamKey: p.teamKey, decade: decadeOf(p.eraTeam) });
@@ -36,46 +39,114 @@ export default function DynastyRoulettePage() {
     return [...seen.values()];
   }, [players]);
 
-  const [roll, setRoll] = useState<Roll | null>(null);
-  const [rolling, setRolling] = useState(false);
   const [slots, setSlots] = useState<LineupSlot[]>(emptyLineup());
+  const [combo, setCombo] = useState<Combo | null>(null);
+  const [flashCombo, setFlashCombo] = useState<Combo | null>(null);
+  const [rolling, setRolling] = useState(false);
+  const [awaiting, setAwaiting] = useState(false); // rolled, not yet drafted from
+  const [usedTeamReroll, setUsedTeamReroll] = useState(false);
+  const [usedDecadeReroll, setUsedDecadeReroll] = useState(false);
   const [pickerIndex, setPickerIndex] = useState<number | null>(null);
   const [veteranMode, setVeteranMode] = useState(false);
+  const timeoutRef = useRef<number | null>(null);
+
+  const usedNames = useMemo(() => new Set(slots.filter((p): p is Player => p !== null).map((p) => p.name)), [slots]);
+  const openCount = slots.filter((s) => s === null).length;
 
   const pool: Player[] = useMemo(() => {
-    if (!roll) return [];
-    return players.filter((p) => p.teamKey === roll.teamKey && decadeOf(p.eraTeam) === roll.decade);
-  }, [players, roll]);
+    if (!combo) return [];
+    const seen = new Set<string>();
+    return players.filter((p) => {
+      if (p.teamKey !== combo.teamKey || decadeOf(p.eraTeam) !== combo.decade) return false;
+      if (usedNames.has(p.name) || seen.has(p.name)) return false;
+      seen.add(p.name);
+      return true;
+    });
+  }, [players, combo, usedNames]);
 
   const summary = summarizeLineup(slots);
-  const teamColors = roll ? getTeamColors(roll.teamKey) : null;
+  const teamColors = getTeamColors((flashCombo ?? combo)?.teamKey);
 
-  function usedIds(excludeIndex?: number): Set<string> {
-    return new Set(
-      slots
-        .filter((_, i) => i !== excludeIndex)
-        .filter((p): p is NonNullable<LineupSlot> => p !== null)
-        .map((p) => p.id),
-    );
+  function flashRoll(finalPick: () => Combo, onLand: (c: Combo) => void) {
+    setRolling(true);
+    let step = 0;
+    function tick() {
+      if (step >= FLASH_STEPS) {
+        setRolling(false);
+        const landed = finalPick();
+        setFlashCombo(landed);
+        onLand(landed);
+        return;
+      }
+      const r = rollablePairs[Math.floor(Math.random() * rollablePairs.length)];
+      setFlashCombo(r);
+      step++;
+      timeoutRef.current = window.setTimeout(tick, FLASH_TOTAL_DELAY(step));
+    }
+    tick();
   }
 
   function spin() {
-    setRolling(true);
-    setSlots(emptyLineup());
-    window.setTimeout(() => {
-      const next = rollablePairs[Math.floor(Math.random() * rollablePairs.length)];
-      setRoll(next);
-      setRolling(false);
-    }, SPIN_DURATION_MS);
+    if (rolling || awaiting || openCount === 0) return;
+    const used = usedNames;
+    const fillable = rollablePairs.filter((c) =>
+      players.some((p) => p.teamKey === c.teamKey && decadeOf(p.eraTeam) === c.decade && !used.has(p.name)),
+    );
+    if (!fillable.length) return;
+    flashRoll(
+      () => fillable[Math.floor(Math.random() * fillable.length)],
+      (landed) => {
+        setCombo(landed);
+        setAwaiting(true);
+      },
+    );
   }
 
-  function clearSlot(index: number) {
-    setSlots((prev) => prev.map((p, i) => (i === index ? null : p)));
+  function switchTeam() {
+    if (rolling || !awaiting || usedTeamReroll || !combo) return;
+    const opts = rollablePairs.filter(
+      (c) => c.decade === combo.decade && players.some((p) => p.teamKey === c.teamKey && decadeOf(p.eraTeam) === c.decade && !usedNames.has(p.name)),
+    );
+    if (!opts.length) return;
+    setUsedTeamReroll(true);
+    flashRoll(
+      () => opts[Math.floor(Math.random() * opts.length)],
+      (landed) => setCombo(landed),
+    );
+  }
+
+  function rerollDecade() {
+    if (rolling || !awaiting || usedDecadeReroll || !combo) return;
+    const opts = rollablePairs.filter(
+      (c) => c.teamKey === combo.teamKey && players.some((p) => p.teamKey === c.teamKey && decadeOf(p.eraTeam) === c.decade && !usedNames.has(p.name)),
+    );
+    if (!opts.length) return;
+    setUsedDecadeReroll(true);
+    flashRoll(
+      () => opts[Math.floor(Math.random() * opts.length)],
+      (landed) => setCombo(landed),
+    );
+  }
+
+  function pickForSlot(i: number, p: Player) {
+    setSlots((prev) => prev.map((s, idx) => (idx === i ? p : s)));
+    setAwaiting(false);
+    setPickerIndex(null);
   }
 
   function clearAll() {
+    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
     setSlots(emptyLineup());
+    setCombo(null);
+    setFlashCombo(null);
+    setRolling(false);
+    setAwaiting(false);
+    setUsedTeamReroll(false);
+    setUsedDecadeReroll(false);
   }
+
+  const shownCombo = flashCombo ?? combo;
+  const allLocked = openCount === 0;
 
   return (
     <div className="space-y-6">
@@ -99,77 +170,105 @@ export default function DynastyRoulettePage() {
         </button>
       </div>
 
-      {/* roll banner — spin lands on a team + decade, then you draft five from that era */}
+      {/* roll banner */}
       <div
         className="border border-surface-4 p-6 flex flex-wrap items-center justify-between gap-6"
         style={{
-          background: teamColors
+          background: shownCombo
             ? `linear-gradient(120deg, ${teamColors.primary}22, var(--color-surface-1))`
             : 'var(--color-surface-1)',
         }}
       >
         <div>
-          <div className="font-mono text-[10px] uppercase tracking-[.22em] text-muted mb-2">🎲 Dynasty Roulette</div>
-          {rolling ? (
-            <div
-              className="text-text-hi animate-pulse"
-              style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 34 }}
-            >
-              Rolling…
-            </div>
-          ) : roll ? (
-            <div className="flex items-baseline gap-3">
+          <div className="font-mono text-[10px] uppercase tracking-[.22em] text-muted mb-2">
+            🎲 Dynasty Roulette · 82&#8209;0 run
+          </div>
+          <div
+            className={rolling ? 'flex items-baseline gap-3' : 'flex items-baseline gap-3'}
+            style={rolling ? { animation: 'cbRollPulse 0.12s ease-in-out infinite alternate' } : undefined}
+          >
+            {shownCombo ? (
+              <>
+                <span
+                  style={{
+                    fontFamily: 'Archivo, sans-serif',
+                    fontVariationSettings: "'wdth' 72,'wght' 800",
+                    fontSize: 34,
+                    color: teamColors.primary,
+                  }}
+                >
+                  {shownCombo.teamKey}
+                </span>
+                <span className="font-mono text-lg" style={{ color: 'var(--color-amber-500)' }}>
+                  {shownCombo.decade}s
+                </span>
+              </>
+            ) : (
               <span
-                style={{
-                  fontFamily: 'Archivo, sans-serif',
-                  fontVariationSettings: "'wdth' 72,'wght' 800",
-                  fontSize: 34,
-                  color: teamColors?.primary,
-                }}
+                className="text-text-mid"
+                style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 34 }}
               >
-                {roll.teamKey}
+                Hit spin to roll
               </span>
-              <span className="font-mono text-lg text-text-mid">{roll.decade}s</span>
-            </div>
-          ) : (
-            <div
-              className="text-text-mid"
-              style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 34 }}
-            >
-              Hit spin to roll
+            )}
+          </div>
+          <p className="text-xs text-text-low mt-2 max-w-md">
+            {rolling
+              ? 'Rolling a team & decade…'
+              : allLocked
+                ? 'Dynasty complete — five locked picks across five rolls.'
+                : awaiting
+                  ? 'Pick an open spot to draft from this era — that spot locks for good.'
+                  : 'Spin for a team + decade, draft one player into an open spot, then spin again for the next.'}
+            {veteranMode && !rolling && ' Veteran mode is on: ratings and archetypes stay hidden while you draft.'}
+          </p>
+          {awaiting && !rolling && (
+            <div className="flex gap-2 mt-3">
+              <button
+                type="button"
+                onClick={switchTeam}
+                disabled={usedTeamReroll}
+                className="text-[11px] font-mono uppercase tracking-[.08em] px-3 py-1.5 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
+              >
+                {usedTeamReroll ? '✓ Switch team used' : 'Switch team'}
+              </button>
+              <button
+                type="button"
+                onClick={rerollDecade}
+                disabled={usedDecadeReroll}
+                className="text-[11px] font-mono uppercase tracking-[.08em] px-3 py-1.5 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
+              >
+                {usedDecadeReroll ? '✓ Re-roll decade used' : 'Re-roll decade'}
+              </button>
             </div>
           )}
-          <p className="text-xs text-text-low mt-2 max-w-md">
-            Each spin lands a team + decade — draft your five from that franchise era.
-            {veteranMode && ' Veteran mode is on: ratings and archetypes stay hidden while you draft.'}
-          </p>
         </div>
         <button
           type="button"
           onClick={spin}
-          disabled={rolling}
+          disabled={rolling || awaiting || allLocked}
           className="px-5 py-2.5 bg-amber-500 text-[#1A1410] text-sm font-semibold font-mono uppercase tracking-[.08em] hover:bg-amber-300 disabled:opacity-50 transition-colors flex-none"
         >
-          🎲 Spin
+          🎲 {allLocked ? 'Complete' : awaiting ? 'Pick a spot' : combo ? 'Spin for next spot' : 'Spin'}
         </button>
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-2">
-          {!roll ? (
-            <div className="border border-dashed border-surface-4 p-8 text-center text-sm text-text-low font-mono">
-              Spin to roll a team and decade, then draft your five.
-            </div>
-          ) : (
-            slots.map((slot, i) =>
-              slot ? (
-                <PlayerCard key={slot.id} player={slot} compact onRemove={() => clearSlot(i)} />
-              ) : (
-                <EmptySlot key={i} label={`Slot ${i + 1} — draft from ${roll.teamKey}`} onClick={() => setPickerIndex(i)} />
-              ),
-            )
+          {slots.map((slot, i) =>
+            slot ? (
+              <PlayerCard key={slot.id} player={slot} compact />
+            ) : (
+              <EmptySlot
+                key={i}
+                label={awaiting && combo ? `Slot ${i + 1} — draft from ${combo.teamKey} ${combo.decade}s` : `Slot ${i + 1} — spin to unlock`}
+                onClick={awaiting ? () => setPickerIndex(i) : undefined}
+              />
+            ),
           )}
-          {roll && (
+          {(combo || slots.some(Boolean)) && (
             <button
               type="button"
               onClick={clearAll}
@@ -187,13 +286,10 @@ export default function DynastyRoulettePage() {
 
       {pickerIndex !== null && (
         <PlayerPickerModal
-          players={pool.filter((p) => !usedIds(pickerIndex).has(p.id))}
+          players={pool}
           blind={veteranMode}
           onClose={() => setPickerIndex(null)}
-          onSelect={(p) => {
-            setSlots((prev) => prev.map((s, i) => (i === pickerIndex ? p : s)));
-            setPickerIndex(null);
-          }}
+          onSelect={(p) => pickForSlot(pickerIndex, p)}
         />
       )}
     </div>

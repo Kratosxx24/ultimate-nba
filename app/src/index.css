@@ -128,6 +128,16 @@ body {
   }
 }
 
+/* Dynasty Roulette mid-roll bob, ported from the original conference.js's cbRollPulse. */
+@keyframes cbRollPulse {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2px);
+  }
+}
+
 .um-skeleton {
   background: #241f1e;
   animation: um-pulse 1.4s ease-in-out infinite;
