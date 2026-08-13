@@ -1,6 +1,7 @@
 import type { Player } from '../types/player';
 import OvrBadge, { getTier } from './OvrBadge';
 import { useTheme } from '../lib/ThemeContext';
+import { getTeamColors } from '../lib/teamColors';
 
 interface PlayerCardProps {
   player: Player;
@@ -8,14 +9,6 @@ interface PlayerCardProps {
   onReroll?: () => void;
   compact?: boolean;
   onClick?: () => void;
-}
-
-// Deterministic hue from team key so the monogram plate always reads the
-// same for a given franchise, without needing a real color table.
-function teamHue(key: string): number {
-  let hash = 0;
-  for (let i = 0; i < key.length; i++) hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
-  return hash % 360;
 }
 
 // eraTeam is formatted like "'96 Bulls" — a 2-digit clipped year plus the franchise name.
@@ -37,13 +30,13 @@ function splitName(name: string): [string, string] {
 export default function PlayerCard({ player, onRemove, onReroll, compact, onClick }: PlayerCardProps) {
   const { year, team } = parseYear(player.eraTeam);
   const [first, last] = splitName(player.name);
-  const hue = teamHue(player.teamKey || player.eraTeam);
+  const teamColors = getTeamColors(player.teamKey);
   const { theme } = useTheme();
   const tier = getTier(player.OVR, theme);
   const dim = player.OVR < 60;
 
-  const spineBg = `linear-gradient(180deg, hsl(${hue} 42% 14%), hsl(${hue} 30% 8%))`;
-  const spineBorder = `hsl(${hue} 40% 22%)`;
+  const spineBg = `linear-gradient(180deg, ${teamColors.primary}30, ${teamColors.primary}10)`;
+  const spineBorder = `${teamColors.primary}55`;
   const nameColor = dim ? 'var(--color-text-mid)' : 'var(--color-text-hi)';
 
   return (
@@ -99,7 +92,7 @@ export default function PlayerCard({ player, onRemove, onReroll, compact, onClic
                 className="font-mono text-[10.5px] pl-1.5"
                 style={{
                   color: dim ? 'var(--color-muted)' : 'var(--color-text-mid)',
-                  borderLeft: `2px solid var(--color-amber-500)`,
+                  borderLeft: `2px solid ${teamColors.primary}`,
                 }}
               >
                 {team || player.eraTeam}

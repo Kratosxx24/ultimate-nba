@@ -7,7 +7,7 @@ export default function EmptySlot({ label, onClick }: { label: string; onClick?:
     >
       <div
         className="flex-none flex items-center justify-center w-10 h-10 text-muted"
-        style={{ background: '#241F1E', clipPath: 'polygon(0 0,100% 0,100% 74%,78% 100%,0 100%)' }}
+        style={{ background: 'var(--color-surface-3)', clipPath: 'polygon(0 0,100% 0,100% 74%,78% 100%,0 100%)' }}
       >
         <span
           style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 70,'wght' 800", fontSize: 18 }}

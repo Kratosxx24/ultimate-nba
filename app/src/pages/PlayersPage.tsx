@@ -4,6 +4,7 @@ import { getAllPlayers } from '../lib/players';
 import OvrBadge, { getTier } from '../components/OvrBadge';
 import type { Player } from '../types/player';
 import { useTheme } from '../lib/ThemeContext';
+import { getTeamColors } from '../lib/teamColors';
 
 type NumericKey =
   | 'OVR'
@@ -76,6 +77,29 @@ function ArchetypePill({ archetype }: { archetype: string }) {
   );
 }
 
+// Position -> token-consistent color, echoing the archetype pill treatment so the
+// role-at-a-glance read (playmaking blue, wing orange, big purple) stays consistent.
+const POS_STYLE: Record<string, { text: string; border: string }> = {
+  PG: { text: '#9CC0F0', border: 'rgba(92,141,214,.4)' },
+  SG: { text: '#F0A56C', border: 'rgba(240,135,58,.4)' },
+  SF: { text: '#8FCBAE', border: 'rgba(90,180,150,.4)' },
+  PF: { text: '#C6A8E8', border: 'rgba(178,140,214,.4)' },
+  C: { text: '#E8A0AC', border: 'rgba(212,110,128,.4)' },
+};
+
+function PosTag({ pos }: { pos: string }) {
+  const key = pos.split('/')[0].trim().toUpperCase();
+  const s = POS_STYLE[key] ?? { text: 'var(--color-text-mid)', border: 'var(--color-surface-4)' };
+  return (
+    <span
+      className="text-[11px] font-mono font-semibold px-1.5 py-0.5 justify-self-start"
+      style={{ color: s.text, border: `1px solid ${s.border}` }}
+    >
+      {pos}
+    </span>
+  );
+}
+
 function yearOf(p: Player): number {
   const m = p.eraTeam.match(/^'?(\d{2,4})/);
   if (!m) return 0;
@@ -142,10 +166,10 @@ export default function PlayersPage() {
         />
       </div>
 
-      <div className="border border-hairline bg-[#0F0D0C] overflow-x-auto">
+      <div className="border border-hairline overflow-x-auto" style={{ background: 'var(--color-surface-1)' }}>
         <div
-          className="grid gap-3 px-5 py-2.5 bg-surface-1 border-b border-hairline font-mono text-[10px] tracking-[.1em] uppercase text-muted items-center"
-          style={{ gridTemplateColumns: GRID_COLS, minWidth: 1220 }}
+          className="grid gap-3 py-3 border-b border-hairline font-mono text-[10px] tracking-[.1em] uppercase text-muted items-center"
+          style={{ gridTemplateColumns: GRID_COLS, minWidth: 1220, paddingLeft: 'calc(1.25rem + 3px)', paddingRight: '1.25rem' }}
         >
           {COLS.map((c) => (
             <button
@@ -167,25 +191,41 @@ export default function PlayersPage() {
         {rows.map(({ p, year }, i) => {
           const tier = getTier(p.OVR, theme);
           const dim = p.OVR < 60;
+          const teamColors = getTeamColors(p.teamKey);
+          const topRank = i < 3;
           return (
             <Link
               key={p.id}
               to={`/season/${encodeURIComponent(p.id)}`}
-              className="grid gap-3 px-5 py-2.5 border-b border-hairline last:border-b-0 items-center hover:bg-surface-3 transition-colors"
+              className="grid gap-3 py-3.5 last:border-b-0 items-center hover:bg-surface-3 transition-colors"
               style={{
                 gridTemplateColumns: GRID_COLS,
                 minWidth: 1220,
-                background: i % 2 === 1 ? 'var(--color-surface-1)' : undefined,
+                paddingLeft: '1.25rem',
+                paddingRight: '1.25rem',
+                background: i % 2 === 1 ? 'var(--color-surface-2)' : 'var(--color-surface-1)',
+                borderLeft: `3px solid ${teamColors.primary}`,
+                borderBottom: '1px solid var(--color-hairline)',
               }}
             >
-              <span className="font-mono text-[12px] text-muted font-tnum">{i + 1}</span>
+              <span
+                className="font-mono text-[12px] font-tnum"
+                style={{ color: topRank ? 'var(--color-amber-500)' : 'var(--color-muted)', fontWeight: topRank ? 700 : 400 }}
+              >
+                {i + 1}
+              </span>
               <span
                 className="font-tnum"
                 style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 78,'wght' 700", fontSize: 16, color: tier.numeral }}
               >
                 {year ? `'${String(year).slice(-2)}` : ''}
               </span>
-              <span className="font-mono text-[11px] text-muted truncate">{p.teamKey}</span>
+              <span
+                className="font-mono text-[11px] font-semibold truncate uppercase tracking-[.04em]"
+                style={{ color: teamColors.primary }}
+              >
+                {p.teamKey}
+              </span>
               <span
                 className="truncate min-w-0"
                 style={{
@@ -197,8 +237,13 @@ export default function PlayersPage() {
               >
                 {p.name}
               </span>
-              <span className="text-[11px] text-text-mid border border-surface-4 px-1.5 py-0.5 justify-self-start">{p.pos}</span>
-              <span className="font-mono text-[12.5px] text-text-mid text-right font-tnum">{p.cost}</span>
+              <PosTag pos={p.pos} />
+              <span
+                className="font-mono text-[13.5px] text-right font-tnum font-bold"
+                style={{ color: 'var(--color-amber-500)' }}
+              >
+                {p.cost}
+              </span>
               <OvrBadge ovr={p.OVR} size="sm" />
               <span className="font-mono text-[12.5px] text-text-body-hi text-right font-tnum">{p.usg.toFixed(1)}</span>
               <span className="font-mono text-[12.5px] text-text-body-hi text-right font-tnum">{p.ts.toFixed(3)}</span>
