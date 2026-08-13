@@ -123,14 +123,32 @@ export default function OvrBadge({
   const glowPx = size === 'hero' ? (ovr >= 95 ? 20 : 26) : size === 'lg' ? 8 : size === 'md' ? 5 : 0;
   const showGlow = tier.glow && (size === 'md' || size === 'lg' || size === 'hero');
 
-  const outer: React.CSSProperties = {
+  // Root wrapper carries no filter of its own, so the text subtree is never forced
+  // through a blurred/rasterized compositing layer. The glow is painted by a separate
+  // absolutely-positioned layer sitting BEHIND the real content, filtered on its own —
+  // the numeral's ancestor chain (outer -> inner -> span) stays filter/transform-free.
+  const root: React.CSSProperties = {
+    position: 'relative',
     width: cfg.box,
     height: cfg.box,
+    flexShrink: 0,
+  };
+
+  const glowLayer: React.CSSProperties = {
+    position: 'absolute',
+    inset: 0,
+    background: tier.edge,
+    clipPath: cfg.clip,
+    filter: showGlow ? `drop-shadow(0 0 ${glowPx}px ${tier.glow})` : undefined,
+  };
+
+  const outer: React.CSSProperties = {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
     padding: tier.flat ? 0 : tier.edgeWidth,
     background: tier.edge,
     clipPath: cfg.clip,
-    flexShrink: 0,
-    filter: showGlow ? `drop-shadow(0 0 ${glowPx}px ${tier.glow})` : undefined,
   };
 
   const inner: React.CSSProperties = {
@@ -153,26 +171,31 @@ export default function OvrBadge({
     lineHeight: 0.9,
     color: tier.numeral,
     fontFeatureSettings: "'tnum' 1",
+    textRendering: 'optimizeLegibility',
+    WebkitFontSmoothing: 'antialiased',
   };
 
   return (
-    <div style={outer} title={`${tier.name} · ${ovr} OVR`}>
-      <div style={inner}>
-        <span style={numeralStyle}>{ovr}</span>
-        {cfg.rule && <span style={{ width: cfg.numeral * 0.5, height: 3, background: tier.numeral }} />}
-        {cfg.label && (
-          <span
-            style={{
-              fontFamily: "'IBM Plex Mono', monospace",
-              fontSize: 11,
-              letterSpacing: '.22em',
-              color: tier.numeral,
-              textTransform: 'uppercase',
-            }}
-          >
-            {tier.name}
-          </span>
-        )}
+    <div style={root} title={`${tier.name} · ${ovr} OVR`}>
+      {showGlow && <div style={glowLayer} aria-hidden="true" />}
+      <div style={outer}>
+        <div style={inner}>
+          <span style={numeralStyle}>{ovr}</span>
+          {cfg.rule && <span style={{ width: cfg.numeral * 0.5, height: 3, background: tier.numeral }} />}
+          {cfg.label && (
+            <span
+              style={{
+                fontFamily: "'IBM Plex Mono', monospace",
+                fontSize: 11,
+                letterSpacing: '.22em',
+                color: tier.numeral,
+                textTransform: 'uppercase',
+              }}
+            >
+              {tier.name}
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );

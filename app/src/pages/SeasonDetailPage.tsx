@@ -25,6 +25,13 @@ function percentile(players: Player[], key: keyof Player, value: number): number
   return Math.round((lo / vals.length) * 100);
 }
 
+function yearOf(p: Player): number {
+  const m = p.eraTeam.match(/^'?(\d{2,4})/);
+  if (!m) return 0;
+  const n = parseInt(m[1], 10);
+  return n < 100 ? (n >= 40 ? 1900 + n : 2000 + n) : n;
+}
+
 function ordinal(n: number): string {
   const s = ['th', 'st', 'nd', 'rd'];
   const v = n % 100;
@@ -65,6 +72,9 @@ export default function SeasonDetailPage() {
     .sort((a, b) => b.OVR - a.OVR)
     .slice(0, 5);
   const series = playoffOpponents[player.eraTeam] ?? [];
+  const careerArc = allPlayers
+    .filter((p) => p.name === player.name)
+    .sort((a, b) => yearOf(a) - yearOf(b));
 
   const stats: { label: string; value: string | number; pct: number; hi?: boolean }[] = [
     { label: 'PTS', value: player.ppg, pct: percentile(allPlayers, 'ppg', player.ppg), hi: true },
@@ -321,6 +331,74 @@ export default function SeasonDetailPage() {
               ))}
             </div>
           )}
+
+          {/* career arc — every other season for this player */}
+          <div className="border border-hairline bg-surface-1">
+            <div className="px-5 py-4 border-b border-hairline">
+              <div style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 86,'wght' 700", fontSize: 18 }} className="text-text-hi">
+                Career arc · {player.name}
+              </div>
+              <div className="text-xs text-muted mt-1">
+                {careerArc.length > 1
+                  ? `${careerArc.length} seasons in the database, ${yearOf(careerArc[0])}–${yearOf(careerArc[careerArc.length - 1])}.`
+                  : 'Only season in the database for this player.'}
+              </div>
+            </div>
+            {careerArc.length > 1 && (
+              <>
+                <div
+                  className="grid px-5 py-2.5 bg-surface-0 border-b border-hairline font-mono text-[9.5px] tracking-[.12em] uppercase text-muted"
+                  style={{ gridTemplateColumns: '54px minmax(0,1fr) 60px 76px 58px 58px' }}
+                >
+                  <span>Year</span>
+                  <span>Team</span>
+                  <span>Pos</span>
+                  <span>Rating</span>
+                  <span className="text-right">PTS</span>
+                  <span className="text-right">TS%</span>
+                </div>
+                {careerArc.map((s) => {
+                  const isCurrent = s.id === player.id;
+                  return (
+                    <Link
+                      key={s.id}
+                      to={`/season/${encodeURIComponent(s.id)}`}
+                      className="grid items-center px-5 py-2.5 border-b border-hairline last:border-b-0 hover:bg-surface-3"
+                      style={{
+                        gridTemplateColumns: '54px minmax(0,1fr) 60px 76px 58px 58px',
+                        background: isCurrent ? 'rgba(240,166,89,.1)' : undefined,
+                        borderLeft: isCurrent ? '2px solid var(--color-amber-500)' : '2px solid transparent',
+                      }}
+                    >
+                      <span
+                        style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 78,'wght' 700", fontSize: 17, color: getTier(s.OVR).numeral }}
+                        className="font-tnum"
+                      >
+                        '{String(yearOf(s)).slice(-2)}
+                      </span>
+                      <span className="flex items-center gap-2 min-w-0">
+                        <span
+                          className="text-[15px] truncate"
+                          style={{
+                            fontFamily: 'Archivo, sans-serif',
+                            fontVariationSettings: "'wdth' 84,'wght' 600",
+                            color: isCurrent ? 'var(--color-amber-500)' : 'var(--color-text-hi)',
+                          }}
+                        >
+                          {s.teamKey}
+                        </span>
+                        {isCurrent && <span className="font-mono text-[9px] tracking-[.12em] text-muted uppercase">viewing</span>}
+                      </span>
+                      <span className="text-[11px] text-text-mid border border-surface-4 px-1.5 py-0.5 justify-self-start">{s.pos}</span>
+                      <OvrBadge ovr={s.OVR} size="sm" />
+                      <span className="font-mono text-[12.5px] text-text-body-hi text-right font-tnum">{s.ppg}</span>
+                      <span className="font-mono text-[12.5px] text-text-mid text-right font-tnum">{s.ts.toFixed(3)}</span>
+                    </Link>
+                  );
+                })}
+              </>
+            )}
+          </div>
         </div>
 
         {/* right rail — playoff path */}
