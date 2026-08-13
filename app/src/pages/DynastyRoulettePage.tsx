@@ -501,7 +501,7 @@ export default function DynastyRoulettePage() {
               return (
                 <div
                   key={pos}
-                  className="p-4 flex flex-col items-center text-center gap-2.5 min-h-[180px] justify-center rounded-xl overflow-hidden"
+                  className="p-3 flex flex-col items-center text-center gap-1.5 min-h-[142px] justify-center rounded-xl overflow-hidden"
                   style={{
                     background: 'var(--color-surface-1)',
                     borderLeft: '1px solid var(--color-surface-4)',
@@ -527,7 +527,7 @@ export default function DynastyRoulettePage() {
                 type="button"
                 disabled={!isFillable}
                 onClick={() => isFillable && setViewPos(pos)}
-                className="border border-dashed rounded-xl p-4 flex flex-col items-center justify-center gap-2.5 min-h-[180px] transition-all duration-150 hover:scale-[1.02]"
+                className="border border-dashed rounded-xl p-3 flex flex-col items-center justify-center gap-1.5 min-h-[142px] transition-all duration-150 hover:scale-[1.02]"
                 style={{
                   borderColor: awaiting ? (isFillable ? posColor : 'var(--color-surface-4)') : posColor,
                   background: isFillable ? `${posColor}14` : 'var(--color-surface-1)',
