@@ -440,24 +440,24 @@ export default function DynastyRoulettePage() {
               return (
                 <div
                   key={p.id}
-                  className="flex flex-col p-4 gap-2.5 w-[260px] flex-none rounded-xl overflow-hidden transition-transform duration-150 hover:-translate-y-0.5"
+                  className="flex flex-col p-3 gap-1.5 w-[208px] flex-none rounded-xl overflow-hidden transition-transform duration-150 hover:-translate-y-0.5"
                   style={{ background: 'var(--color-surface-2)', borderTop: `4px solid ${pc.primary}`, border: '1px solid var(--color-surface-4)', borderTopWidth: 4, borderTopColor: pc.primary }}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
                       <YearTeam eraTeam={p.eraTeam} teamColor={pc.primary} />
-                      <div className="text-base font-semibold text-text-hi leading-tight break-words">{p.name}</div>
+                      <div className="text-sm font-semibold text-text-hi leading-tight break-words">{p.name}</div>
                     </div>
                     {veteranMode ? (
-                      <span className="font-mono text-base px-3 py-2 rounded" style={{ background: 'var(--color-surface-3)', color: 'var(--color-text-low)' }}>
+                      <span className="font-mono text-sm px-2 py-1 rounded" style={{ background: 'var(--color-surface-3)', color: 'var(--color-text-low)' }}>
                         ?
                       </span>
                     ) : (
-                      <OvrBadge ovr={p.OVR} size="md" />
+                      <OvrBadge ovr={p.OVR} size="sm" />
                     )}
                   </div>
                   {!veteranMode && <ArchetypeBadge archetype={p.archetype} />}
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 pt-2 border-t border-hairline">
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-1 pt-1.5 border-t border-hairline">
                     <StatCell label="PPG" value={p.ppg.toFixed(1)} />
                     <StatCell label="RPG" value={p.rpg.toFixed(1)} />
                     <StatCell label="APG" value={p.apg.toFixed(1)} />
