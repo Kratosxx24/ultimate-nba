@@ -133,7 +133,8 @@ export default function DynastyRoulettePage() {
         seen.add(p.name);
         return true;
       })
-      .sort((a, b) => b.OVR - a.OVR);
+      .sort((a, b) => b.OVR - a.OVR)
+      .slice(0, 5); // cap the display pool at 5, like the original — best OVR first
   }
 
   const summary = summarizeLineup(POSITIONS.map((pos) => roster[pos]));
@@ -370,13 +371,13 @@ export default function DynastyRoulettePage() {
             </button>
           </div>
 
-          <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))' }}>
+          <div className="flex flex-wrap justify-center gap-3">
             {poolFor(viewPos).map((p) => {
               const pc = getTeamColors(p.teamKey);
               return (
                 <div
                   key={p.id}
-                  className="flex flex-col p-3 gap-2"
+                  className="flex flex-col p-3 gap-2 w-[210px] flex-none"
                   style={{ background: 'var(--color-surface-2)', borderTop: `3px solid ${pc.primary}`, border: '1px solid var(--color-surface-4)', borderTopWidth: 3, borderTopColor: pc.primary }}
                 >
                   <div className="flex items-start justify-between gap-2">
