@@ -240,20 +240,6 @@ export default function DynastyRoulettePage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-end flex-wrap gap-3">
-        <button
-          type="button"
-          onClick={() => setVeteranMode((v) => !v)}
-          className="px-3 py-1.5 border border-surface-4 text-xs font-mono uppercase tracking-[.1em] hover:bg-surface-3 transition-colors flex items-center gap-2"
-        >
-          <span
-            className="w-1.5 h-1.5 rounded-full inline-block"
-            style={{ background: veteranMode ? 'var(--color-amber-500)' : 'var(--color-surface-5)' }}
-          />
-          Veteran mode: {veteranMode ? 'ON' : 'OFF'}
-        </button>
-      </div>
-
       {/* roll banner — compact, centered */}
       <div
         className="border border-surface-4 px-5 py-3 flex flex-col items-center text-center gap-1.5"
@@ -293,6 +279,18 @@ export default function DynastyRoulettePage() {
             </span>
           )}
         </div>
+
+        <button
+          type="button"
+          onClick={() => setVeteranMode((v) => !v)}
+          className="px-3 py-1.5 border border-surface-4 text-xs font-mono uppercase tracking-[.1em] hover:bg-surface-3 transition-colors flex items-center gap-2"
+        >
+          <span
+            className="w-1.5 h-1.5 rounded-full inline-block"
+            style={{ background: veteranMode ? 'var(--color-amber-500)' : 'var(--color-surface-5)' }}
+          />
+          Veteran mode: {veteranMode ? 'ON' : 'OFF'}
+        </button>
 
         <div className="flex items-center justify-center gap-2 flex-wrap">
           <button
