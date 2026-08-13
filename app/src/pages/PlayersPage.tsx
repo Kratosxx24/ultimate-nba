@@ -151,8 +151,7 @@ export default function PlayersPage() {
           </h1>
         </div>
         <p className="text-sm text-text-mid max-w-[66ch]">
-          {players.length.toLocaleString()} player-seasons, 1962 to today. Showing {rows.length.toLocaleString()}. Click a column header
-          to sort.
+          Showing {rows.length.toLocaleString()} of {players.length.toLocaleString()}.
         </p>
       </div>
 

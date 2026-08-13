@@ -4,6 +4,7 @@ import DynastyRoulettePage from './pages/DynastyRoulettePage';
 import CompareLineupsPage from './pages/CompareLineupsPage';
 import PlayersPage from './pages/PlayersPage';
 import SeasonDetailPage from './pages/SeasonDetailPage';
+import HowToUsePage from './pages/HowToUsePage';
 import { ThemeProvider, useTheme } from './lib/ThemeContext';
 
 const NAV_LINKS = [
@@ -73,11 +74,15 @@ function AppShell() {
             <Route path="/compare" element={<CompareLineupsPage />} />
             <Route path="/players" element={<PlayersPage />} />
             <Route path="/season/:id" element={<SeasonDetailPage />} />
+            <Route path="/how-to-use" element={<HowToUsePage />} />
           </Routes>
         </main>
 
         <footer className="border-t border-hairline py-4 text-center text-xs font-mono text-text-low">
-          Ultimate NBA — v35 formula
+          Ultimate NBA — v35 formula ·{' '}
+          <NavLink to="/how-to-use" className="hover:text-text-mid transition-colors">
+            How it works
+          </NavLink>
         </footer>
       </div>
     </HashRouter>

@@ -39,9 +39,12 @@ export default function PlayerCard({ player, onRemove, onReroll, compact, onClic
   const spineBorder = `${teamColors.primary}55`;
   const nameColor = dim ? 'var(--color-text-mid)' : 'var(--color-text-hi)';
 
+  const spineWidth = compact ? 20 : 30;
+  const padClass = compact ? 'p-2' : 'p-3.5';
+
   return (
     <div
-      className="group flex overflow-hidden bg-surface-2 border border-surface-4 hover:border-[#4A423D] hover:bg-[#221D1B] transition-colors cursor-pointer"
+      className="player-card group flex overflow-hidden bg-surface-2 border border-surface-4 hover:border-surface-5 transition-colors cursor-pointer"
       style={{ opacity: dim ? 0.94 : 1 }}
       onClick={onClick}
       role={onClick ? 'button' : undefined}
@@ -49,13 +52,13 @@ export default function PlayerCard({ player, onRemove, onReroll, compact, onClic
       {/* year spine */}
       <div
         className="flex-none flex items-center justify-center border-r"
-        style={{ width: 30, background: spineBg, borderColor: spineBorder }}
+        style={{ width: spineWidth, background: spineBg, borderColor: spineBorder }}
       >
         <span
           style={{
             fontFamily: 'Archivo, sans-serif',
             fontVariationSettings: "'wdth' 74,'wght' 700",
-            fontSize: 16,
+            fontSize: compact ? 12 : 16,
             color: tier.numeral,
             writingMode: 'vertical-rl',
             transform: 'rotate(180deg)',
@@ -67,27 +70,32 @@ export default function PlayerCard({ player, onRemove, onReroll, compact, onClic
         </span>
       </div>
 
-      <div className="flex-1 min-w-0 p-3.5">
+      <div className={`flex-1 min-w-0 ${padClass}`}>
         <div className="flex justify-between items-start gap-2">
           <div className="min-w-0">
             <div
+              className={compact ? 'truncate' : undefined}
               style={{
                 fontFamily: 'Archivo, sans-serif',
                 fontVariationSettings: "'wdth' 78,'wght' 700",
-                fontSize: 20,
-                lineHeight: 1.05,
+                fontSize: compact ? 14 : 20,
+                lineHeight: compact ? 1.15 : 1.05,
                 color: nameColor,
               }}
             >
-              {first}
-              {last && (
+              {compact ? `${first} ${last}`.trim() : (
                 <>
-                  <br />
-                  {last}
+                  {first}
+                  {last && (
+                    <>
+                      <br />
+                      {last}
+                    </>
+                  )}
                 </>
               )}
             </div>
-            <div className="flex items-center gap-1.5 mt-[7px]">
+            <div className={`flex items-center gap-1.5 ${compact ? 'mt-[3px]' : 'mt-[7px]'}`}>
               <span
                 className="font-mono text-[10.5px] pl-1.5"
                 style={{
@@ -101,7 +109,7 @@ export default function PlayerCard({ player, onRemove, onReroll, compact, onClic
             </div>
           </div>
 
-          <OvrBadge ovr={player.OVR} size={compact ? 'sm' : 'md'} />
+          <OvrBadge ovr={player.OVR} size={compact ? 'xs' : 'md'} />
         </div>
 
         {!compact && (

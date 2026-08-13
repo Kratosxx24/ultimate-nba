@@ -61,10 +61,7 @@ export default function DynastyRoulettePage() {
           >
             Dynasty Roulette
           </h1>
-          <p className="text-sm text-text-mid mt-1">
-            Spin to build a random 5-man roster pulled from every era. Reroll any slot you don't
-            like.
-          </p>
+          <p className="text-sm text-text-mid mt-1">Spin, reroll, repeat.</p>
         </div>
         <div className="flex gap-2">
           <button
@@ -101,6 +98,7 @@ export default function DynastyRoulettePage() {
               <PlayerCard
                 key={slot.id}
                 player={slot}
+                compact
                 onReroll={() => spinSlot(i)}
                 onRemove={() => clearSlot(i)}
               />

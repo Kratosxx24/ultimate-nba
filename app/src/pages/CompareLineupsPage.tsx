@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { emptyLineup, summarizeLineup, type LineupSlot } from '../lib/lineup';
+import { useMemo, useState } from 'react';
+import { getAllPlayers } from '../lib/players';
+import { emptyLineup, randomPlayers, summarizeLineup, type LineupSlot } from '../lib/lineup';
 import type { Player } from '../types/player';
 import PlayerCard from '../components/PlayerCard';
 import EmptySlot from '../components/EmptySlot';
@@ -16,18 +17,29 @@ function LineupColumn({
   slots,
   onPick,
   onRemove,
+  onSpin,
 }: {
   title: string;
   slots: LineupSlot[];
   onPick: (index: number) => void;
   onRemove: (index: number) => void;
+  onSpin: () => void;
 }) {
   return (
     <div className="space-y-2">
-      <h2 className="text-sm font-mono uppercase tracking-[.12em] text-text-low">{title}</h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-sm font-mono uppercase tracking-[.12em] text-text-low">{title}</h2>
+        <button
+          type="button"
+          onClick={onSpin}
+          className="text-[11px] font-mono uppercase tracking-[.08em] px-2 py-1 border border-surface-4 text-text-mid hover:bg-surface-3 transition-colors"
+        >
+          🎲 Random fill
+        </button>
+      </div>
       {slots.map((slot, i) =>
         slot ? (
-          <PlayerCard key={slot.id} player={slot} onRemove={() => onRemove(i)} />
+          <PlayerCard key={slot.id} player={slot} compact onRemove={() => onRemove(i)} />
         ) : (
           <EmptySlot key={i} label={`Slot ${i + 1} — pick a player`} onClick={() => onPick(i)} />
         ),
@@ -37,6 +49,7 @@ function LineupColumn({
 }
 
 export default function CompareLineupsPage() {
+  const players = useMemo(() => getAllPlayers(), []);
   const [lineupA, setLineupA] = useState<LineupSlot[]>(emptyLineup());
   const [lineupB, setLineupB] = useState<LineupSlot[]>(emptyLineup());
   const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
@@ -56,6 +69,11 @@ export default function CompareLineupsPage() {
     setter((prev) => prev.map((p, i) => (i === index ? null : p)));
   }
 
+  function spinSide(side: 'a' | 'b') {
+    const setter = side === 'a' ? setLineupA : setLineupB;
+    setter(randomPlayers(players, 5));
+  }
+
   const diff = summaryA.avgOvr - summaryB.avgOvr;
 
   return (
@@ -67,9 +85,7 @@ export default function CompareLineupsPage() {
         >
           Compare Lineups
         </h1>
-        <p className="text-sm text-text-mid mt-1">
-          Build two 5-man lineups from any era and see how they stack up.
-        </p>
+        <p className="text-sm text-text-mid mt-1">Two lineups, head to head.</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
@@ -78,12 +94,14 @@ export default function CompareLineupsPage() {
           slots={lineupA}
           onPick={(index) => setPickerTarget({ side: 'a', index })}
           onRemove={(index) => removeFrom('a', index)}
+          onSpin={() => spinSide('a')}
         />
         <LineupColumn
           title="Lineup B"
           slots={lineupB}
           onPick={(index) => setPickerTarget({ side: 'b', index })}
           onRemove={(index) => removeFrom('b', index)}
+          onSpin={() => spinSide('b')}
         />
       </div>
 

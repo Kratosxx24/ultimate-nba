@@ -48,6 +48,7 @@
   --color-down-solid: #a33f3a;
 
   --color-focus: #f2b472;
+  --color-card-hover: #262120;
 }
 
 :root {
@@ -79,6 +80,7 @@
   --color-down-bg: #fbeae8;
   --color-down-border: #f0cac6;
   --color-down-solid: #a33f3a;
+  --color-card-hover: #f2ede5;
 }
 
 html,
@@ -105,6 +107,10 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
+}
+
+.player-card:hover {
+  background: var(--color-card-hover);
 }
 
 .font-tnum {

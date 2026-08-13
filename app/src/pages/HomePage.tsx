@@ -22,8 +22,7 @@ export default function HomePage() {
           ULTIMATE NBA
         </h1>
         <p className="text-text-mid mt-3 max-w-xl">
-          {players.length} player-seasons across {teamCount} eraTeams, rated by the v35 formula
-          (real box stats, real playoff data, and exponential opponent-strength scaling).
+          {players.length} player-seasons across {teamCount} eraTeams.
         </p>
       </div>
 
@@ -39,10 +38,6 @@ export default function HomePage() {
           >
             Dynasty Roulette
           </div>
-          <p className="text-sm text-text-mid mt-1">
-            Spin the wheel to build a random 5-man dynasty roster from every era. Reroll slots you
-            don't like.
-          </p>
         </Link>
 
         <Link
@@ -56,9 +51,6 @@ export default function HomePage() {
           >
             Compare Lineups
           </div>
-          <p className="text-sm text-text-mid mt-1">
-            Build two custom 5-man lineups and compare their ratings side by side.
-          </p>
         </Link>
       </div>
 
