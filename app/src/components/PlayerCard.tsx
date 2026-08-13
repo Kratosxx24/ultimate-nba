@@ -1,11 +1,12 @@
 import type { Player } from '../types/player';
-import OvrBadge from './OvrBadge';
+import OvrBadge, { getTier } from './OvrBadge';
 
 interface PlayerCardProps {
   player: Player;
   onRemove?: () => void;
   onReroll?: () => void;
   compact?: boolean;
+  onClick?: () => void;
 }
 
 // Deterministic hue from team key so the monogram plate always reads the
@@ -16,96 +17,92 @@ function teamHue(key: string): number {
   return hash % 360;
 }
 
-function initials(name: string): string {
-  const parts = name.trim().split(/\s+/);
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-}
-
+// eraTeam is formatted like "'96 Bulls" — a 2-digit clipped year plus the franchise name.
 function parseYear(eraTeam: string): { year: string; team: string } {
-  const match = eraTeam.match(/^(\d{4})\s*(.*)$/);
+  const match = eraTeam.match(/^'(\d{2})\s*(.*)$/);
   if (match) return { year: match[1], team: match[2] || eraTeam };
   return { year: '', team: eraTeam };
 }
 
-export default function PlayerCard({ player, onRemove, onReroll, compact }: PlayerCardProps) {
+function splitName(name: string): [string, string] {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return [parts[0], ''];
+  return [parts.slice(0, -1).join(' '), parts[parts.length - 1]];
+}
+
+/** Player card · card density — the grid/lineup-slot layout from the Foundations mockup:
+ * a vertical year spine on the left, a two-line name + team chip, the rating badge with its
+ * tier glow top-right, and a stat row underneath a hairline. */
+export default function PlayerCard({ player, onRemove, onReroll, compact, onClick }: PlayerCardProps) {
   const { year, team } = parseYear(player.eraTeam);
+  const [first, last] = splitName(player.name);
   const hue = teamHue(player.teamKey || player.eraTeam);
-  const plateBg = `linear-gradient(160deg, hsl(${hue} 45% 16%), hsl(${hue} 30% 8%))`;
-  const plateBorder = `hsl(${hue} 40% 26%)`;
-  const initialColor = `hsl(${hue} 65% 68%)`;
-  const spineBg = `linear-gradient(180deg, hsl(${hue} 40% 12%), hsl(${hue} 30% 8%))`;
+  const tier = getTier(player.OVR);
+  const dim = player.OVR < 60;
+
+  const spineBg = `linear-gradient(180deg, hsl(${hue} 42% 14%), hsl(${hue} 30% 8%))`;
+  const spineBorder = `hsl(${hue} 40% 22%)`;
+  const nameColor = dim ? 'var(--color-text-mid)' : 'var(--color-text-hi)';
 
   return (
-    <div className="group flex overflow-hidden border border-surface-4 bg-surface-2 hover:border-[hsl(0_0%_35%)] transition-colors">
+    <div
+      className="group flex overflow-hidden bg-surface-2 border border-surface-4 hover:border-[#4A423D] hover:bg-[#221D1B] transition-colors cursor-pointer"
+      style={{ opacity: dim ? 0.94 : 1 }}
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+    >
       {/* year spine */}
       <div
-        className="flex-none flex items-center justify-center border-r border-hairline"
-        style={{ width: compact ? 22 : 30, background: spineBg }}
+        className="flex-none flex items-center justify-center border-r"
+        style={{ width: 30, background: spineBg, borderColor: spineBorder }}
       >
         <span
-          className="font-tnum"
           style={{
             fontFamily: 'Archivo, sans-serif',
             fontVariationSettings: "'wdth' 74,'wght' 700",
-            fontSize: compact ? 12 : 15,
-            color: initialColor,
+            fontSize: 16,
+            color: tier.numeral,
             writingMode: 'vertical-rl',
             transform: 'rotate(180deg)',
             letterSpacing: '.06em',
+            fontFeatureSettings: "'tnum' 1",
           }}
         >
-          {year || '—'}
+          {year ? `'${year}` : '—'}
         </span>
       </div>
 
-      <div className="flex-1 min-w-0 p-3">
-        <div className="flex items-start gap-3">
-          {!compact && (
+      <div className="flex-1 min-w-0 p-3.5">
+        <div className="flex justify-between items-start gap-2">
+          <div className="min-w-0">
             <div
-              className="flex-none flex flex-col items-center justify-center"
-              style={{
-                width: 42,
-                height: 52,
-                background: plateBg,
-                border: `1px solid ${plateBorder}`,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: 'Archivo, sans-serif',
-                  fontVariationSettings: "'wdth' 74,'wght' 800",
-                  fontSize: 18,
-                  color: initialColor,
-                  lineHeight: 1,
-                }}
-              >
-                {initials(player.name)}
-              </span>
-            </div>
-          )}
-
-          <div className="min-w-0 flex-1">
-            <div
-              className="truncate text-text-hi"
               style={{
                 fontFamily: 'Archivo, sans-serif',
-                fontVariationSettings: "'wdth' 84,'wght' 600",
-                fontSize: compact ? 14 : 16,
-                lineHeight: 1.1,
+                fontVariationSettings: "'wdth' 78,'wght' 700",
+                fontSize: 20,
+                lineHeight: 1.05,
+                color: nameColor,
               }}
             >
-              {player.name}
+              {first}
+              {last && (
+                <>
+                  <br />
+                  {last}
+                </>
+              )}
             </div>
-            <div className="flex items-center gap-2 mt-1 text-[10.5px]">
+            <div className="flex items-center gap-1.5 mt-[7px]">
               <span
-                className="font-mono text-text-mid pl-1.5"
-                style={{ borderLeft: '2px solid var(--color-amber-500)' }}
+                className="font-mono text-[10.5px] pl-1.5"
+                style={{
+                  color: dim ? 'var(--color-muted)' : 'var(--color-text-mid)',
+                  borderLeft: `2px solid var(--color-amber-500)`,
+                }}
               >
                 {team || player.eraTeam}
               </span>
-              <span className="text-muted">{player.pos}</span>
-              {year && <span className="text-muted">· {year}</span>}
+              <span className="text-[10.5px] text-muted">{player.pos}</span>
             </div>
           </div>
 
@@ -113,29 +110,32 @@ export default function PlayerCard({ player, onRemove, onReroll, compact }: Play
         </div>
 
         {!compact && (
-          <div className="flex gap-3 mt-3 pt-2.5 border-t border-hairline">
+          <div className="flex gap-3 mt-3.5 pt-3 border-t border-hairline">
             <div>
               <div className="font-mono text-[9px] tracking-[.1em] text-muted">PTS</div>
-              <div className="font-mono font-tnum text-[13px] text-text-body-hi">{player.ppg}</div>
+              <div className="font-mono font-tnum text-[14px] text-text-body-hi">{player.ppg}</div>
             </div>
             <div>
               <div className="font-mono text-[9px] tracking-[.1em] text-muted">REB</div>
-              <div className="font-mono font-tnum text-[13px] text-text-body-hi">{player.rpg}</div>
+              <div className="font-mono font-tnum text-[14px] text-text-body-hi">{player.rpg}</div>
             </div>
             <div>
               <div className="font-mono text-[9px] tracking-[.1em] text-muted">AST</div>
-              <div className="font-mono font-tnum text-[13px] text-text-body-hi">{player.apg}</div>
+              <div className="font-mono font-tnum text-[14px] text-text-body-hi">{player.apg}</div>
             </div>
             <div className="ml-auto text-right">
               <div className="font-mono text-[9px] tracking-[.1em] text-muted">COST</div>
-              <div className="font-mono font-tnum text-[13px] text-amber-500">{player.cost}</div>
+              <div className="font-mono font-tnum text-[14px] text-amber-500">{player.cost}</div>
             </div>
           </div>
         )}
       </div>
 
       {(onReroll || onRemove) && (
-        <div className="flex-none flex flex-col gap-1 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div
+          className="flex-none flex flex-col gap-1 p-2 opacity-0 group-hover:opacity-100 transition-opacity"
+          onClick={(e) => e.stopPropagation()}
+        >
           {onReroll && (
             <button
               type="button"

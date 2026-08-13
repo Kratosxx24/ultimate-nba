@@ -13,10 +13,15 @@ function yearOf(eraTeam: string): number {
 
 function posGroup(pos: string): PosGroup {
   const primary = pos.split('/')[0];
-  if (primary === 'PG' || primary === 'SG') return 'G';
-  if (primary === 'SF') return 'W';
-  return 'B'; // PF, C
+  if (primary === 'PG' || primary === 'SG' || primary === 'SF' || primary === 'PF' || primary === 'C') {
+    return primary;
+  }
+  return 'SF'; // unrecognized primary — fall back to a neutral middle bucket
 }
+
+// Smooth off/def-weight gradient across the 5 positions — PG leans offense hardest,
+// C leans defense hardest, stepping evenly through SG/SF/PF rather than a hard G/W/B cliff.
+const OFF_WEIGHT: Record<PosGroup, number> = { PG: 0.6, SG: 0.575, SF: 0.55, PF: 0.525, C: 0.5 };
 
 function percentileRank(arr: number[], val: number): number {
   const sorted = [...arr].sort((a, b) => a - b);
@@ -101,7 +106,7 @@ export function computePlayers(
   const oppStrengthByTeam = computeOppStrengthByTeam(playoffOpponents);
 
   // STEP 0 — preprocessing
-  const groups: Record<PosGroup, RawPlayer[]> = { G: [], W: [], B: [] };
+  const groups: Record<PosGroup, RawPlayer[]> = { PG: [], SG: [], SF: [], PF: [], C: [] };
   rawPlayers.forEach((p) => groups[posGroup(p.pos)].push(p));
 
   const stlBlkPctOf = new Map<RawPlayer, number>();
@@ -174,8 +179,8 @@ export function computePlayers(
 
     // STEP 4 — anchor combine
     const g = posGroup(p.pos);
-    const offWeight = g === 'G' ? 0.58 : 0.55;
-    const defWeight = g === 'G' ? 0.42 : 0.45;
+    const offWeight = OFF_WEIGHT[g];
+    const defWeight = 1 - offWeight;
     const ANCHORED = (offScore * offWeight + defScore * defWeight) * 1.35;
 
     // STEP 5 — WS/48 overlay

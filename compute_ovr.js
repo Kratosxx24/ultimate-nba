@@ -60,10 +60,14 @@ function yearOf(eraTeam) {
 }
 function posGroup(pos) {
   const primary = pos.split('/')[0];
-  if (primary === 'PG' || primary === 'SG') return 'G';
-  if (primary === 'SF') return 'W';
-  return 'B'; // PF, C
+  if (primary === 'PG' || primary === 'SG' || primary === 'SF' || primary === 'PF' || primary === 'C') {
+    return primary;
+  }
+  return 'SF'; // unrecognized primary — fall back to a neutral middle bucket
 }
+// Smooth off/def-weight gradient across the 5 positions — PG leans offense hardest,
+// C leans defense hardest, stepping evenly through SG/SF/PF rather than a hard G/W/B cliff.
+const OFF_WEIGHT = { PG: 0.60, SG: 0.575, SF: 0.55, PF: 0.525, C: 0.50 };
 function percentileRank(arr, val) {
   const sorted = [...arr].sort((a, b) => a - b);
   let count = 0;
@@ -72,7 +76,7 @@ function percentileRank(arr, val) {
 }
 
 // STEP 0 — preprocessing
-const groups = { G: [], W: [], B: [] };
+const groups = { PG: [], SG: [], SF: [], PF: [], C: [] };
 players.forEach(p => groups[posGroup(p.pos)].push(p));
 players.forEach(p => {
   const g = groups[posGroup(p.pos)];
@@ -118,8 +122,8 @@ players.forEach(p => {
 
   // STEP 4 — anchor combine
   const g = posGroup(p.pos);
-  const offWeight = g === 'G' ? 0.58 : 0.55;
-  const defWeight = g === 'G' ? 0.42 : 0.45;
+  const offWeight = OFF_WEIGHT[g];
+  const defWeight = 1 - offWeight;
   const ANCHORED = (offScore * offWeight + defScore * defWeight) * 1.35;
 
   // STEP 5 — WS/48 overlay

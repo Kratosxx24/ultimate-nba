@@ -119,7 +119,9 @@ export default function OvrBadge({
 }) {
   const tier = getTier(ovr);
   const cfg = SIZE_CONFIG[size];
-  const glowPx = size === 'hero' ? 26 : size === 'lg' ? 14 : size === 'md' ? 10 : 6;
+  // Mockup: xs/sm never glow (edge thickens instead below 24px). md=5px, lg=8px, hero=20/26px per tier.
+  const glowPx = size === 'hero' ? (ovr >= 95 ? 20 : 26) : size === 'lg' ? 8 : size === 'md' ? 5 : 0;
+  const showGlow = tier.glow && (size === 'md' || size === 'lg' || size === 'hero');
 
   const outer: React.CSSProperties = {
     width: cfg.box,
@@ -128,7 +130,7 @@ export default function OvrBadge({
     background: tier.edge,
     clipPath: cfg.clip,
     flexShrink: 0,
-    filter: tier.glow ? `drop-shadow(0 0 ${glowPx}px ${tier.glow})` : undefined,
+    filter: showGlow ? `drop-shadow(0 0 ${glowPx}px ${tier.glow})` : undefined,
   };
 
   const inner: React.CSSProperties = {

@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage';
 import DynastyRoulettePage from './pages/DynastyRoulettePage';
 import CompareLineupsPage from './pages/CompareLineupsPage';
 import PlayersPage from './pages/PlayersPage';
+import SeasonDetailPage from './pages/SeasonDetailPage';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home', end: true },
@@ -55,6 +56,7 @@ function App() {
             <Route path="/roulette" element={<DynastyRoulettePage />} />
             <Route path="/compare" element={<CompareLineupsPage />} />
             <Route path="/players" element={<PlayersPage />} />
+            <Route path="/season/:id" element={<SeasonDetailPage />} />
           </Routes>
         </main>
 

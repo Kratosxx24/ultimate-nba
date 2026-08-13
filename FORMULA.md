@@ -1,4 +1,4 @@
-# Ultimate NBA — Rating Formula (v35 — opponent playoff strength era)
+# Ultimate NBA — Rating Formula (v36 — 5-way position groups)
 
 This is the complete, from-scratch stats-based OVR formula built over multiple
 tuning sessions. `players.js` in this folder has real STL/BLK data (columns 15-16,
@@ -10,7 +10,15 @@ per-player `mpg` (column 20) — all sourced via web research this session.
 capped at 100. There is no longer a separately-derived OVR number — one
 rating, not two. See STEP 9 below.
 
-**New this session: opponent playoff strength.** `playoff_opponents.json`
+**New this session: 5-way position groups.** Position groups went from 3 coarse
+buckets (Guards {PG,SG} / Wings {SF} / Bigs {PF,C}) to 5 — PG, SG, SF, PF, C —
+each with its own defensive-percentile pool and its own point on a smooth
+off/def-weight gradient (PG leans offense hardest, C leans defense hardest),
+instead of a single hard cliff between "guard" and "everyone else." See STEP 0
+and STEP 4 below, and "5-way position groups" further down for the full
+rationale and validation.
+
+**Opponent playoff strength** (previous session). `playoff_opponents.json`
 (sibling file, keyed by eraTeam) holds the real opponent for every playoff
 SERIES a team played, with that opponent's real regular-season record —
 sourced via 24 parallel web-research agents across all 377 eraTeams that
@@ -65,7 +73,8 @@ star on a 68-win champion should read differently than the same stat-line on a
 ═══════════════════════════════════════════════════════════════
 STEP 0 — PREPROCESSING (once, across the whole dataset)
 ═══════════════════════════════════════════════════════════════
-Position groups: Guards {PG,SG} / Wings {SF} / Bigs {PF,C}  (use primary/first-listed position)
+Position groups: PG / SG / SF / PF / C  (use primary/first-listed position;
+                  an unrecognized primary position falls back to SF)
 stlBlkPct  = percentile rank of (STL+BLK) WITHIN position group
 rebPct     = percentile rank of RPG WITHIN position group
 defPct     = stlBlkPct × 0.6 + rebPct × 0.4
@@ -124,7 +133,13 @@ defScore     = anchoredDef × 0.6 + pureDefScore × 0.4
 ═══════════════════════════════════════════════════════════════
 STEP 4 — ANCHOR COMBINE (position-dependent split, then boosted)
 ═══════════════════════════════════════════════════════════════
-offWeight/defWeight = Guards: 58/42   |   Wings & Bigs: 55/45
+offWeight = { PG: 0.60, SG: 0.575, SF: 0.55, PF: 0.525, C: 0.50 }
+defWeight = 1 − offWeight
+              [smooth gradient, not a hard cliff — PG leans offense hardest,
+               C leans defense hardest, stepping evenly through SG/SF/PF.
+               Replaces the old binary Guards-58/42-vs-everyone-else-55/45
+               split, which treated an SF and a C identically despite very
+               different defensive value profiles.]
 ANCHORED = (offScore × offWeight + defScore × defWeight) × 1.35   [anchor boost]
 
 ═══════════════════════════════════════════════════════════════
@@ -327,12 +342,10 @@ OVR = round(SCALED), capped at 100 if SCALED > 100.
    is what catches this (not a computed term) — if `defBase` is ever revised
    for a player, that's the lever that matters most for "he doesn't really
    play D" cases.
-3. **Position groups are coarse** (3 buckets: G/W/B). A finer-grained system
-   (PG vs SG, PF vs C separately) was discussed but never built.
-4. **New players added to players.js need real OFF/DEF hand ratings**
+3. **New players added to players.js need real OFF/DEF hand ratings**
    assigned before this formula works for them — same requirement as the old
    system.
-5. **Shai Gilgeous-Alexander / very recent players reading as top-15
+4. **Shai Gilgeous-Alexander / very recent players reading as top-15
    all-time**: confirmed this is a hand-rating issue, not a formula bug —
    his OFF/DEF anchor is set at all-time-great level (48/36), and ANCHORED is
    ~80% of RAW, so the formula is correctly amplifying that rating. Left
@@ -343,7 +356,7 @@ OVR = round(SCALED), capped at 100 if SCALED > 100.
    — neither was implemented this session.
 
 ## Playoff/team-success data (added this session)
-- All 969 player rows carry real `teamWins`, `teamLosses`, `playoffRound` for
+- All 967 player rows carry real `teamWins`, `teamLosses`, `playoffRound` for
   their eraTeam (496 unique eraTeams), and real per-player `mpg`, all sourced
   via web research (Basketball-Reference) across parallel agent batches.
 - STEP 6.5 (team success) and STEP 6.6 (two-way impact) both fold this into
@@ -388,13 +401,123 @@ Spurs, Draymond Green, Dennis Rodman, top-30/random-30 tables) — all
 unchanged or moved only via the new mechanism working as designed, no
 regressions.
 
+By this point `compute_ovr.js` and `app/src/lib/formula.ts` were both live
+copies of the same logic (kept in sync per the pairing note at the top of
+`formula.ts`) — the note previously in this doc claiming the opponent-strength
+work "never touched the live app" was stale.
+
+## 5-way position groups (shipped this session)
+Position groups went from 3 coarse buckets (Guards {PG,SG} / Wings {SF} /
+Bigs {PF,C}) to 5 — PG, SG, SF, PF, C — each using its *own* primary position
+as the bucket (no grouping at all). This affects two things:
+- **STEP 0 defensive percentiles** (`stlBlkPct`, `rebPct`) are now ranked
+  within each of the 5 positions separately, not within 3 broad buckets.
+  Sample sizes stay healthy (143-199 players per position even after this
+  split, so no small-sample noise).
+- **STEP 4 offWeight/defWeight** is now a smooth gradient — `{PG: .60, SG:
+  .575, SF: .55, PF: .525, C: .50}` — instead of a hard cliff between
+  "Guard" (58/42) and "everyone else" (55/45). A PF and a C used to get
+  treated identically despite very different defensive value profiles; now
+  each position sits at its own point on the curve.
+
+**Why:** the old 3-bucket split meant an SF and a C were weighted offense/
+defense identically (both "not a Guard" → 55/45), even though centers are
+meaningfully more defense-first than wings in how the game is actually
+played. Grouping PG with SG also meant a play-making floor general and a
+high-usage shooting guard shared one defensive percentile pool.
+
+**Validation:** ran the sandbox before/after on the full 967-player dataset.
+382/967 players (39%) moved, almost entirely by ±1-2 OVR (max ±3 anywhere in
+the dataset), all in the expected direction — defense-heavy PFs and wings
+(Rodman '90 Pistons +3, Draymond Green '17 Warriors +2, Karl Malone '93 Jazz
++2) gained, while offense-first centers who previously borrowed a PF-level
+defWeight lost a touch (Jokic '22 Nuggets −2, Embiid '24 76ers −2, Patrick
+Ewing '95 Knicks −2). Every previously-validated reference case (Shaq '93
+Magic, McGrady '04 Magic, Dejounte Murray '22 Spurs, Draymond Green, Dennis
+Rodman) moved by at most 1 point, no regressions.
+
+### Full formula (post-change)
+See the "Full formula" section above — STEP 0 and STEP 4 are the only steps
+that changed this session; everything else (STEP 1-3, 5-9) is unchanged.
+
+### Top 30 (by SCALED = OVR), post-change
+```json
+[
+  { "name": "LeBron James", "eraTeam": "'13 Heat", "scaled": 100.5, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Michael Jordan", "eraTeam": "'91 Bulls", "scaled": 100.5, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Wilt Chamberlain", "eraTeam": "'67 76ers", "scaled": 100.4, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Michael Jordan", "eraTeam": "'96 Bulls", "scaled": 100.4, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Wilt Chamberlain", "eraTeam": "'64 Warriors", "scaled": 100.2, "ovr": 100, "playoff": "FINALS" },
+  { "name": "Michael Jordan", "eraTeam": "'92 Bulls", "scaled": 100.1, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "Stephen Curry", "eraTeam": "'16 Warriors", "scaled": 99.9, "ovr": 100, "playoff": "FINALS" },
+  { "name": "Shaquille O'Neal", "eraTeam": "'00 Lakers", "scaled": 99.8, "ovr": 100, "playoff": "CHAMPION" },
+  { "name": "LeBron James", "eraTeam": "'09 Cavs", "scaled": 99.7, "ovr": 100, "playoff": "CF" },
+  { "name": "LeBron James", "eraTeam": "'18 Cavs", "scaled": 99.7, "ovr": 100, "playoff": "FINALS" },
+  { "name": "Kevin Durant", "eraTeam": "'17 Warriors", "scaled": 99.5, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Shai Gilgeous-Alexander", "eraTeam": "'25 Thunder", "scaled": 99.2, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Hakeem Olajuwon", "eraTeam": "'94 Rockets", "scaled": 99.0, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Kareem Abdul-Jabbar", "eraTeam": "'80 Lakers", "scaled": 99.0, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Tim Duncan", "eraTeam": "'03 Spurs", "scaled": 99.0, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Larry Bird", "eraTeam": "'86 Celtics", "scaled": 99.0, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Shaquille O'Neal", "eraTeam": "'01 Lakers", "scaled": 98.9, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Giannis Antetokounmpo", "eraTeam": "'21 Bucks", "scaled": 98.8, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "LeBron James", "eraTeam": "'16 Cavs", "scaled": 98.7, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Charles Barkley", "eraTeam": "'93 Suns", "scaled": 98.5, "ovr": 99, "playoff": "FINALS" },
+  { "name": "Kevin Garnett", "eraTeam": "'04 Timberwolves", "scaled": 98.5, "ovr": 98, "playoff": "CF" },
+  { "name": "Magic Johnson", "eraTeam": "'87 Lakers", "scaled": 98.2, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Kawhi Leonard", "eraTeam": "'19 Raptors", "scaled": 98.0, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Nikola Jokic", "eraTeam": "'23 Nuggets", "scaled": 97.8, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Bill Russell", "eraTeam": "'64 Celtics", "scaled": 97.8, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "LeBron James", "eraTeam": "'07 Cavaliers", "scaled": 97.7, "ovr": 98, "playoff": "FINALS" },
+  { "name": "Anthony Davis", "eraTeam": "'20 Lakers", "scaled": 97.5, "ovr": 98, "playoff": "CHAMPION" },
+  { "name": "Kobe Bryant", "eraTeam": "'01 Lakers", "scaled": 97.5, "ovr": 97, "playoff": "CHAMPION" },
+  { "name": "Kevin Durant", "eraTeam": "'14 Thunder", "scaled": 97.4, "ovr": 97, "playoff": "CF" },
+  { "name": "Victor Wembanyama", "eraTeam": "'26 Spurs", "scaled": 97.3, "ovr": 97, "playoff": "FINALS" }
+]
+```
+
+### Random 30 (by SCALED = OVR), post-change
+```json
+[
+  { "name": "Stephen Curry", "eraTeam": "'16 Warriors", "scaled": 99.9, "ovr": 100, "playoff": "FINALS" },
+  { "name": "Tim Duncan", "eraTeam": "'03 Spurs", "scaled": 99.0, "ovr": 99, "playoff": "CHAMPION" },
+  { "name": "Clyde Drexler", "eraTeam": "'90 Blazers", "scaled": 94.7, "ovr": 95, "playoff": "FINALS" },
+  { "name": "Julius Erving", "eraTeam": "'81 Sixers", "scaled": 94.6, "ovr": 95, "playoff": "CF" },
+  { "name": "Shawn Kemp", "eraTeam": "'96 SuperSonics", "scaled": 94.5, "ovr": 95, "playoff": "FINALS" },
+  { "name": "Chris Paul", "eraTeam": "'11 Hornets", "scaled": 91.0, "ovr": 91, "playoff": "R1" },
+  { "name": "Paul Pierce", "eraTeam": "'08 Celtics", "scaled": 90.2, "ovr": 90, "playoff": "CHAMPION" },
+  { "name": "Klay Thompson", "eraTeam": "'15 Warriors", "scaled": 87.1, "ovr": 87, "playoff": "CHAMPION" },
+  { "name": "Jermaine O'Neal", "eraTeam": "'02 Pacers", "scaled": 85.5, "ovr": 86, "playoff": "R1" },
+  { "name": "Joakim Noah", "eraTeam": "'14 Bulls", "scaled": 83.6, "ovr": 84, "playoff": "R1" },
+  { "name": "Chauncey Billups", "eraTeam": "'04 Pistons", "scaled": 83.5, "ovr": 84, "playoff": "CHAMPION" },
+  { "name": "Jrue Holiday", "eraTeam": "'22 Bucks", "scaled": 82.1, "ovr": 82, "playoff": "R2" },
+  { "name": "Isaiah Thomas", "eraTeam": "'17 Celtics", "scaled": 82.0, "ovr": 82, "playoff": "CF" },
+  { "name": "Carmelo Anthony", "eraTeam": "'07 Nuggets", "scaled": 80.6, "ovr": 81, "playoff": "R1" },
+  { "name": "Joe Dumars", "eraTeam": "'89 Pistons", "scaled": 80.5, "ovr": 81, "playoff": "CHAMPION" },
+  { "name": "Isaiah Hartenstein", "eraTeam": "'25 Thunder", "scaled": 80.5, "ovr": 80, "playoff": "CHAMPION" },
+  { "name": "Joe Johnson", "eraTeam": "'09 Hawks", "scaled": 79.9, "ovr": 80, "playoff": "R2" },
+  { "name": "Gordon Hayward", "eraTeam": "'17 Jazz", "scaled": 79.7, "ovr": 80, "playoff": "R2" },
+  { "name": "Shai Gilgeous-Alexander", "eraTeam": "'20 Thunder", "scaled": 79.0, "ovr": 79, "playoff": "R1" },
+  { "name": "Zach LaVine", "eraTeam": "'21 Bulls", "scaled": 78.4, "ovr": 78, "playoff": "MISSED" },
+  { "name": "Brad Daugherty", "eraTeam": "'95 Cavaliers", "scaled": 77.2, "ovr": 77, "playoff": "R1" },
+  { "name": "Brook Lopez", "eraTeam": "'21 Bucks", "scaled": 76.8, "ovr": 77, "playoff": "CHAMPION" },
+  { "name": "Yao Ming", "eraTeam": "'05 Rockets", "scaled": 75.8, "ovr": 76, "playoff": "R1" },
+  { "name": "Draymond Green", "eraTeam": "'19 Warriors", "scaled": 75.1, "ovr": 75, "playoff": "FINALS" },
+  { "name": "Mikal Bridges", "eraTeam": "'21 Suns", "scaled": 72.9, "ovr": 73, "playoff": "FINALS" },
+  { "name": "Boris Diaw", "eraTeam": "'07 Suns", "scaled": 71.6, "ovr": 72, "playoff": "R2" },
+  { "name": "Richard Jefferson", "eraTeam": "'02 Nets", "scaled": 70.9, "ovr": 71, "playoff": "FINALS" },
+  { "name": "Jaden McDaniels", "eraTeam": "'25 Timberwolves", "scaled": 70.1, "ovr": 70, "playoff": "CF" },
+  { "name": "Tyrone Hill", "eraTeam": "'95 Cavaliers", "scaled": 70.1, "ovr": 70, "playoff": "R1" },
+  { "name": "Kenny Smith", "eraTeam": "'94 Rockets", "scaled": 69.6, "ovr": 70, "playoff": "CHAMPION" }
+]
+```
+
 ## Suggested next steps for a future session
-- Position groups are still coarse (G/W/B, 3 buckets) — a finer system
-  (PG/SG/SF/PF/C) was discussed, never built.
-- Consider whether to formalize this into `script.js` for the actual app, or
-  keep prototyping in a standalone Node script first (this session did all
-  testing via a standalone Node script — `compute_ovr.js` — against
-  `players.js` and the new `playoff_opponents.json`, never touched the live
-  app).
+- Position groups are now 5-way (PG/SG/SF/PF/C) — see "5-way position groups"
+  above. `compute_ovr.js` (sandbox) and `app/src/lib/formula.ts` (live app)
+  are both current and in sync as of this change.
 - The `stl`/`blk`/`mpg`/`teamWins`/`teamLosses`/`playoffRound`/opponent data
   is real, researched data — safe to build from without re-sourcing.
+- Still open: career-length/longevity discount (SGA-type recent-season
+  inflation, see "Known open items" #4) and the Laimbeer/Rodman positioning-
+  defense gap (#1) — neither has a concrete design yet.

@@ -1,4 +1,4 @@
-export type PosGroup = 'G' | 'W' | 'B';
+export type PosGroup = 'PG' | 'SG' | 'SF' | 'PF' | 'C';
 
 export type PlayoffRound =
   | 'MISSED'
