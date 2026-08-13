@@ -438,8 +438,14 @@ export default function DynastyRoulettePage() {
               return (
                 <div
                   key={pos}
-                  className="border p-3 flex flex-col items-center text-center gap-2"
-                  style={{ borderColor: `${pc.primary}55`, background: 'var(--color-surface-1)' }}
+                  className="p-3 flex flex-col items-center text-center gap-2"
+                  style={{
+                    background: 'var(--color-surface-1)',
+                    borderLeft: '1px solid var(--color-surface-4)',
+                    borderRight: '1px solid var(--color-surface-4)',
+                    borderBottom: '1px solid var(--color-surface-4)',
+                    borderTop: `3px solid ${pc.primary}`,
+                  }}
                 >
                   <span className="font-mono text-[10px] uppercase tracking-[.14em] text-muted">{pos}</span>
                   <OvrBadge ovr={player.OVR} size="md" />
@@ -447,6 +453,7 @@ export default function DynastyRoulettePage() {
                     {player.name}
                   </div>
                   <div className="font-mono text-[10px] text-text-low">{player.eraTeam}</div>
+                  <ArchetypeBadge archetype={player.archetype} />
                 </div>
               );
             }
