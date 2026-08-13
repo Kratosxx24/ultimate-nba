@@ -10,13 +10,16 @@ type NumericKey =
   | 'OVR'
   | 'year'
   | 'cost'
+  | 'ppg'
+  | 'rpg'
+  | 'apg'
   | 'usg'
   | 'ts'
   | 'ws48'
   | 'stl'
   | 'blk'
-  | 'offScore'
-  | 'defScore';
+  | 'offBase'
+  | 'defBase';
 
 interface Col {
   key: NumericKey | 'rank' | 'name' | 'team' | 'pos' | 'archetype';
@@ -34,13 +37,16 @@ const COLS: Col[] = [
   { key: 'pos', label: 'Pos', sortable: false, width: '60px' },
   { key: 'cost', label: 'Cost', sortable: true, width: '54px', align: 'right' },
   { key: 'OVR', label: 'OVR', sortable: true, width: '66px' },
+  { key: 'ppg', label: 'PPG', sortable: true, width: '54px', align: 'right' },
+  { key: 'rpg', label: 'RPG', sortable: true, width: '54px', align: 'right' },
+  { key: 'apg', label: 'APG', sortable: true, width: '54px', align: 'right' },
   { key: 'usg', label: 'USG%', sortable: true, width: '58px', align: 'right' },
   { key: 'ts', label: 'TS%', sortable: true, width: '54px', align: 'right' },
   { key: 'ws48', label: 'WS/48', sortable: true, width: '58px', align: 'right' },
   { key: 'stl', label: 'STL', sortable: true, width: '48px', align: 'right' },
   { key: 'blk', label: 'BLK', sortable: true, width: '48px', align: 'right' },
-  { key: 'offScore', label: 'OFF', sortable: true, width: '52px', align: 'right' },
-  { key: 'defScore', label: 'DEF', sortable: true, width: '52px', align: 'right' },
+  { key: 'offBase', label: 'OFF', sortable: true, width: '48px', align: 'right' },
+  { key: 'defBase', label: 'DEF', sortable: true, width: '48px', align: 'right' },
   { key: 'archetype', label: 'Archetype', sortable: false, width: '170px' },
 ];
 
@@ -168,7 +174,7 @@ export default function PlayersPage() {
       <div className="border border-hairline overflow-x-auto" style={{ background: 'var(--color-surface-1)' }}>
         <div
           className="grid gap-3 py-3 border-b border-hairline font-mono text-[10px] tracking-[.1em] uppercase text-muted items-center"
-          style={{ gridTemplateColumns: GRID_COLS, minWidth: 1220, paddingLeft: 'calc(1.25rem + 3px)', paddingRight: '1.25rem' }}
+          style={{ gridTemplateColumns: GRID_COLS, minWidth: 1380, paddingLeft: 'calc(1.25rem + 3px)', paddingRight: '1.25rem' }}
         >
           {COLS.map((c) => (
             <button
@@ -199,7 +205,7 @@ export default function PlayersPage() {
               className="grid gap-3 py-3.5 last:border-b-0 items-center hover:bg-surface-3 transition-colors"
               style={{
                 gridTemplateColumns: GRID_COLS,
-                minWidth: 1220,
+                minWidth: 1380,
                 paddingLeft: '1.25rem',
                 paddingRight: '1.25rem',
                 background: i % 2 === 1 ? 'var(--color-surface-2)' : 'var(--color-surface-1)',
@@ -244,13 +250,16 @@ export default function PlayersPage() {
                 {p.cost}
               </span>
               <OvrBadge ovr={p.OVR} size="sm" />
-              <span className="font-mono text-[12.5px] text-text-body-hi text-right font-tnum">{p.usg.toFixed(1)}</span>
+              <span className="font-mono text-[12.5px] text-text-body-hi text-right font-tnum">{p.ppg.toFixed(1)}</span>
+              <span className="font-mono text-[12.5px] text-text-body-hi text-right font-tnum">{p.rpg.toFixed(1)}</span>
+              <span className="font-mono text-[12.5px] text-text-body-hi text-right font-tnum">{p.apg.toFixed(1)}</span>
+              <span className="font-mono text-[12.5px] text-text-mid text-right font-tnum">{p.usg.toFixed(1)}</span>
               <span className="font-mono text-[12.5px] text-text-body-hi text-right font-tnum">{p.ts.toFixed(3)}</span>
               <span className="font-mono text-[12.5px] text-text-body-hi text-right font-tnum">{p.ws48.toFixed(3)}</span>
               <span className="font-mono text-[12.5px] text-text-mid text-right font-tnum">{p.stl.toFixed(1)}</span>
               <span className="font-mono text-[12.5px] text-text-mid text-right font-tnum">{p.blk.toFixed(1)}</span>
-              <span className="font-mono text-[12.5px] text-text-mid text-right font-tnum">{p.offScore.toFixed(1)}</span>
-              <span className="font-mono text-[12.5px] text-text-mid text-right font-tnum">{p.defScore.toFixed(1)}</span>
+              <span className="font-mono text-[12.5px] text-text-mid text-right font-tnum">{p.offBase}</span>
+              <span className="font-mono text-[12.5px] text-text-mid text-right font-tnum">{p.defBase}</span>
               <ArchetypePill archetype={p.archetype} />
             </Link>
           );
