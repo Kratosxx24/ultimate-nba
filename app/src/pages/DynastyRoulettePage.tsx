@@ -2,17 +2,27 @@ import { useMemo, useRef, useState } from 'react';
 import { getAllPlayers } from '../lib/players';
 import { getTeamColors } from '../lib/teamColors';
 import { summarizeLineup } from '../lib/lineup';
+import { ARCHETYPE_STYLE, archetypeFamily } from '../lib/archetype';
 import OvrBadge, { getTier } from '../components/OvrBadge';
 import LineupSummaryPanel from '../components/LineupSummaryPanel';
-import PlayerPickerModal from '../components/PlayerPickerModal';
 import { useTheme } from '../lib/ThemeContext';
 import type { Player } from '../types/player';
 
-// Ported from the original NBA Ultimate Lineup Builder's "Dynasty Roulette" (conference.js):
-// five fixed position slots (PG/SG/SF/PF/C), each its own spin. Spin lands a team + decade,
-// you draft one player from that era into an OPEN position, the spot locks, then spin again.
+// Ported from the original NBA Ultimate Lineup Builder's "Dynasty Roulette" (conference.js
+// + styles.css): five fixed position slots, each its own spin. Spin lands a team + decade;
+// drafting replaces the slot row in place (not a modal) with a position-chip switcher and a
+// grid of rich stat cards; picking locks that spot for good, then you spin again.
 const POSITIONS = ['PG', 'SG', 'SF', 'PF', 'C'] as const;
 type Position = (typeof POSITIONS)[number];
+
+// Exact position accents from the original app's :root tokens (--pos-pg, --pos-sg, ...).
+const POSITION_COLOR: Record<Position, string> = {
+  PG: '#2563eb',
+  SG: '#7c3aed',
+  SF: '#16a34a',
+  PF: '#dc2626',
+  C: '#ea580c',
+};
 
 const FLASH_STEPS = 30;
 const FLASH_TOTAL_DELAY = (step: number) => 43 + Math.pow(step / FLASH_STEPS, 2.4) * 129;
@@ -37,6 +47,27 @@ interface Combo {
 type Roster = Record<Position, Player | null>;
 const emptyRoster = (): Roster => ({ PG: null, SG: null, SF: null, PF: null, C: null });
 
+function ArchetypeBadge({ archetype }: { archetype: string }) {
+  const s = ARCHETYPE_STYLE[archetypeFamily(archetype)];
+  return (
+    <span
+      className="inline-block text-[10px] px-2 py-0.5 rounded-full"
+      style={{ background: s.bg, color: s.text, border: `1px solid ${s.border}` }}
+    >
+      {archetype}
+    </span>
+  );
+}
+
+function StatCell({ label, value }: { label: string; value: string | number }) {
+  return (
+    <div className="flex items-center justify-between font-mono text-[11px]">
+      <span className="text-text-low">{label}</span>
+      <strong className="text-text-body-hi font-tnum">{value}</strong>
+    </div>
+  );
+}
+
 export default function DynastyRoulettePage() {
   const { theme } = useTheme();
   const players = useMemo(() => getAllPlayers(), []);
@@ -57,7 +88,7 @@ export default function DynastyRoulettePage() {
   const [awaiting, setAwaiting] = useState(false); // rolled, not yet drafted from
   const [usedTeamReroll, setUsedTeamReroll] = useState(false);
   const [usedDecadeReroll, setUsedDecadeReroll] = useState(false);
-  const [pickerPos, setPickerPos] = useState<Position | null>(null);
+  const [viewPos, setViewPos] = useState<Position | null>(null); // which position's pool is open
   const [veteranMode, setVeteranMode] = useState(false);
   const timeoutRef = useRef<number | null>(null);
 
@@ -66,9 +97,9 @@ export default function DynastyRoulettePage() {
     [roster],
   );
   const openPositions = useMemo(() => POSITIONS.filter((pos) => !roster[pos]), [roster]);
+  const lockedCount = POSITIONS.length - openPositions.length;
   const allLocked = openPositions.length === 0;
 
-  // Which open positions can THIS roll actually fill (has an unused player at that spot)?
   const fillablePositions = useMemo(() => {
     if (!combo) return new Set<Position>();
     const out = new Set<Position>();
@@ -86,13 +117,15 @@ export default function DynastyRoulettePage() {
   function poolFor(pos: Position): Player[] {
     if (!combo) return [];
     const seen = new Set<string>();
-    return players.filter((p) => {
-      if (p.teamKey !== combo.teamKey || decadeOf(p.eraTeam) !== combo.decade) return false;
-      if (usedNames.has(p.name) || seen.has(p.name)) return false;
-      if (!positionsOf(p).includes(pos)) return false;
-      seen.add(p.name);
-      return true;
-    });
+    return players
+      .filter((p) => {
+        if (p.teamKey !== combo.teamKey || decadeOf(p.eraTeam) !== combo.decade) return false;
+        if (usedNames.has(p.name) || seen.has(p.name)) return false;
+        if (!positionsOf(p).includes(pos)) return false;
+        seen.add(p.name);
+        return true;
+      })
+      .sort((a, b) => b.OVR - a.OVR);
   }
 
   const summary = summarizeLineup(POSITIONS.map((pos) => roster[pos]));
@@ -106,6 +139,7 @@ export default function DynastyRoulettePage() {
 
   function flashRoll(finalPick: () => Combo, onLand: (c: Combo) => void) {
     setRolling(true);
+    setViewPos(null);
     let step = 0;
     function tick() {
       if (step >= FLASH_STEPS) {
@@ -161,7 +195,7 @@ export default function DynastyRoulettePage() {
   function pickForPosition(pos: Position, p: Player) {
     setRoster((prev) => ({ ...prev, [pos]: p }));
     setAwaiting(false);
-    setPickerPos(null);
+    setViewPos(null);
   }
 
   function clearAll() {
@@ -173,9 +207,12 @@ export default function DynastyRoulettePage() {
     setAwaiting(false);
     setUsedTeamReroll(false);
     setUsedDecadeReroll(false);
+    setViewPos(null);
   }
 
   const shownCombo = flashCombo ?? combo;
+  const fillableList = [...fillablePositions];
+  const drafting = awaiting && viewPos !== null;
 
   return (
     <div className="space-y-6">
@@ -199,142 +236,240 @@ export default function DynastyRoulettePage() {
         </button>
       </div>
 
-      {/* roll banner */}
+      {/* roll banner — centered, matching the original */}
       <div
-        className="border border-surface-4 p-6 flex flex-wrap items-center justify-between gap-6"
+        className="border border-surface-4 p-6 flex flex-col items-center text-center gap-3"
         style={{
           background: shownCombo
             ? `linear-gradient(120deg, ${teamColors.primary}22, var(--color-surface-1))`
             : 'var(--color-surface-1)',
         }}
       >
-        <div>
-          <div className="font-mono text-[10px] uppercase tracking-[.22em] text-muted mb-2">
-            🎲 Dynasty Roulette · 82&#8209;0 run
-          </div>
-          <div
-            className="flex items-baseline gap-3"
-            style={rolling ? { animation: 'cbRollPulse 0.12s ease-in-out infinite alternate' } : undefined}
-          >
-            {shownCombo ? (
-              <>
-                <span
-                  style={{
-                    fontFamily: 'Archivo, sans-serif',
-                    fontVariationSettings: "'wdth' 72,'wght' 800",
-                    fontSize: 34,
-                    color: teamColors.primary,
-                  }}
-                >
-                  {shownCombo.teamKey}
-                </span>
-                <span className="font-mono text-lg" style={{ color: 'var(--color-amber-500)' }}>
-                  {shownCombo.decade}s
-                </span>
-              </>
-            ) : (
+        <div className="font-mono text-[10px] uppercase tracking-[.22em] text-muted">
+          🎲 Dynasty Roulette · 82&#8209;0 run
+        </div>
+        <div className="flex items-baseline gap-3" style={rolling ? { animation: 'cbRollPulse 0.12s ease-in-out infinite alternate' } : undefined}>
+          {shownCombo ? (
+            <>
               <span
-                className="text-text-mid"
-                style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 34 }}
+                style={{
+                  fontFamily: 'Archivo, sans-serif',
+                  fontVariationSettings: "'wdth' 72,'wght' 800",
+                  fontSize: 34,
+                  color: teamColors.primary,
+                }}
               >
-                Hit spin to roll
+                {shownCombo.teamKey}
               </span>
-            )}
-          </div>
-          <p className="text-xs text-text-low mt-2 max-w-md">
-            {rolling
-              ? 'Rolling a team & decade…'
-              : allLocked
-                ? 'Dynasty complete — five locked picks across five rolls.'
-                : awaiting
-                  ? 'Pick a highlighted position to draft from this era — that spot locks for good.'
-                  : 'Spin for a team + decade, draft one player into an open position, then spin again for the next.'}
-            {veteranMode && !rolling && ' Veteran mode is on: ratings and archetypes stay hidden while you draft.'}
-          </p>
-          {awaiting && !rolling && (
-            <div className="flex gap-2 mt-3">
-              <button
-                type="button"
-                onClick={switchTeam}
-                disabled={usedTeamReroll}
-                className="text-[11px] font-mono uppercase tracking-[.08em] px-3 py-1.5 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
-              >
-                {usedTeamReroll ? '✓ Switch team used' : 'Switch team'}
-              </button>
-              <button
-                type="button"
-                onClick={rerollDecade}
-                disabled={usedDecadeReroll}
-                className="text-[11px] font-mono uppercase tracking-[.08em] px-3 py-1.5 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
-              >
-                {usedDecadeReroll ? '✓ Re-roll decade used' : 'Re-roll decade'}
-              </button>
-            </div>
+              <span className="font-mono text-lg" style={{ color: 'var(--color-amber-500)' }}>
+                {shownCombo.decade}s
+              </span>
+            </>
+          ) : (
+            <span className="text-text-mid" style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 34 }}>
+              Hit spin to roll
+            </span>
           )}
         </div>
+
         <button
           type="button"
           onClick={spin}
           disabled={rolling || awaiting || allLocked}
-          className="px-5 py-2.5 bg-amber-500 text-[#1A1410] text-sm font-semibold font-mono uppercase tracking-[.08em] hover:bg-amber-300 disabled:opacity-50 transition-colors flex-none"
+          className="px-5 py-2.5 bg-amber-500 text-[#1A1410] text-sm font-semibold font-mono uppercase tracking-[.08em] hover:bg-amber-300 disabled:opacity-50 transition-colors"
         >
           🎲 {allLocked ? 'Complete' : awaiting ? 'Pick a spot' : combo ? 'Spin for next spot' : 'Spin'}
         </button>
-      </div>
 
-      {/* five position slots, horizontal row */}
-      <div className="grid grid-cols-5 gap-3">
-        {POSITIONS.map((pos) => {
-          const player = roster[pos];
-          const isFillable = awaiting && fillablePositions.has(pos);
-          const isDimmed = awaiting && !player && !fillablePositions.has(pos);
-
-          if (player) {
-            const tier = getTier(player.OVR, theme);
-            const pc = getTeamColors(player.teamKey);
-            return (
-              <div key={pos} className="border p-3 flex flex-col items-center text-center gap-2" style={{ borderColor: `${pc.primary}55`, background: 'var(--color-surface-1)' }}>
-                <span className="font-mono text-[10px] uppercase tracking-[.14em] text-muted">{pos}</span>
-                <OvrBadge ovr={player.OVR} size="md" />
-                <div className="text-sm leading-tight" style={{ color: tier.numeral === '#6B655F' ? undefined : 'var(--color-text-hi)' }}>
-                  {player.name}
-                </div>
-                <div className="font-mono text-[10px] text-text-low">{player.eraTeam}</div>
-              </div>
-            );
-          }
-
-          return (
+        {awaiting && !rolling && (
+          <div className="flex gap-2">
             <button
-              key={pos}
               type="button"
-              disabled={!isFillable}
-              onClick={() => isFillable && setPickerPos(pos)}
-              className="border border-dashed p-3 flex flex-col items-center justify-center gap-2 min-h-[128px] transition-colors"
-              style={{
-                borderColor: isFillable ? 'var(--color-amber-500)' : 'var(--color-surface-4)',
-                background: isFillable ? 'var(--color-card-hover)' : 'var(--color-surface-1)',
-                opacity: isDimmed ? 0.4 : 1,
-                filter: isDimmed ? 'grayscale(.35)' : undefined,
-                cursor: isFillable ? 'pointer' : 'default',
-              }}
+              onClick={switchTeam}
+              disabled={usedTeamReroll}
+              className="text-[11px] font-mono uppercase tracking-[.08em] px-3 py-1.5 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
             >
-              <span
-                className="font-mono text-[11px] uppercase tracking-[.14em]"
-                style={{ color: isFillable ? 'var(--color-amber-500)' : 'var(--color-text-low)' }}
-              >
-                {pos}
-              </span>
-              <span className="text-lg text-text-low">+</span>
-              <span className="text-[10px] font-mono text-text-low text-center">
-                {isFillable ? 'draft here' : awaiting ? 'unavailable' : 'spin to unlock'}
-              </span>
+              {usedTeamReroll ? '✓ Switch team used' : 'Switch team'}
             </button>
-          );
-        })}
+            <button
+              type="button"
+              onClick={rerollDecade}
+              disabled={usedDecadeReroll}
+              className="text-[11px] font-mono uppercase tracking-[.08em] px-3 py-1.5 border disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              style={{ color: 'var(--color-amber-500)', borderColor: 'var(--color-amber-700)' }}
+            >
+              {usedDecadeReroll ? '✓ Re-roll decade used' : 'Re-roll decade'}
+            </button>
+          </div>
+        )}
+
+        <p className="text-xs text-text-low max-w-md">
+          {rolling
+            ? 'Rolling a team & decade…'
+            : allLocked
+              ? 'Dynasty complete — five locked picks across five rolls.'
+              : awaiting
+                ? `Open: ${fillableList.join(' · ') || '—'} · ${lockedCount}/5 locked`
+                : `Spin for a team + decade, draft one player into an open position, then spin again. ${lockedCount}/5 locked.`}
+          {veteranMode && !rolling && ' Veteran mode is on: ratings and archetypes stay hidden while you draft.'}
+        </p>
       </div>
+
+      {/* draft overlay — replaces the position row in place while awaiting a pick with a chosen position */}
+      {drafting && viewPos ? (
+        <div className="border border-surface-4 p-4 animate-[confOverlayIn_.18s_ease]" style={{ background: 'var(--color-surface-1)' }}>
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 mb-4">
+            <div className="text-sm">
+              <span className="text-text-hi">Drafting </span>
+              <b style={{ color: 'var(--color-amber-500)' }}>{viewPos}</b>
+              <span className="text-text-low"> · {combo?.teamKey} {combo?.decade}s</span>
+            </div>
+            <div className="flex items-center gap-2 justify-self-center">
+              {POSITIONS.map((pos) => {
+                const isOpen = openPositions.includes(pos);
+                const isAvail = fillablePositions.has(pos);
+                const isCurrent = pos === viewPos;
+                const filledPlayer = roster[pos];
+                return (
+                  <button
+                    key={pos}
+                    type="button"
+                    disabled={!isOpen || !isAvail}
+                    onClick={() => setViewPos(pos)}
+                    title={filledPlayer ? `${pos} — locked` : isAvail ? `${pos} — available this spin` : `${pos} — not this spin`}
+                    className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-bold transition-transform"
+                    style={{
+                      border: isCurrent ? `2px solid ${POSITION_COLOR[pos]}` : '2px dashed var(--color-surface-4)',
+                      background: filledPlayer ? POSITION_COLOR[pos] : isAvail ? `${POSITION_COLOR[pos]}22` : 'transparent',
+                      color: filledPlayer ? '#fff' : isAvail ? POSITION_COLOR[pos] : 'var(--color-text-low)',
+                      opacity: isOpen && !isAvail ? 0.4 : 1,
+                      cursor: isOpen && isAvail ? 'pointer' : 'default',
+                      transform: isCurrent ? 'scale(1.08)' : undefined,
+                    }}
+                  >
+                    {pos}
+                  </button>
+                );
+              })}
+            </div>
+            <button
+              type="button"
+              onClick={() => setViewPos(null)}
+              title="Back to spots"
+              className="w-8 h-8 justify-self-end border border-surface-4 text-text-low hover:border-amber-500 hover:text-text-hi transition-colors"
+            >
+              ✕
+            </button>
+          </div>
+
+          <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))' }}>
+            {poolFor(viewPos).map((p) => {
+              const pc = getTeamColors(p.teamKey);
+              return (
+                <div
+                  key={p.id}
+                  className="flex flex-col p-3 gap-2"
+                  style={{ background: 'var(--color-surface-2)', borderTop: `3px solid ${pc.primary}`, border: '1px solid var(--color-surface-4)', borderTopWidth: 3, borderTopColor: pc.primary }}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <div className="font-mono text-[10px] text-text-low">{p.eraTeam}</div>
+                      <div className="text-sm font-semibold text-text-hi leading-tight break-words">{p.name}</div>
+                    </div>
+                    {veteranMode ? (
+                      <span className="font-mono text-[10px] px-2 py-1 rounded" style={{ background: 'var(--color-surface-3)', color: 'var(--color-text-low)' }}>
+                        ?
+                      </span>
+                    ) : (
+                      <OvrBadge ovr={p.OVR} size="xs" />
+                    )}
+                  </div>
+                  {!veteranMode && <ArchetypeBadge archetype={p.archetype} />}
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-1 pt-1 border-t border-hairline">
+                    <StatCell label="PPG" value={p.ppg.toFixed(1)} />
+                    <StatCell label="RPG" value={p.rpg.toFixed(1)} />
+                    <StatCell label="APG" value={p.apg.toFixed(1)} />
+                    {!veteranMode && (
+                      <>
+                        <StatCell label="USG" value={`${p.usg.toFixed(0)}%`} />
+                        <StatCell label="TS%" value={p.ts.toFixed(1)} />
+                        <StatCell label="WS/48" value={p.ws48.toFixed(3)} />
+                        <StatCell label="OFF" value={p.offBase} />
+                        <StatCell label="DEF" value={p.defBase} />
+                      </>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => pickForPosition(viewPos, p)}
+                    className="mt-1 py-1.5 text-[11px] font-mono uppercase tracking-[.08em] font-semibold text-white transition-colors"
+                    style={{ background: 'var(--color-amber-600)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-amber-500)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--color-amber-600)')}
+                  >
+                    Draft into {viewPos}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        /* five position slots, horizontal row */
+        <div className="grid grid-cols-5 gap-3">
+          {POSITIONS.map((pos) => {
+            const player = roster[pos];
+            const isFillable = awaiting && fillablePositions.has(pos);
+            const isDimmed = awaiting && !player && !fillablePositions.has(pos);
+            const posColor = POSITION_COLOR[pos];
+
+            if (player) {
+              const tier = getTier(player.OVR, theme);
+              const pc = getTeamColors(player.teamKey);
+              return (
+                <div
+                  key={pos}
+                  className="border p-3 flex flex-col items-center text-center gap-2"
+                  style={{ borderColor: `${pc.primary}55`, background: 'var(--color-surface-1)' }}
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-[.14em] text-muted">{pos}</span>
+                  <OvrBadge ovr={player.OVR} size="md" />
+                  <div className="text-sm leading-tight" style={{ color: tier.numeral === '#6B655F' ? undefined : 'var(--color-text-hi)' }}>
+                    {player.name}
+                  </div>
+                  <div className="font-mono text-[10px] text-text-low">{player.eraTeam}</div>
+                </div>
+              );
+            }
+
+            return (
+              <button
+                key={pos}
+                type="button"
+                disabled={!isFillable}
+                onClick={() => isFillable && setViewPos(pos)}
+                className="border border-dashed p-3 flex flex-col items-center justify-center gap-2 min-h-[128px] transition-colors"
+                style={{
+                  borderColor: awaiting ? (isFillable ? posColor : 'var(--color-surface-4)') : posColor,
+                  background: isFillable ? `${posColor}14` : 'var(--color-surface-1)',
+                  opacity: isDimmed ? 0.4 : 1,
+                  filter: isDimmed ? 'grayscale(.35)' : undefined,
+                  cursor: isFillable ? 'pointer' : 'default',
+                }}
+              >
+                <span className="font-mono text-[11px] uppercase tracking-[.14em]" style={{ color: isFillable ? posColor : 'var(--color-text-low)' }}>
+                  {pos}
+                </span>
+                <span className="text-lg text-text-low">+</span>
+                <span className="text-[10px] font-mono text-text-low text-center">
+                  {isFillable ? 'draft here' : awaiting ? 'unavailable' : 'spin to unlock'}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       <div className="grid md:grid-cols-3 gap-6">
         <div className="md:col-span-2">
@@ -352,15 +487,6 @@ export default function DynastyRoulettePage() {
           <LineupSummaryPanel summary={summary} title="Dynasty Summary" />
         </div>
       </div>
-
-      {pickerPos !== null && (
-        <PlayerPickerModal
-          players={poolFor(pickerPos)}
-          blind={veteranMode}
-          onClose={() => setPickerPos(null)}
-          onSelect={(p) => pickForPosition(pickerPos, p)}
-        />
-      )}
     </div>
   );
 }

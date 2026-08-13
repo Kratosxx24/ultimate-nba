@@ -138,6 +138,18 @@ body {
   }
 }
 
+/* Draft overlay entrance, ported from the original conference.js's confOverlayIn. */
+@keyframes confOverlayIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .um-skeleton {
   background: #241f1e;
   animation: um-pulse 1.4s ease-in-out infinite;
