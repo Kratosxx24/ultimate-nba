@@ -1,10 +1,8 @@
 import { useMemo, useRef, useState } from 'react';
 import { getAllPlayers } from '../lib/players';
 import { getTeamColors } from '../lib/teamColors';
-import { summarizeLineup } from '../lib/lineup';
 import { archetypeFamily } from '../lib/archetype';
 import OvrBadge, { getTier } from '../components/OvrBadge';
-import LineupSummaryPanel from '../components/LineupSummaryPanel';
 import { useTheme } from '../lib/ThemeContext';
 import type { Player } from '../types/player';
 
@@ -137,7 +135,6 @@ export default function DynastyRoulettePage() {
       .slice(0, 5); // cap the display pool at 5, like the original — best OVR first
   }
 
-  const summary = summarizeLineup(POSITIONS.map((pos) => roster[pos]));
   const teamColors = getTeamColors((flashCombo ?? combo)?.teamKey);
 
   function comboFillsAnyOpen(c: Combo, open: Position[], used: Set<string>): boolean {
@@ -254,31 +251,31 @@ export default function DynastyRoulettePage() {
             : 'var(--color-surface-1)',
         }}
       >
-        <div className="flex items-center justify-center gap-4 flex-wrap">
-          <div className="flex items-baseline gap-2" style={rolling ? { animation: 'cbRollPulse 0.12s ease-in-out infinite alternate' } : undefined}>
-            {shownCombo ? (
-              <>
-                <span
-                  style={{
-                    fontFamily: 'Archivo, sans-serif',
-                    fontVariationSettings: "'wdth' 72,'wght' 800",
-                    fontSize: 36,
-                    color: teamColors.primary,
-                  }}
-                >
-                  {shownCombo.teamKey}
-                </span>
-                <span className="font-mono text-lg" style={{ color: 'var(--color-amber-500)' }}>
-                  {shownCombo.decade}s
-                </span>
-              </>
-            ) : (
-              <span className="text-text-mid" style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 36 }}>
-                Hit spin to roll
+        <div className="flex items-baseline gap-2" style={rolling ? { animation: 'cbRollPulse 0.12s ease-in-out infinite alternate' } : undefined}>
+          {shownCombo ? (
+            <>
+              <span
+                style={{
+                  fontFamily: 'Archivo, sans-serif',
+                  fontVariationSettings: "'wdth' 72,'wght' 800",
+                  fontSize: 36,
+                  color: teamColors.primary,
+                }}
+              >
+                {shownCombo.teamKey}
               </span>
-            )}
-          </div>
+              <span className="font-mono text-lg" style={{ color: 'var(--color-amber-500)' }}>
+                {shownCombo.decade}s
+              </span>
+            </>
+          ) : (
+            <span className="text-text-mid" style={{ fontFamily: 'Archivo, sans-serif', fontVariationSettings: "'wdth' 72,'wght' 800", fontSize: 36 }}>
+              Hit spin to roll
+            </span>
+          )}
+        </div>
 
+        <div className="flex items-center justify-center gap-2 flex-wrap">
           <button
             type="button"
             onClick={spin}
@@ -377,24 +374,24 @@ export default function DynastyRoulettePage() {
               return (
                 <div
                   key={p.id}
-                  className="flex flex-col p-3 gap-2 w-[210px] flex-none"
-                  style={{ background: 'var(--color-surface-2)', borderTop: `3px solid ${pc.primary}`, border: '1px solid var(--color-surface-4)', borderTopWidth: 3, borderTopColor: pc.primary }}
+                  className="flex flex-col p-4 gap-2.5 w-[260px] flex-none"
+                  style={{ background: 'var(--color-surface-2)', borderTop: `4px solid ${pc.primary}`, border: '1px solid var(--color-surface-4)', borderTopWidth: 4, borderTopColor: pc.primary }}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <div className="font-mono text-[10px] text-text-low">{p.eraTeam}</div>
-                      <div className="text-sm font-semibold text-text-hi leading-tight break-words">{p.name}</div>
+                      <div className="font-mono text-[11px] text-text-low">{p.eraTeam}</div>
+                      <div className="text-base font-semibold text-text-hi leading-tight break-words">{p.name}</div>
                     </div>
                     {veteranMode ? (
-                      <span className="font-mono text-sm px-2.5 py-1.5 rounded" style={{ background: 'var(--color-surface-3)', color: 'var(--color-text-low)' }}>
+                      <span className="font-mono text-base px-3 py-2 rounded" style={{ background: 'var(--color-surface-3)', color: 'var(--color-text-low)' }}>
                         ?
                       </span>
                     ) : (
-                      <OvrBadge ovr={p.OVR} size="sm" />
+                      <OvrBadge ovr={p.OVR} size="md" />
                     )}
                   </div>
                   {!veteranMode && <ArchetypeBadge archetype={p.archetype} />}
-                  <div className="grid grid-cols-2 gap-x-3 gap-y-1 pt-1 border-t border-hairline">
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 pt-2 border-t border-hairline">
                     <StatCell label="PPG" value={p.ppg.toFixed(1)} />
                     <StatCell label="RPG" value={p.rpg.toFixed(1)} />
                     <StatCell label="APG" value={p.apg.toFixed(1)} />
@@ -411,7 +408,7 @@ export default function DynastyRoulettePage() {
                   <button
                     type="button"
                     onClick={() => pickForPosition(viewPos, p)}
-                    className="mt-1 py-1.5 text-[11px] font-mono uppercase tracking-[.08em] font-semibold text-white transition-colors"
+                    className="mt-1 py-2 text-xs font-mono uppercase tracking-[.08em] font-semibold text-white transition-colors"
                     style={{ background: 'var(--color-amber-600)' }}
                     onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-amber-500)')}
                     onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--color-amber-600)')}
@@ -438,21 +435,21 @@ export default function DynastyRoulettePage() {
               return (
                 <div
                   key={pos}
-                  className="p-3 flex flex-col items-center text-center gap-2"
+                  className="p-4 flex flex-col items-center text-center gap-2.5 min-h-[180px] justify-center"
                   style={{
                     background: 'var(--color-surface-1)',
                     borderLeft: '1px solid var(--color-surface-4)',
                     borderRight: '1px solid var(--color-surface-4)',
                     borderBottom: '1px solid var(--color-surface-4)',
-                    borderTop: `3px solid ${pc.primary}`,
+                    borderTop: `4px solid ${pc.primary}`,
                   }}
                 >
-                  <span className="font-mono text-[10px] uppercase tracking-[.14em] text-muted">{pos}</span>
-                  <OvrBadge ovr={player.OVR} size="md" />
-                  <div className="text-sm leading-tight" style={{ color: tier.numeral === '#6B655F' ? undefined : 'var(--color-text-hi)' }}>
+                  <span className="font-mono text-[11px] uppercase tracking-[.14em] text-muted">{pos}</span>
+                  <OvrBadge ovr={player.OVR} size="lg" />
+                  <div className="text-base leading-tight" style={{ color: tier.numeral === '#6B655F' ? undefined : 'var(--color-text-hi)' }}>
                     {player.name}
                   </div>
-                  <div className="font-mono text-[10px] text-text-low">{player.eraTeam}</div>
+                  <div className="font-mono text-[11px] text-text-low">{player.eraTeam}</div>
                   <ArchetypeBadge archetype={player.archetype} />
                 </div>
               );
@@ -464,7 +461,7 @@ export default function DynastyRoulettePage() {
                 type="button"
                 disabled={!isFillable}
                 onClick={() => isFillable && setViewPos(pos)}
-                className="border border-dashed p-3 flex flex-col items-center justify-center gap-2 min-h-[128px] transition-colors"
+                className="border border-dashed p-4 flex flex-col items-center justify-center gap-2.5 min-h-[180px] transition-colors"
                 style={{
                   borderColor: awaiting ? (isFillable ? posColor : 'var(--color-surface-4)') : posColor,
                   background: isFillable ? `${posColor}14` : 'var(--color-surface-1)',
@@ -473,11 +470,11 @@ export default function DynastyRoulettePage() {
                   cursor: isFillable ? 'pointer' : 'default',
                 }}
               >
-                <span className="font-mono text-[11px] uppercase tracking-[.14em]" style={{ color: isFillable ? posColor : 'var(--color-text-low)' }}>
+                <span className="font-mono text-sm uppercase tracking-[.14em]" style={{ color: isFillable ? posColor : 'var(--color-text-low)' }}>
                   {pos}
                 </span>
-                <span className="text-lg text-text-low">+</span>
-                <span className="text-[10px] font-mono text-text-low text-center">
+                <span className="text-2xl text-text-low">+</span>
+                <span className="text-[11px] font-mono text-text-low text-center">
                   {isFillable ? 'draft here' : awaiting ? 'unavailable' : 'spin to unlock'}
                 </span>
               </button>
@@ -486,22 +483,15 @@ export default function DynastyRoulettePage() {
         </div>
       )}
 
-      <div className="grid md:grid-cols-3 gap-6">
-        <div className="md:col-span-2">
-          {(combo || POSITIONS.some((pos) => roster[pos])) && (
-            <button
-              type="button"
-              onClick={clearAll}
-              className="text-xs font-mono uppercase tracking-[.1em] text-text-low hover:text-text-mid transition-colors"
-            >
-              Clear picks
-            </button>
-          )}
-        </div>
-        <div>
-          <LineupSummaryPanel summary={summary} title="Dynasty Summary" />
-        </div>
-      </div>
+      {(combo || POSITIONS.some((pos) => roster[pos])) && (
+        <button
+          type="button"
+          onClick={clearAll}
+          className="text-xs font-mono uppercase tracking-[.1em] text-text-low hover:text-text-mid transition-colors"
+        >
+          Clear picks
+        </button>
+      )}
     </div>
   );
 }
