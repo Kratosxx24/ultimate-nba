@@ -3,7 +3,7 @@ import { getAllPlayers } from '../lib/players';
 import { getTeamColors } from '../lib/teamColors';
 import { archetypeFamily } from '../lib/archetype';
 import OvrBadge, { getTier } from '../components/OvrBadge';
-import DominancePanel from '../components/DominancePanel';
+import DrStatBar from '../components/DrStatBar';
 import { useTheme } from '../lib/ThemeContext';
 import type { Player } from '../types/player';
 
@@ -149,11 +149,12 @@ export default function DynastyRoulettePage() {
   const lockedCount = POSITIONS.length - openPositions.length;
   const allLocked = openPositions.length === 0;
 
-  // The five in slot order, for the Dominance Rating panel. Only meaningful once all
-  // five spots are locked — DR is defined on a complete PG/SG/SF/PF/C lineup.
+  // The locked players in slot order, for the DR stat bar. Passed as-is even while
+  // partially filled — DrStatBar only scores once it sees a legal five, and shows
+  // dashes + a "3/5 locked" progress note until then.
   const lockedFive = useMemo(
-    () => (allLocked ? POSITIONS.map((pos) => roster[pos]).filter((p): p is Player => p !== null) : []),
-    [roster, allLocked],
+    () => POSITIONS.map((pos) => roster[pos]).filter((p): p is Player => p !== null),
+    [roster],
   );
 
   const fillablePositions = useMemo(() => {
@@ -384,6 +385,8 @@ export default function DynastyRoulettePage() {
         </p>
       </div>
 
+      <DrStatBar five={lockedFive} pool={players} lockedCount={lockedCount} />
+
       {/* draft overlay — replaces the position row in place while awaiting a pick with a chosen position */}
       {drafting && viewPos ? (
         <div className="border border-surface-4 rounded-2xl p-4 animate-[confOverlayIn_.18s_ease]" style={{ background: 'var(--color-surface-1)' }}>
@@ -545,8 +548,6 @@ export default function DynastyRoulettePage() {
           })}
         </div>
       )}
-
-      {lockedFive.length === 5 && <DominancePanel five={lockedFive} pool={players} />}
 
       {(combo || POSITIONS.some((pos) => roster[pos])) && (
         <button
